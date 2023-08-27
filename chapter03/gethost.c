@@ -1,11 +1,11 @@
 /******************************************************************************
-  Title          : showtid.c
+  Title          : gethost.c
   Author         : Stewart Weiss
-  Created on     : December 11, 2022
-  Description    : Displays the thread id of the calling process
-  Purpose        : To demonstrate how to use the syscall() function
-  Usage          : showtid
-  Build with     : gcc -o showtid showtid.c
+  Created on     : January 17, 2023
+  Description    : Produces an error message after call to gethostname()
+  Purpose        : Show how to handle errors from a system call
+  Usage          : gethost
+  Build with     : gcc -o gethost gethost.c
   Modifications  :
 
 
@@ -27,15 +27,28 @@
 
 
 ******************************************************************************
-
 /#include <unistd.h>
-#include <sys/syscall.h>
-#include <sys/types.h>
 #include <stdio.h>
+#include <errno.h>
 
-int main(int argc, char *argv[])
+int main()
 {
-    printf("Thread id %ld\n", syscall(SYS_gettid));
-    /* could also pass __NR_gettid */
-    return 0;
+    char  name[4];   /* declare string to hold returned value */
+    size_t len = 3;  /* purposely too small so error is revealed */
+    int   returnvalue;
+
+    returnvalue =  gethostname(name, len); /* make the call */
+    if ( -1 == returnvalue ) {
+        switch ( errno ) {
+        case EFAULT:
+            printf("A bad address was passed for the string name\n"); break;
+        case EINVAL:
+            printf("The length argument was negative.\n"); break;
+        case ENAMETOOLONG:
+            printf("The hostname is too long for the allocated array.\n");
+        }
+    }
+    else
+        printf("%s\n", name);
 }
+
