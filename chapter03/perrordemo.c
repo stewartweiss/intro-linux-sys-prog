@@ -1,11 +1,12 @@
 /******************************************************************************
-  Title          : showtid.c
+  Title          : perrordemo.c
   Author         : Stewart Weiss
-  Created on     : December 11, 2022
-  Description    : Displays the thread id of the calling process
-  Purpose        : To demonstrate how to use the syscall() function
-  Usage          : showtid
-  Build with     : gcc -o showtid showtid.c
+  Created on     : January 18, 2023
+  Description    : Like gethost.c, produces an error message after call to
+                   gethostname()
+  Purpose        : Show how to use perror() for handling system call errors
+  Usage          : perrordemo
+  Build with     : gcc -o perrordemo perrordemo.c
   Modifications  :
 
 
@@ -26,16 +27,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-*******************************************************************************/
+******************************************************************************/
 
 #include <unistd.h>
-#include <sys/syscall.h>
-#include <sys/types.h>
 #include <stdio.h>
 
-int main(int argc, char *argv[])
+void main()
 {
-    printf("Thread id %ld\n", syscall(SYS_gettid));
-    /* could also pass __NR_gettid */
-    return 0;
+    char  name[4];   /* declare string to hold returned value */
+    size_t len = 3;  /* purposely too small so error is revealed */
+    int   returnvalue;
+
+
+    returnvalue =  gethostname(name, len); /* make the call */
+    if ( -1 == returnvalue ) {
+        perror("gethostname:");
+    }
+    else
+        printf("%s\n", name);
 }
