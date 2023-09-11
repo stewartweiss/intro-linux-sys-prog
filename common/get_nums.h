@@ -2,7 +2,6 @@
 #ifndef GET_NUMS_H
 #define GET_NUMS_H
 
-#include "sys_hdrs.h"
 
 /* flags to pass to functions */
 #define NO_TRAILING           1     /* forbid trailing characters     */

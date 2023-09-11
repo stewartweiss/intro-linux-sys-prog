@@ -2,8 +2,6 @@
 #ifndef ERROR_EXITS_H
 #define ERROR_EXITS_H
 
-#include "sys_hdrs.h"
-
 
 /** fatal_error()
    This prints an error message associated with errnum  on standard error

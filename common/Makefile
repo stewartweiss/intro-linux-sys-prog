@@ -17,7 +17,8 @@ all: libspl.a
 
 install: libspl.a
 	cp libspl.a $(INSTALLDIR)
-	cat *.h  > $(INCLUDEDIR)/spl.h
+	cp *.h $(INCLUDEDIR)
+ 
 
 .c.o:
 	$(CC) $(CFLAGS) -c -fPIC  $< 
