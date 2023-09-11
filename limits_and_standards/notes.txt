@@ -1,0 +1,43 @@
+1. To check version of glibc at runtime
+
+#include <stdio.h>
+#include <unistd.h>
+#include <alloca.h>
+#include <string.h>
+
+int main (void)
+{
+        size_t n = confstr (_CS_GNU_LIBC_VERSION, NULL, 0);
+        if (n > 0)
+        {
+                char *buf = alloca (n);
+                confstr (_CS_GNU_LIBC_VERSION, buf, n);
+                printf("%s\n", buf);
+        }
+        return 0;
+}
+
+2. Can also run /lib/libc.so.6 or whatever libc is in /lib
+3. At terminal:
+   $ getconf GNU_LIBC_VERSION
+
+4. Can also call ldd:
+   ldd --version
+
+
+The  name argument is the system variable to be queried.  The following
+       variables are supported:
+
+       _CS_GNU_LIBC_VERSION (GNU C library only; since glibc 2.3.2)
+              A string which identifies the GNU C library version on this sys‐
+              tem (e.g, "glibc 2.3.4").
+
+       _CS_GNU_LIBPTHREAD_VERSION (GNU C library only; since glibc 2.3.2)
+              A  string  which identifies the POSIX implementation supplied by
+              this C library (e.g, "NPTL 2.3.4" or "linuxthreads-0.10").
+
+       _CS_PATH
+              A value for the PATH variable  which  indicates  where  all  the
+              POSIX.2 standard utilities can be found.
+
+
