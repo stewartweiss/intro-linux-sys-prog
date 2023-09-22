@@ -7,7 +7,7 @@
                    databases using various parts of the API related to identity
                    including getuid(), getgid(), getpwuid(), getgrgid(), and
                    getgroups().
-  Usage          : myid
+  Usage          : showid
   Build with     : gcc -o showid   showid.c
   Modifications  : August 12, 2023
                    Clarified documentation

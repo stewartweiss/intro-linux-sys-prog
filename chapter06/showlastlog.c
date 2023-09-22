@@ -1,3 +1,31 @@
+/******************************************************************************
+  Title          : showlastlog.c
+  Author         : Stewart Weiss
+  Created on     : June 19, 2023
+  Description    : Displays the contents of the lastlog file
+  Purpose        : To work with files containing holes
+  Usage          : showlastlog
+  Build with     : gcc -o showlastlog   showlastlog.c
+  Modifications  :
+
+******************************************************************************
+ * Copyright (C) 2023 - Stewart Weiss
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+******************************************************************************/
 #define _GNU_SOURCE
 #include "../include/common_hdrs.h"
 #include "../include/common_defs.h"
