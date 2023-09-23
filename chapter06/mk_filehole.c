@@ -3,10 +3,17 @@
   Author         : Stewart Weiss
   Created on     : June 19, 2023
   Description    : Makes a file with a large hole
-  Purpose        : To demonstrate that seek can write past the end of a file
+  Purpose        : Shows how lseek() can seek past end of file and we
+                   can write past the end also.
   Usage          : mk_filehole
   Build with     : gcc -o mk_filehole   mk_filehole.c
   Modifications  :
+
+  Note:
+  After creating the file check its size and block usage with
+  ls -ls file_with_hole
+  You will see that it is 131082 bytes but does not use more than a few blocks.
+
 
 ******************************************************************************
  * Copyright (C) 2023 - Stewart Weiss

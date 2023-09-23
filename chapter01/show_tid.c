@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : show_tid.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
@@ -7,7 +7,6 @@
   Usage          : show_tid
   Build with     : gcc -o show_tid show_tid.c
   Modifications  :
-
 
 ******************************************************************************
  * Copyright (C) 2023 - Stewart Weiss
@@ -25,13 +24,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+*****************************************************************************/
 
-******************************************************************************/
 
-
-#define _GNU_SOURCE   /* This is a macro that activates GNU source code in the
-                         subsequently included header files. gettid() is not
-                         required by SUSv3; it is a GNU extension.           */
+#define _GNU_SOURCE
+                    /* This is a macro that activates GNU source code in the
+                      subsequently included header files. gettid() is not
+                      required by SUSv3; it is a GNU extension.             */
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
