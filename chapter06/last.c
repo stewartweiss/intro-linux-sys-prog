@@ -1,7 +1,7 @@
 /******************************************************************************
   Title          : last.c
   Author         : Stewart Weiss
-  Created on     : June 19, 2023
+  Created on     : June 29, 2023
   Description    : Implements the last command
   Purpose        : To with system data files
   Usage          : last
@@ -23,7 +23,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
 
 ******************************************************************************/
 

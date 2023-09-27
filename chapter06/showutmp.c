@@ -1,15 +1,31 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : showutmp.c
   Author         : Stewart Weiss,
-  Created on     :
+  Created on     : June 12, 2023
   Description    : Demonstrates how to process utmp structures
-  Purpose        :
+  Purpose        : To display the contents of the utmp or wtmp file
   Usage          : showutmp [wtmp]
                    if wtmp argument supplied, it prints the contents of
                    wtmp file, otherwise it prints the utmp file
   Build with     : gcc -o showutmp showutmp.c  -I../include -L../lib -lutils
 
-******************************************************************************/
+******************************************************************************
+ * Copyright (C) 2023 - Stewart Weiss
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+*****************************************************************************/
 
 #define _GNU_SOURCE
 #include "../include/common_hdrs.h"
