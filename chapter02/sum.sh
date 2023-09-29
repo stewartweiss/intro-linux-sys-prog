@@ -1,4 +1,10 @@
 #!/bin/bash
+# A script to add the sequence of numbers entered, one per line, on 
+# standard input.
+# usage:  sum.sh
+#         It then waits for input. Type Ctrl-D to terminate input.
+#
+# Written by Stewart Weiss, May 2023
 let done=1
 let sum=0
 while read n
@@ -9,5 +15,5 @@ do
         let done=0
     fi
 done
-printf "%s\n" $sum
+printf "%s\n" $sum 
     
