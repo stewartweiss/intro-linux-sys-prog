@@ -28,15 +28,10 @@
 
 
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 #include <paths.h>
 #include <utmpx.h>
 
-#include "../include/common_defs.h"
-
-#define MAXLEN             STRING_MAX  /* Maximum size of message string  */
-#define BAD_FORMAT_ERROR    -1
-#define LOCALE_ERROR        -3
 
 /* Some systems define a record type of SHUTDOWN_TIME. If it's not defined
    define it.                                                              */
@@ -85,10 +80,10 @@ void print_rec_type( int t)
     If it returns 0, it sets *done to true when it has read the first record
     in the file.
 */
-int get_prev_utrec(int fd, struct utmpx *ut, int *finished )
+int get_prev_utrec(int fd, struct utmpx *ut, BOOL *finished )
 {
     static off_t  saved_offset;    /* Where this call is about to read    */
-    static int    is_first = TRUE; /* Whether this is first time called   */
+    static BOOL   is_first = TRUE; /* Whether this is first time called   */
     size_t utsize = sizeof(struct utmpx); /* Size of utmpx struct */
     ssize_t       nbytes_read;     /* Number of bytes read                */
 
@@ -275,8 +270,8 @@ int main( int argc, char* argv[] )
     int           show_sys_events = FALSE; /* Flag to indicate -x found       */
     char          usage_msg[MAXLEN];       /* For error messages              */
 
-    int           done = FALSE;
-    int           found = FALSE;
+    BOOL          done = FALSE;
+    BOOL          found = FALSE;
     char          ch;
     utlist        *p, *next;
 

@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : mk_filehole.c
   Author         : Stewart Weiss
   Created on     : June 19, 2023
@@ -31,11 +31,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-
-******************************************************************************/
+*****************************************************************************/
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 #define FILENAME       "file_with_hole"
 #define MESSAGE_SIZE   512

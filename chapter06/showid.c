@@ -1,10 +1,10 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : showid.c
   Author         : Stewart Weiss
   Created on     : January 27, 2012
   Description    : An implementation of the id command
   Purpose        : To demonstrate how to access identity-related kernel
-                   databases using various parts of the API related to identity
+                   databases using parts of the API related to identity
                    including getuid(), getgid(), getpwuid(), getgrgid(), and
                    getgroups().
   Usage          : showid
@@ -29,16 +29,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-******************************************************************************/
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+*****************************************************************************/
+#include "common_hdrs.h"
 #include <pwd.h>
-#include <sys/types.h>
-#include <string.h>
-#include <errno.h>
-
 
 int main( int argc, char* argv[])
 {

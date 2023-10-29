@@ -4,6 +4,8 @@
 #       make install  to copy the library into ../lib and the
 #                     header to ../include
 
+include ../Makefile.inc
+
 INSTALLDIR = ../lib
 INCLUDEDIR = ../include
 CC         = /usr/bin/gcc

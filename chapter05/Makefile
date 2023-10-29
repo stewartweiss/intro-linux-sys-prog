@@ -1,14 +1,11 @@
-# Type  make          to compile all the programs in the directory 
-#       make clean    to remove objects files and executables
-#       make progname to make just progname
+include ../Makefile.inc
 
 CC      = /usr/bin/gcc
 SRCS    = copy.c copy2.c libcalloverhead.c syscalloverhead.c
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 EXECS   := $(patsubst %.c,%,$(SRCS))
-CFLAGS  +=  -Wall -g -I ../include
-LDFLAGS +=  -L../lib -lspl
-LDFLAGS += -L ../lib -lspl
+CFLAGS  += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g -I${SPL_INCLUDE_DIR}
+LDFLAGS += -L ${SPL_LIB_DIR} -lspl
 
 .PHONY: all clean cleanall
 

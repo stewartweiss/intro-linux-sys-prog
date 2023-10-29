@@ -1,4 +1,4 @@
-/*----------------------------------------------------------------------------
+/*****************************************************************************
   Title          : showstatfs.c
   Author         : Stewart Weiss
   Created on     : September 10, 2023
@@ -25,18 +25,14 @@
  * source code distribution in the file COPYING.gplv3.
  * A complete copy can also be downloaded from <http://www.gnu.org/licenses/>.
 
- *--------------------------------------------------------------------------*/
+*****************************************************************************/
 
 #define _GNU_SOURCE
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <errno.h>
 #include <sys/vfs.h>
 #include <sys/statvfs.h>
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 /*--------------------------------------------------------------------------*/
 

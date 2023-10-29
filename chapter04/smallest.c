@@ -24,8 +24,7 @@
 
 ******************************************************************************/
 #define _GNU_SOURCE
-#include <locale.h>
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 
 int main( int argc, char* argv[])
 {

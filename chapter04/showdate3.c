@@ -35,13 +35,10 @@
 */
 
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
-#define FORMAT  "%c"              /* Default format string                  */
-#define MAXLEN  STRING_MAX        /* Maximum size of message string         */
-#define BAD_FORMAT_ERROR    -1    /* Error in format string                 */
-#define TIME_ADJUST_ERROR   -2    /* Error to return if parsing problem     */
+
+
 
 
 int parse_time_adjustment( char* datestring, struct tm* datetm )
@@ -122,7 +119,7 @@ int  main(int argc, char *argv[])
     char       usage_msg[512];        /* Usage message                      */
     char       ch;                    /* For option handling                */
     char       options[] = ":d:h";    /* getopt string                      */
-    int        d_option = FALSE;      /* Flag to indicate -d found          */
+    BOOL       d_option = FALSE;      /* Flag to indicate -d found          */
     char       *d_arg;                /* Dynamic string for -d argument     */
     int        d_arg_length;          /* Length of -d argument string       */
 

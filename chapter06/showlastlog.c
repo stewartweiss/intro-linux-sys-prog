@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : showlastlog.c
   Author         : Stewart Weiss
   Created on     : June 19, 2023
@@ -25,19 +25,14 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-******************************************************************************/
+*****************************************************************************/
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
-
+#include "common_hdrs.h"
 #include <lastlog.h>              /* For lastlog structure definition       */
 #include <paths.h>                /* For definition of _PATH_LASTLOG        */
 #include <pwd.h>                  /* For password file iterators            */
 
 #define MESSAGE_SIZE   512
-#define FORMAT  "%c"              /* Default format string                  */
-#define READ_ERROR          -2    /* Error reading from lastlog file        */
-#define LOCALE_ERROR        -3
 
 /* This function prints a line for a username who has never logged in,
    matching the format of the line to one in which there is a port and host
@@ -45,24 +40,24 @@
    the actual lastlog command. */
 void print_never_logged_in(char* uname)
 {
-printf("%-16s %-8.8s %-16s **Never logged in**\n", uname, " ", " ");
+    printf("%-16s %-8.8s %-16s **Never logged in**\n", uname, " ", " ");
 }
 
 int main(int argc, char *argv[])
 {
-    struct lastlog ll_entry;        /* To store lastlog record read from file */
-    struct passwd  *psswd_struct;   /* passwd structure from password file    */
-    int            ll_fd;           /* File descriptor of lastlog file        */
-    off_t          ll_file_size;    /* Size of lastlog file, in bytes         */
-    size_t         ll_struct_size;  /* Size in bytes of lastlog structure     */
-    size_t         num_bytes;       /* Number of bytes read in read()         */
-    uid_t          uid;             /* Userid of current search               */
-    char           *username;       /* Username of current search             */
-    int            highest_uid;     /* Highest userid in lastlog file         */
-    char           *mylocale;       /* Pointer to current locale              */
-    char           lastlog_time[64];/* Localized date/time string             */
-    time_t         ll_time;         /* Lastlog time converted to time_t       */
-    struct tm      *bdtime;         /* broken-down time                       */
+    struct lastlog ll_entry;      /* To store lastlog record read from file */
+    struct passwd  *psswd_struct; /* passwd structure from password file    */
+    int            ll_fd;         /* File descriptor of lastlog file        */
+    off_t          ll_file_size;  /* Size of lastlog file, in bytes         */
+    size_t         ll_struct_size;/* Size in bytes of lastlog structure     */
+    size_t         num_bytes;     /* Number of bytes read in read()         */
+    uid_t          uid;           /* Userid of current search               */
+    char           *username;     /* Username of current search             */
+    int            highest_uid;   /* Highest userid in lastlog file         */
+    char           *mylocale;     /* Pointer to current locale              */
+    char           lastlog_time[64];/* Localized date/time string           */
+    time_t         ll_time;       /* Lastlog time converted to time_t       */
+    struct tm      *bdtime;       /* broken-down time                       */
 
     /* Open the lastlog file and handle potential errors. */
     errno = 0;
@@ -80,7 +75,8 @@ int main(int argc, char *argv[])
     highest_uid = ll_file_size/ll_struct_size - 1;
 
     if ( (mylocale = setlocale(LC_ALL, "") ) == NULL )
-        fatal_error( LOCALE_ERROR, "setlocale() could not set the given locale");
+        fatal_error( LOCALE_ERROR,
+                      "setlocale() could not set the given locale");
 
     /* Initialize the passwd file iterator. */
     setpwent();
@@ -109,7 +105,7 @@ int main(int argc, char *argv[])
                 }
             }
             else if ( num_bytes != ll_struct_size) {
-                fatal_error(READ_ERROR, "incomplete read of lastlog struct");
+                fatal_error(READ_ERROR, "Incomplete read of lastlog struct");
             }
 
             if (0 == ll_entry.ll_time) {
@@ -125,17 +121,18 @@ int main(int argc, char *argv[])
                 bdtime = localtime(&(ll_entry.ll_time));
 #endif
 
-                /* The only possible error is EOVERFLOW, and localtime returns NULL
-                   if the error occurred. */
+                /* The only possible error is EOVERFLOW, and localtime 
+                   returns NULL if the error occurred. */
                 if (bdtime == NULL)
                     fatal_error(EOVERFLOW, "localtime");
 
-                /* create a string from the broken down time using the %c format */
+                /* Create a string from the broken down time using the 
+                   %c format */
                 if (0 == strftime(lastlog_time, sizeof(lastlog_time),
                          FORMAT, bdtime) )
-                    /* strftime does not set errno. If return is 0, it is an error
-                       because we expect a non-zero number of bytes in the output
-                       string. */
+                    /* strftime does not set errno. If return is 0, it is an
+                       error because we expect a non-zero number of bytes in 
+                       the output string. */
                     fatal_error(-1, "Conversion to a date-time string failed "
                               " or produced an empty string\n");
 

@@ -1,4 +1,4 @@
-/*------------------------------------------------------------------------------
+/*****************************************************************************
   Title          : showstats_v1.c
   Author         : Stewart Weiss
   Created on     : September 10, 2023
@@ -7,7 +7,6 @@
   Usage          : showstats_v1  [-L] file file ...
   Build with     : gcc -Wall -g -I ../include showstats_v1.c -o showstats \
                    -L../lib -lspl
-
 
  * Copyright (C) 2023 - Stewart Weiss
  *
@@ -25,30 +24,18 @@
  * source code distribution in the file COPYING.gplv3.
  * A complete copy can also be downloaded from <http://www.gnu.org/licenses/>.
 
- *----------------------------------------------------------------------------*/
-
+*****************************************************************************/
 
 #define _GNU_SOURCE    /* Needed to expose statx() function in glibc */
-#include <sys/types.h> /* Required according to man page for statx() */
 #include <sys/stat.h>  /* Required according to man page for statx() */
-#include <unistd.h>    /* Required according to man page for statx() */
-#include <fcntl.h>     /* Required according to man page for statx() */
-#include <stdio.h>     /* For printing.                              */
-#include <string.h>
 #include <pwd.h>
 #include <grp.h>
-#include <time.h>      /* For strftime()                             */
-#include <errno.h>     /* errno and error constants and functions    */
-#include <locale.h>    /* For localization                           */
 #include <sys/sysmacros.h>
 
-#define BAD_FORMAT_ERROR    -1
-#define LOCALE_ERROR        -3
 #define NUM_FIELDS          13    /* Number of fields in statx structure */
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
-/*****************************************************************************/
+/****************************************************************************/
 char* mode2str( int mode)
 {
     static char str[] = "----------";           /* Initial string   */
@@ -79,7 +66,7 @@ char* mode2str( int mode)
     return str;
 }
 
-/*----------------------------------------------------------------------------*/
+/****************************************************************************/
 char* uid2name ( uid_t uid )
 {
     struct  passwd *pw_ptr;
@@ -90,7 +77,7 @@ char* uid2name ( uid_t uid )
       return pw_ptr->pw_name ;
 }
 
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 char* gid2name ( gid_t gid  )
 {
     struct group *grp_ptr;
@@ -104,7 +91,7 @@ char* gid2name ( gid_t gid  )
           return grp_ptr->gr_name;
 }
 
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 void ids2hexdecstr(unsigned int major, unsigned int minor, char* buffer)
 {
     sprintf(buffer, "%02x%02xh/%lud", major, minor,  makedev(major, minor));
@@ -112,7 +99,7 @@ void ids2hexdecstr(unsigned int major, unsigned int minor, char* buffer)
 
 
 
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 void print_time(const char* label, struct statx_timestamp *time_field)
 {
     struct tm *bdtime;                 /* Broken-down time                 */
@@ -135,7 +122,7 @@ void print_time(const char* label, struct statx_timestamp *time_field)
     printf("%s\n", timezone);
 }
 
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 /* A function to print the statx structure using the same format as the stat
    command */
 void print_statx(struct statx *stx, int what2print[])
@@ -208,7 +195,7 @@ void print_statx(struct statx *stx, int what2print[])
         print_time(" Birth: ", &stx->stx_btime);
 }
 
-/*----------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
 int main(int argc, char **argv)
 {
     struct statx statx_buffer;    /* statx structure filled by statx()        */

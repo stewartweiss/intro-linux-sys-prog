@@ -25,11 +25,9 @@
 ******************************************************************************/
 
 #define _GNU_SOURCE
-#include <locale.h>
 #include <langinfo.h>
 #include <monetary.h>
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 
 void  using_locale (char *new_locale, void (*func) (double), double argument)

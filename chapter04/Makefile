@@ -2,12 +2,15 @@
 #       make clean    to remove objects files and executables
 #       make progname to make just progname
 
+include ../Makefile.inc
+
 CC      = /usr/bin/gcc
 OBJS    = *.o
 EXECS   = showdate1  showdate2 showdate3 showdate4 \
           langinfo_demo smallest monetary_demo newlocale_demo
-CFLAGS  = -Wall -g
-LDFLAGS += -L ../lib -lspl
+CFLAGS  += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  \
+           -Wall -g -I${SPL_INCLUDE_DIR}
+LDFLAGS += -L ${SPL_LIB_DIR} -lspl
 
 .PHONY: all clean cleanall
 

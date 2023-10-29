@@ -25,8 +25,7 @@
 
 *****************************************************************************/
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 #ifndef BUFFER_SIZE
     #define BUFFER_SIZE      4096

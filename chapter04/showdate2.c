@@ -27,13 +27,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ****************************************************************************/
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
-
-#define FORMAT  "%c"
-#define MAXLEN  STRING_MAX        /* Maximum size of message string */
-#define BAD_FORMAT_ERROR    -1
-
+#include "common_hdrs.h"
 
 int  main(int argc, char *argv[])
 {

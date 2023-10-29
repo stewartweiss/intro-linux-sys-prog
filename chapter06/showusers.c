@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : showallusers.c
   Author         : Stewart Weiss
   Created on     :
@@ -25,14 +25,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-******************************************************************************/
+*****************************************************************************/
 
 #define _GNU_SOURCE
-#define _XOPEN_SOURCE  500
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 #include <pwd.h>
-#include <locale.h>
 
 int main( int argc, char* argv[])
 {

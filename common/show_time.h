@@ -5,11 +5,11 @@
   Title          : show_time.h
   Author         : Stewart Weiss
   Created on     : February  9, 2010
-  Description    : Header file for show_time.c     
+  Description    : Header file for show_time.c
   Purpose        : Displays date in format "Feb  4 00:46:40 EST 1991"
   Modified on    : March 1, 2011
                    added functions time_plus() and time_minus()
- 
+
  ******************************************************************************
  * Copyright (C) 2019 - Stewart Weiss
  *
@@ -32,18 +32,15 @@
 
 
 /******************************************************************************
-  Convert the time value into a date in the format 
+  Convert the time value into a date in the format
         "Feb  4 00:46:40 EST 1991"
-
-  using the string allocated by ctime(). This implies that the program should
-  not deallocate the memory.
 ******************************************************************************/
-char* get_date_no_day( time_t timeval );
+char* get_date( time_t timeval );
 
 
 
 /******************************************************************************
-  Convert the given time value into a date in the format 
+  Convert the given time value into a date in the format
         "Feb  4 00:46:40 EST 1991"
 
   and display on the standard output.

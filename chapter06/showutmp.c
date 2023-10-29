@@ -28,15 +28,9 @@
 *****************************************************************************/
 
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 #include <utmpx.h>
 #include <paths.h>                /* For definition of _PATH_LASTLOG        */
-#include <locale.h>               /* For localization                       */
-
-#include "../include/common_defs.h"
-#define FORMAT  "%c"              /* Default format string                  */
-#define READ_ERROR          -2    /* Error reading from lastlog file        */
-#define LOCALE_ERROR        -3
 
 /* print_header_row  prints a heading for the output.                       */
 void print_header_row( )
@@ -125,5 +119,3 @@ int main(int argc, char* argv[])
     close(fd_utmp);
     return 0;
 }
-
-

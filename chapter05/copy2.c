@@ -25,8 +25,7 @@
 
 *****************************************************************************/
 #define _GNU_SOURCE
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 
 #define MESSAGE_SIZE   512

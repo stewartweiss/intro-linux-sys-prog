@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : fsidtest.c
   Author         : Stewart Weiss
   Created on     : Sept. 12, 2023
@@ -8,7 +8,7 @@
   Build with     : gcc -Wall -g fsidtest.c -o fsidtest
   Modifications  :
 
-*******************************************************************************
+******************************************************************************
 
 Copyright (C) 2023 - Stewart Weiss
 
@@ -25,13 +25,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-******************************************************************************/
+*****************************************************************************/
 #define _GNU_SOURCE
-#include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <sys/statvfs.h>
+#include "common_hdrs.h"
 
 int main(int argc, char **argv)
 {

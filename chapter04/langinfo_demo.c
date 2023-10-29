@@ -34,11 +34,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 ****************************************************************************/
 
 #define _GNU_SOURCE
-#include <locale.h>
 #include <langinfo.h>
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
-#define  LOCALE_ERROR        -1
+#include "common_hdrs.h"
 
 int  main(int argc, char *argv[])
 {

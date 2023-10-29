@@ -32,9 +32,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ****************************************************************************/
 #define _XOPEN_SOURCE 700
-#include <locale.h>
-#include "../include/common_hdrs.h"
-#include "../include/common_defs.h"
+#include "common_hdrs.h"
 
 #define TESTNUMBER  123456789.12
 
