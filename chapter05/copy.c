@@ -87,7 +87,13 @@ int main(int argc, char *argv[])
           sprintf(message, "error closing source file %s", argv[1]);
           fatal_error(errno, message);
       }
-      if ( close(target_fd) == -1 ) {
+      errno = 0;
+      if (-1 == fsync(target_fd))  /* Flush data to device. */
+          /* Error trying to flush data to device. Just exit. */
+          fatal_error(errno, "fsync");
+     /* fsync() was successful. */
+     errno = 0;
+     if ( close(target_fd) == -1 ) {
           sprintf(message, "error closing target file %s", argv[2]);
           fatal_error(errno, "error closing target file");
       }

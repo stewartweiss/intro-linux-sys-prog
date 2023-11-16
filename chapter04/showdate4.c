@@ -30,9 +30,6 @@
 #include <langinfo.h>
 #include "common_hdrs.h"
 
-
-
-
 int parse_time_adjustment( char* datestring, struct tm* datetm )
 {
     char* delim   = " \t";     /* Space and tab             */
@@ -60,20 +57,13 @@ int parse_time_adjustment( char* datestring, struct tm* datetm )
         }
 
         /* Add num units to member of struct tm. */
-        if ( NULL != strstr(token, "year"))
-            datetm->tm_year += number;
-        else if ( NULL != strstr(token, "month"))
-            datetm->tm_mon += number;
-        else if ( NULL != strstr(token, "week"))
-            datetm->tm_mday += 7*number;
-        else if ( NULL != strstr(token, "day"))
-            datetm->tm_mday += number;
-        else if ( NULL != strstr(token, "hour"))
-            datetm->tm_hour += number;
-        else if ( NULL != strstr(token, "minute"))
-            datetm->tm_min += number;
-        else if ( NULL != strstr(token, "second"))
-            datetm->tm_sec += number;
+        if ( NULL != strstr(token, "year"))       datetm->tm_year += number;
+        else if ( NULL != strstr(token, "month")) datetm->tm_mon += number;
+        else if ( NULL != strstr(token, "week"))  datetm->tm_mday += 7*number;
+        else if ( NULL != strstr(token, "day"))   datetm->tm_mday += number;
+        else if ( NULL != strstr(token, "hour"))  datetm->tm_hour += number;
+        else if ( NULL != strstr(token, "minute"))datetm->tm_min += number;
+        else if ( NULL != strstr(token, "second"))datetm->tm_sec += number;
         else
             /* Time_unit did not match any valid time time_unit.            */
             fatal_error(TIME_ADJUST_ERROR,
@@ -99,7 +89,6 @@ int update_time( struct tm* datetm, struct tm* date_to_add )
 
     return 0;
 }
-
 
 int  main(int argc, char *argv[])
 {
@@ -140,7 +129,7 @@ int  main(int argc, char *argv[])
         case 'd':   /* Has required argument. */
             d_option = TRUE;
             d_arg_length = strlen(optarg);
-            d_arg = calloc(d_arg_length, sizeof(char));
+            d_arg = malloc(d_arg_length * sizeof(char));
             if ( NULL == d_arg )
                 fatal_error(EXIT_FAILURE,
                      "calloc could not allocate memory\n");

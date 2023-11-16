@@ -135,7 +135,7 @@ int  main(int argc, char *argv[])
         case 'd':   /* Has required argument. */
             d_option = TRUE;
             d_arg_length = strlen(optarg);
-            d_arg = calloc(d_arg_length, sizeof(char));
+            d_arg = malloc(d_arg_length * sizeof(char));
             if ( NULL == d_arg )
                 fatal_error(EXIT_FAILURE,
                      "calloc could not allocate memory\n");

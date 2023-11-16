@@ -1,7 +1,5 @@
 
 
-
-
 #ifndef DIR_UTILS_H
 #define DIR_UTILS_H
 
@@ -28,6 +26,6 @@ BOOL isdir( const struct dirent *direntp);
 *   else if neither is a directory, return -1, 0, or 1 if d1 < d2,
 *         d1 == d2, or d1 > d2 respectively.
 */
-int dirsfirstsort(const struct dirent **a, const struct dirent **b)
+int dirsfirstsort(const struct dirent **a, const struct dirent **b);
 
 #endif /* DIR_UTILS_H */

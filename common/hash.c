@@ -87,8 +87,7 @@ BOOL insert_hash( hash_table *h, hash_val item )
     BOOL inserted = FALSE;
 
     if ( h->current_size >= h->table_size/2 ) {
-        h->table_size *= 2;
-        rehash(h, h->table_size);
+        rehash(h, 2*h->table_size);
     }
 
     i = findloc_hash(*h, item);
