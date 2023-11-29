@@ -250,7 +250,7 @@ void erase_utlist(utlist **list)
         free(ptr);
         ptr = next;
     }
-    list = NULL;
+    *list = NULL;
 }
 
 
