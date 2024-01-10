@@ -1,29 +1,24 @@
 /*****************************************************************************
-  Title          : copy.c
+  Title          : spl_copy.c
   Author         : Stewart Weiss
   Created on     : August 1, 2023
   Description    : Implements a simplified cp command
   Purpose        : To introduce file I/O
-  Usage          : copy sourcefile targetfile
-  Build with     : gcc -Wall -g -L ../lib -lspl -o copy  copy.c
+  Usage          : spl_copy sourcefile targetfile
+  Build with     : gcc -Wall -g -I../include -L ../lib -lspl \
+                   -o spl_copy  spl_copy.c
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
