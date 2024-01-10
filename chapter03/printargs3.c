@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : environ_demo.c
+  Title          : printargs2.c
   Author         : Stewart Weiss
-  Created on     : December 11, 2022
-  Description    : Displays all environment strings
-  Purpose        : To show how to use the environ variable
-  Usage          : environ_demo
-  Build with     : gcc -o environ_demo environ_demo.c
+  Created on     : January  9, 2023
+  Description    : Shows a second way to access command-line arguments
+  Purpose        :
+  Usage          : printargs2 <list of words>
+  Build with     : gcc -o printargs2 printargs2.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -17,22 +17,15 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
-
-#include <stdlib.h>
 #include <stdio.h>
 
-/* Declare the environ variable to be able to access it
-   It must be declared extern because it is defined outside
-   of the program
-*/
-extern char **environ;
-
-int main()
+int main( int argc, char* argv[])
 {
-    char **envp = environ; /* set point to start of list */
-    while ( NULL != *envp ) {
-        printf("%s\n", *envp );
-        envp++;
+    printf("%s arguments:\n", argv[0]);
+    argv++;
+    while ( *argv != NULL ) {
+        printf("%s\n", *argv);
+        argv++;
     }
     return 0;
 }

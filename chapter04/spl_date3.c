@@ -1,30 +1,23 @@
-/******************************************************************************
-  Title          : showdate3.c
+/*****************************************************************************
+  Title          : spl_date3.c
   Author         : Stewart Weiss
   Created on     : February  22, 2023
   Description    : Displays formatted time, possibly different from
                    current time
-  Purpose        :
-  Usage          : showdate [-d<time-adjustment>] +"<format-specification>"
-  Build with     : gcc -o showdate3  showdate3.c error_exits.o \
-                          get_int.o get_long.o
+  Usage          : spl_date3 [-d<time-adjustment>] +"<format-specification>"
+  Build with     : gcc -Wall -g -I../include -L../lib -o spl_date3 \
+                    spl_date3.c -lspl
 
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-******************************************************************************/
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
 /* A format string is a sequence of one or more pairs of the form
     <num>  <time_unit>
@@ -36,10 +29,6 @@
 
 #define _GNU_SOURCE
 #include "common_hdrs.h"
-
-
-
-
 
 int parse_time_adjustment( char* datestring, struct tm* datetm )
 {

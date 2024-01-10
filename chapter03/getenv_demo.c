@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : environ_demo.c
+  Title          : getenv_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
-  Description    : Displays all environment strings
-  Purpose        : To show how to use the environ variable
-  Usage          : environ_demo
-  Build with     : gcc -o environ_demo environ_demo.c
+  Description    : Displays the value of the HOME environment variable
+  Purpose        : To show how to use getenv()
+  Usage          : getenv_demo
+  Build with     : gcc -o getenv_demo getenv_demo.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -19,20 +19,16 @@
 *****************************************************************************/
 
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
-
-/* Declare the environ variable to be able to access it
-   It must be declared extern because it is defined outside
-   of the program
-*/
-extern char **environ;
 
 int main()
 {
-    char **envp = environ; /* set point to start of list */
-    while ( NULL != *envp ) {
-        printf("%s\n", *envp );
-        envp++;
-    }
+    char *path_to_home;
+    path_to_home  = getenv("HOME");
+    if ( NULL == path_to_home )
+        printf("The HOME variable is not in the environment.\n");
+    else
+        printf("HOME=%s\n", path_to_home);
     return 0;
 }

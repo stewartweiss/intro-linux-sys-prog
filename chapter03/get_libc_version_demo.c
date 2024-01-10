@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : environ_demo.c
+  Title          : get_libc_version_demo.c
   Author         : Stewart Weiss
-  Created on     : December 11, 2022
-  Description    : Displays all environment strings
-  Purpose        : To show how to use the environ variable
-  Usage          : environ_demo
-  Build with     : gcc -o environ_demo environ_demo.c
+  Created on     : December 10, 2022
+  Description    : Prints current version of GNU C Library
+  Purpose        : Show how to get library version at runtime
+  Usage          : get_libc_version_demo
+  Build with     : gcc -o get_libc_version_demo get_libc_version_demo.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -18,21 +18,10 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#include <stdlib.h>
+#include <gnu/libc-version.h>
 #include <stdio.h>
 
-/* Declare the environ variable to be able to access it
-   It must be declared extern because it is defined outside
-   of the program
-*/
-extern char **environ;
-
-int main()
+void main()
 {
-    char **envp = environ; /* set point to start of list */
-    while ( NULL != *envp ) {
-        printf("%s\n", *envp );
-        envp++;
-    }
-    return 0;
+    printf("The version of glibc is:%s\n",gnu_get_libc_version());
 }

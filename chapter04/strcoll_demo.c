@@ -1,11 +1,12 @@
 /*****************************************************************************
-  Title          : basename_demo.c
+  Title          : strcoll_demo.c
   Author         : Stewart Weiss
-  Created on     : November 20, 2022
-  Description    : Displays the computer name
-  Purpose        : To demonstrate how to use basename()
-  Usage          : basename_demo
-  Build with     : gcc -o basename_demo basename_demo.c
+  Created on     : February  22, 2023
+  Description    : Prints min of 2 or more strings in the current locale
+  Purpose        : To show how to use strcoll()
+  Usage          : strcoll_demo string1 string2 ...
+  Build with     : gcc -Wall -I../include -L../lib strcoll_demo.c \
+                    -o strcoll_demo -lspl
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -17,15 +18,28 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #define _GNU_SOURCE
-#include <stdio.h>
-#include <string.h>
+#include "common_hdrs.h"
 
-int main(int argc, char * argv[])
+int main( int argc, char* argv[])
 {
-    char *progname;
+    char *smallest;
+    char usage_msg[256];
+    int  i = 1, j;
 
-    progname = basename(argv[0]);
-    printf("Program name is %s\n", progname);
+    if ( argc < 3 ) {
+        sprintf(usage_msg, "%s string string ...\n", basename(argv[0]));
+        usage_error(usage_msg);
+    }
+    if ( NULL == setlocale(LC_COLLATE, "") )
+        fatal_error( LOCALE_ERROR, "setlocale() could not set the "
+                    "given locale");
+
+    smallest = argv[i];
+    for ( j = i+1; j < argc; j++)
+        if ( strcoll(smallest,argv[j]) > 0 )
+            smallest = argv[j];
+    printf("%s\n",smallest);
     return 0;
 }

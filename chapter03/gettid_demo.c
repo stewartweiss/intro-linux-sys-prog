@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : environ_demo.c
+  Title          : gettid_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
-  Description    : Displays all environment strings
-  Purpose        : To show how to use the environ variable
-  Usage          : environ_demo
-  Build with     : gcc -o environ_demo environ_demo.c
+  Description    : Displays the thread id of the calling process
+  Purpose        : To demonstrate how to use the syscall() function
+  Usage          : gettid_demo
+  Build with     : gcc -o gettid_demo gettid_demo.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -18,21 +18,14 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#include <stdlib.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
 #include <stdio.h>
 
-/* Declare the environ variable to be able to access it
-   It must be declared extern because it is defined outside
-   of the program
-*/
-extern char **environ;
-
-int main()
+int main(int argc, char *argv[])
 {
-    char **envp = environ; /* set point to start of list */
-    while ( NULL != *envp ) {
-        printf("%s\n", *envp );
-        envp++;
-    }
+    printf("Thread id %ld\n", syscall(SYS_gettid));
+    /* could also pass __NR_gettid */
     return 0;
 }

@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : environ_demo.c
+  Title          : strerror_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
-  Description    : Displays all environment strings
-  Purpose        : To show how to use the environ variable
-  Usage          : environ_demo
-  Build with     : gcc -o environ_demo environ_demo.c
+  Description    : Like gethostname_demo.c but produces an error message
+  Purpose        : To demonstrate how to use handle argument shortage
+  Usage          : strerror_demo
+  Build with     : gcc -o strerror_demo strerror_demo.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -18,21 +18,22 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <stdio.h>
+#include <errno.h>
 
-/* Declare the environ variable to be able to access it
-   It must be declared extern because it is defined outside
-   of the program
-*/
-extern char **environ;
-
-int main()
+void main()
 {
-    char **envp = environ; /* set point to start of list */
-    while ( NULL != *envp ) {
-        printf("%s\n", *envp );
-        envp++;
+    char  name[4];   /* declare string to hold returned value */
+    size_t len = 3;  /* purposely too small so error is revealed */
+    int   returnvalue;
+
+
+    returnvalue =  gethostname(name, len); /* make the call */
+    if ( -1 == returnvalue ) {
+        printf("gethostname failed: %s\n", strerror(errno));
     }
-    return 0;
+    else
+        printf("%s\n", name);
 }
