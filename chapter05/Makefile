@@ -1,7 +1,7 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = copy.c copy2.c libcalloverhead.c syscalloverhead.c
+SRCS    = spl_copy.c spl_copy2.c spl_libcalloverhead.c spl_syscalloverhead.c
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 EXECS   := $(patsubst %.c,%,$(SRCS))
 CFLAGS  += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g -I${SPL_INCLUDE_DIR}
