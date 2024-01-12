@@ -1,31 +1,24 @@
 /*****************************************************************************
-  Title          : showlastlog.c
+  Title          : spl_lastlog.c
   Author         : Stewart Weiss
   Created on     : June 19, 2023
   Description    : Displays the contents of the lastlog file
   Purpose        : To work with files containing holes
-  Usage          : showlastlog
-  Build with     : gcc -o showlastlog   showlastlog.c
-  Modifications  :
+  Usage          : spl_lastlog
+  Build with     : gcc -I../include -L../lib -o spl_lastlog   spl_lastlog.c \
+                    -lspl
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 #include <lastlog.h>              /* For lastlog structure definition       */
@@ -121,17 +114,17 @@ int main(int argc, char *argv[])
                 bdtime = localtime(&(ll_entry.ll_time));
 #endif
 
-                /* The only possible error is EOVERFLOW, and localtime 
+                /* The only possible error is EOVERFLOW, and localtime
                    returns NULL if the error occurred. */
                 if (bdtime == NULL)
                     fatal_error(EOVERFLOW, "localtime");
 
-                /* Create a string from the broken down time using the 
+                /* Create a string from the broken down time using the
                    %c format */
                 if (0 == strftime(lastlog_time, sizeof(lastlog_time),
                          FORMAT, bdtime) )
                     /* strftime does not set errno. If return is 0, it is an
-                       error because we expect a non-zero number of bytes in 
+                       error because we expect a non-zero number of bytes in
                        the output string. */
                     fatal_error(-1, "Conversion to a date-time string failed "
                               " or produced an empty string\n");

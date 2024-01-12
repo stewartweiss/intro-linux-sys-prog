@@ -1,35 +1,27 @@
 /*****************************************************************************
-  Title          : showid.c
+  Title          : getpwuid_demo.c
   Author         : Stewart Weiss
   Created on     : January 27, 2012
-  Description    : An implementation of the id command
+  Description    : An implementation of a simple id command
   Purpose        : To demonstrate how to access identity-related kernel
                    databases using parts of the API related to identity
                    including getuid(), getgid(), getpwuid(), getgrgid(), and
                    getgroups().
-  Usage          : showid
-  Build with     : gcc -o showid   showid.c
-  Modifications  : August 12, 2023
-                   Clarified documentation
+  Usage          : getpwuid_demo
+  Build with     : gcc -I../include -L../lib -o getpwuid_demo   \
+                   getpwuid_demo.c -lspl
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #include "common_hdrs.h"
 #include <pwd.h>
 

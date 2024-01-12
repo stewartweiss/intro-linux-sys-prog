@@ -1,44 +1,34 @@
 /******************************************************************************
-  Title          : last.c
+  Title          : spl_last.c
   Author         : Stewart Weiss
   Created on     : June 29, 2023
   Description    : Implements the last command
   Purpose        : To with system data files
-  Usage          : last
-  Build with     : gcc -o last   last.c
-  Modifications  :
+  Usage          : spl_last
+  Build with     : gcc -I../include -L../lib -o spl_last   spl_last.c -lspl
+
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-******************************************************************************/
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 #include <paths.h>
 #include <utmpx.h>
 
-
 /* Some systems define a record type of SHUTDOWN_TIME. If it's not defined
    define it.                                                              */
 #ifndef SHUTDOWN_TIME
     #define SHUTDOWN_TIME 32 /* Give it a value larger than the other types */
 #endif
-
 
 /* Type definition for the linked list of utmpx records. */
 struct utmp_list{
@@ -48,7 +38,6 @@ struct utmp_list{
 };
 
 typedef struct utmp_list utlist;
-
 
 /*  For debugging only, not used in finished program:
     print_rec_type prints the string representation of the integer value
@@ -68,8 +57,6 @@ void print_rec_type( int t)
     case ACCOUNTING:    printf("ACCOUNTING    "); break;
     }
 }
-
-
 
 /** get_prev_utrec(fd, ut, done)
     get_prev_utrec(fd, ut) reads one utmpx structure from the current file
@@ -356,7 +343,7 @@ int main( int argc, char* argv[] )
                 /* Find the logout entry for this login in the saved_ut_recs
                    list. This should be the entry closest to the front of the
                    list with the same ut_line field. */
-                found = TRUE;
+                found = FALSE;
                 p = saved_ut_recs; /* start at beginning */
                 while ( NULL != p ) {
                     next = p->next;

@@ -1,41 +1,27 @@
 /*****************************************************************************
-  Title          : mk_filehole.c
+  Title          : makefilehole.c
   Author         : Stewart Weiss
   Created on     : June 19, 2023
   Description    : Makes a file with a large hole
   Purpose        : Shows how lseek() can seek past end of file and we
                    can write past the end also.
-  Usage          : mk_filehole
-  Build with     : gcc -o mk_filehole   mk_filehole.c
-  Modifications  :
-
-  Note:
-  After creating the file check its size and block usage with
-  ls -ls file_with_hole
-  You will see that it is 131082 bytes but does not use more than a few blocks.
-
+  Usage          : makefilehole <filename>
+  Build with     : gcc -I../include -L../lib -o makefilehole   makefilehole.c -lspl
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
-#define FILENAME       "file_with_hole"
 #define MESSAGE_SIZE   512
 #define BUFFER_SIZE     10
 
@@ -45,9 +31,14 @@ int main(int argc, char *argv[])
     char    buffer[BUFFER_SIZE];
     char    message[MESSAGE_SIZE];
 
-    /* Create a new file named file_with_hole in the pwd. */
-    if ((fd = open(FILENAME, O_WRONLY|O_CREAT|O_TRUNC, 0644)) < 0) {
-        sprintf(message, "unable to open file %s for writing", FILENAME);
+    if ( 2 > argc ) {
+        sprintf(message, " %s <file-to-create>\n", basename(argv[0]));
+        usage_error(message);
+    }
+
+/* Create a new file named file_with_hole in the pwd. */
+    if ((fd = open(argv[1], O_WRONLY|O_CREAT|O_EXCL, 0644)) < 0) {
+        sprintf(message, "unable to open file %s for writing", argv[1]);
         fatal_error(errno, message);
     }
 
@@ -68,7 +59,7 @@ int main(int argc, char *argv[])
 
     /* Close the file. */
     if ( close(fd) == -1 ) {
-        sprintf(message, "error closing file %s\n", FILENAME);
+        sprintf(message, "error closing file %s\n", argv[1]);
         fatal_error(errno, message);
       }
 
