@@ -1,21 +1,26 @@
 /******************************************************************************
-  Title          : simpledu.c
+  Title          : spl_du2.c
   Author         : Stewart Weiss
-  Created on     : February 18, 2013
+  Created on     : November 4, 2023
   Description    : Directory hierarchy traversal
   Purpose        : To show a simple application of the nftw function
-  Usage          : simpledu  file file ...
-
-  Build with     : gcc -Wall -g -I../include simpledu.c -L../lib -lutils -o \
-                        simpledu
-  Modifications  :
-
+  Usage          : spl_du2  file file ...
+  Build with     : gcc -Wall -g -I ../include spl_du1.c -o spl_du1 \
+                   -L../lib -lspl
+  NOTES:
   This walks the directory tree for each file argument, displaying file name
   and type and accumulating total bytes in the tree.
 
-
-
-******************************************************************************/
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
 #include "common_hdrs.h"
 #include <ftw.h>

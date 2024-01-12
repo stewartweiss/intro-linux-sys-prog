@@ -1,20 +1,18 @@
 /*****************************************************************************
-  Title          : nftwdemo.c
+  Title          : nftw_demo.c
   Author         : Stewart Weiss
-  Created on     : February 18, 2013
+  Created on     : December 18, 2023
   Description    : Directory hierarchy traversal
   Purpose        : To show a simple application of the nftw function
-  Usage          : nftwdemo [options] file file ...
+  Usage          : nftw_demo [options] file file ...
                    where options may be -c -p -d -m
                    -c : change directory as it visits directories
                    -p : do not follow symbolic links
                    -d : do a post-order instead of pre-order (default)
                    -m : do not cross mount points
 
-  Build with     : gcc -Wall -g -I../include nftwdemo.c -L../lib -lutils -o \
-                        nftwdemo
-  Modifications  :
-
+  Build with     : gcc -Wall -g -I../include nftw_demo.c -L../lib -lutils -o \
+                        nftw_demo
   Notes:
   This program traverses the file hierarchy rooted at the filename given as
   its command line argument, or if it is absent, rooted in the current working
@@ -27,15 +25,22 @@
   the tree, so that it implicitly shows which files are contained in which
   directories.
 
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
-
 
 #include "common_hdrs.h"
 #include <ftw.h>
-
 #define  MAXOPENFD   20       /* Maximum number of file descriptors to open */
 
-static int display_info(const char *fpath, const struct stat *sb,
+int display_info(const char *fpath, const struct stat *sb,
              int tflag, struct FTW *ftwbuf)
 {
     char  indent[PATH_MAX];                      /* A blank string */
@@ -68,9 +73,9 @@ int main(int argc, char *argv[])
     int ch;
     char options[] = ":dpm"; /* Three possible options */
     opterr = 0;
-    
+
     while  (TRUE) {
-        if ( -1 == (ch = getopt(argc, argv, options)) ) 
+        if ( -1 == (ch = getopt(argc, argv, options)) )
             break;
         switch ( ch ) {
         case 'd':  flags |= FTW_DEPTH;    break;
@@ -81,13 +86,13 @@ int main(int argc, char *argv[])
         }
     }
     errno = 0;
-    if (optind < argc) 
+    if (optind < argc)
         while (optind < argc) {
-            if ( -1 == nftw(argv[optind], display_info, MAXOPENFD, flags)) 
+            if ( -1 == nftw(argv[optind], display_info, MAXOPENFD, flags))
                 fatal_error(errno, "nftw");
             optind++;
         }
-    else if ( -1 == nftw(".", display_info, MAXOPENFD, flags) ) 
+    else if ( -1 == nftw(".", display_info, MAXOPENFD, flags) )
             fatal_error(errno, "nftw");
     else
         exit(EXIT_SUCCESS);

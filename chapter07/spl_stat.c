@@ -1,30 +1,25 @@
 /*****************************************************************************
-  Title          : showstats_v1.c
+  Title          : spl_stat.c
   Author         : Stewart Weiss
   Created on     : September 10, 2023
   Description    : Simulates the stat command, with only the -L option
   Purpose        : To interact with the filesystem API
-  Usage          : showstats_v1  [-L] file file ...
-  Build with     : gcc -Wall -g -I ../include showstats_v1.c -o showstats \
+  Usage          : spl_stat  [-L] file file ...
+  Build with     : gcc -Wall -g -I ../include spl_stat.c -o spl_stat \
                    -L../lib -lspl
 
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * A copy of the GNU General Public License is included in this
- * source code distribution in the file COPYING.gplv3.
- * A complete copy can also be downloaded from <http://www.gnu.org/licenses/>.
-
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
+
 
 #define _GNU_SOURCE    /* Needed to expose statx() function in glibc */
 #include <sys/stat.h>  /* Required according to man page for statx() */

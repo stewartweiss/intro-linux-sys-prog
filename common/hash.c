@@ -19,7 +19,7 @@ void rehash( hash_table *h, unsigned int new_size )
 
     /* Initialize new hash table. */
     for (i = 0; i < new_size; i++)
-        temp[i].state = EMPTY;
+        temp[i].state = EMPTYTAG;
 
     h->numbits_to_shift = sizeof(unsigned long int)*8 - size_bits;
     h->current_size     = 0;
@@ -44,7 +44,7 @@ int findloc_hash( hash_table htable,  hash_val item)
 {
     int i = (Hash_Constant * item) >> htable.numbits_to_shift;
     int j = i;
-    while ( htable.table[i].state != EMPTY &&
+    while ( htable.table[i].state != EMPTYTAG &&
             htable.table[i].item  != item ) {
         i = (i+1) % htable.table_size;
         if ( i == j )
@@ -75,7 +75,7 @@ void init_hash( hash_table *htable, int initial_size  )
 
     /* Initialize hash table. */
     for ( int i = 0; i < htable->table_size; i++)
-        htable-> table[i].state = EMPTY;
+        htable-> table[i].state = EMPTYTAG;
     htable->numbits_to_shift = sizeof(unsigned long int)*8 - size_bits;
     htable->current_size = 0;
 }
@@ -91,7 +91,7 @@ BOOL insert_hash( hash_table *h, hash_val item )
     }
 
     i = findloc_hash(*h, item);
-    if ( h->table[i].state == EMPTY ) {
+    if ( h->table[i].state == EMPTYTAG ) {
         h->table[i].state = ACTIVE;
         h->table[i].item = item;
         h->current_size++;

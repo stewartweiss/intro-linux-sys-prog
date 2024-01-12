@@ -1,37 +1,28 @@
-
-
 /****************************************************************************
-  Title          : lsdir2.c
+  Title          : spl_ls2.c
   Author         : Stewart Weiss
   Created on     : September 29, 2023
   Description    : Lists directory contents, sorting directories before files
-  Purpose        :
-  Usage          :
-  Build with     :
-  Modifications  :
+  Purpose        : To work with various functions in directory API
+  Usage          : spl_ls2 [file file ...]
+                   where files may be any file type including directories
+  Build with     : gcc -Wall -g -I ../include spl_ls2.c -o spl_ls2 \
+                   -L../lib -lspl
 
-*****************************************************************************
-
-Copyright (C) 2023 - Stewart Weiss
-
-This code is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 3 of the License, or
-(at your option) any later version.
-
-This code is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program. If not, see <http://www.gnu.org/licenses/>.
-
-****************************************************************************/
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
 #define _DEFAULT_SOURCE
 #define _BSD_SOURCE
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 #include <dirent.h>
 
 #define  LIST_DIRS_FIRST  1

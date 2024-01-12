@@ -1,12 +1,10 @@
-/*****************************************************************************
-  Title          : hello.c
-  Author         : Stewart Weiss
-  Created on     : December 11, 2022
-  Description    : A program that performs simple input and output
-  Purpose        : To introduce simple I/O
-  Usage          : hello
-  Build with     : gcc -o hello hello.c
-  Modifications  :
+/******************************************************************************
+  Title          : hello_world.c
+  Author         : Kernighan and Ritchie
+  Created on     :
+  Description    : A program that prints "hello, world."
+  Usage          : hello_world
+  Build with     : gcc -o hello_world hello_world.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -18,7 +16,6 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -31,4 +28,10 @@ int main()
     printf("hello %s\n", name);
     if ( strlen(name) < 60 )
         exit(1);
+}
+#include <stdio.h>
+
+void main()
+{
+    printf("hello, world.\n");
 }

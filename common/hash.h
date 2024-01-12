@@ -20,7 +20,7 @@
 // resized, but you might want to implement resizing in your class.
 #define ACTIVE        1
 #define DELETED       2
-#define EMPTY         3
+#define EMPTYTAG      3
 
 
 

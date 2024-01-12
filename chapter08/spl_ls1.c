@@ -1,40 +1,33 @@
 /*****************************************************************************
-  Title          : lsdir.c
+  Title          : spl_ls1.c
   Author         : Stewart Weiss
   Created on     : September 25, 2023
   Description    : Simple ls command.
   Purpose        : To show how to read the contents of a directory
-  Usage          : lsdir [file ...]
-  Build with     : gcc -Wall -g -L"../lib" -o  lsdir lsdir.c -lspl
+  Usage          : spl_ls1 [file ...]
+  Build with     : gcc -Wall -g -I../include -L../lib -o spl_ls1 spl_ls1.c  \
+                     -lspl
   Modifications  :
   Notes          : For directories, displays their contents, including
                    . and ..; for files, just prints their names.
-
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
-
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
 #include <sys/types.h>
 #include <dirent.h>
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 
-/** listdir(dirstream) prints the filenames contained in the directory
-*   pointed to by dirstream, one per line, including . and .., in
-*   the order determined by the stream itself.
+/* listdir(dirp,flag) prints the filenames contained in the directory stream
+   dirp, one per line, including . and .., in  the order the stream delivers
+   them.
 */
 void listdir( DIR *dirp, int flags )
 {

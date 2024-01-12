@@ -5,7 +5,7 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = fsidtest.c lstat_manpage_example.c showstat.c showstatfs.c
+SRCS    = fsidtest.c lstat_manpage_example.c spl_stat.c spl_statfs.c
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 EXECS   := $(patsubst %.c,%,$(SRCS))
 CFLAGS  += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g -I${SPL_INCLUDE_DIR}

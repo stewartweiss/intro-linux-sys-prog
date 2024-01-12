@@ -11,7 +11,7 @@
 #include <unistd.h>      /* prototypes of most system calls           */
 #include <time.h>        /* time related functions                    */
 #ifndef LINUX_FCNTL
-    #include <fcntl.h>   /* file I/O related functions                */
+    #include <fcntl.h>       /* file I/O related functions            */
 #endif
 #include <errno.h>       /* errno and error constants and functions   */
 #include <paths.h>       /* For definition of _PATH_LASTLOG           */

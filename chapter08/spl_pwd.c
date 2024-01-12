@@ -1,15 +1,26 @@
-/******************************************************************************
-  Title          : showpwd.c
+/*****************************************************************************
+  Title          : spl_pwd.c
   Author         : Stewart Weiss
   Created on     : October 28, 2023
   Description    : Implements pwd across mount points
   Purpose        :
-  Usage          : showpwd [-v]
+  Usage          : spl_pwd [-v]
                    -v turns on verbose output
-  Build with     : gcc -o showpwd showpwd.c -L../lib  -lutils  -I../include
+  Build with     : gcc -g -Wall -o spl_pwd spl_pwd.c -L../lib  -lutils  \
+                   -I../include -lspl
 
 
-******************************************************************************/
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
+
 #include  "common_hdrs.h"
 #include  <sys/stat.h>
 #include   <dirent.h>
@@ -76,9 +87,10 @@ char* get_filename( dev_ino child_entry)
             /* Copy the entry's d_name into a malloc-ed fname. */
             len = strlen(direntp->d_name);
             errno = 0;
-            if ( NULL == (fname = malloc(len+1)) )
+            if ( NULL == (fname = calloc(len+1,1)) )
                 fatal_error(errno, "malloc");
             strncpy(fname, direntp->d_name, len);
+
             closedir( dir_ptr );
             return fname;
         }

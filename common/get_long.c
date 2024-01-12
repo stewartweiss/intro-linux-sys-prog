@@ -15,8 +15,6 @@ int  get_long(char *arg, int flags, long *value, char *msg )
 {
     char *endptr;
     long val;
-
-
     errno = 0;    /* To distinguish success/failure after call */
     val = strtol(arg, &endptr, 0);
 
