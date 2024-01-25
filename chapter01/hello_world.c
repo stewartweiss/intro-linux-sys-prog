@@ -17,19 +17,6 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main()
-{
-    char    name[256];
-    printf("Enter your name: ");
-    scanf("%255s", name);
-    printf("hello %s\n", name);
-    if ( strlen(name) < 60 )
-        exit(1);
-}
-#include <stdio.h>
 
 void main()
 {
