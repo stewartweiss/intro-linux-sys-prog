@@ -18,13 +18,13 @@ to pass to an error-handling function.
 flags is used to decide whether trailing characters or negatives are allowed.
 
 */
-int  get_long(char *arg, int flags, long *value, char *msg )
+int  get_dbl(char *arg, int flags, double *value, char *msg )
 
 {
     char *endptr;
-    long val;
+    double val;
     errno = 0;    /* To distinguish success/failure after call */
-    val = strtol(arg, &endptr, 0);
+    val = strtod(arg, &endptr);
 
     /* Check for various possible errors */
     if (errno == ERANGE) {
@@ -32,7 +32,6 @@ int  get_long(char *arg, int flags, long *value, char *msg )
             sprintf(msg, "%s\n", strerror(errno));
         return FATAL_ERROR;
     } else if ( errno == EINVAL && val != 0 ) {
-          /* bad base chars -- shouldn't happen */
           if ( msg != NULL )
               sprintf(msg, "%s\n", strerror(errno));
           return FATAL_ERROR;
@@ -64,7 +63,7 @@ int  get_long(char *arg, int flags, long *value, char *msg )
         }
     }
 
-    /* If we got here, strtol() successfully parsed a number, but it might be
+    /* If we got here, strtod() successfully parsed a number, but it might be
        negative, so check flag and report if necessary */
     if ( flags & NON_NEG_ONLY )
         if ( val < 0 ) {

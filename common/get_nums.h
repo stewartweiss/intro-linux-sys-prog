@@ -1,4 +1,13 @@
-
+/*****************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.lgplv3 for details.               *
+*****************************************************************************/
 #ifndef GET_NUMS_H
 #define GET_NUMS_H
 
@@ -49,5 +58,20 @@ int  get_long(char *arg, int flags, long *value, char *msg );
  */
 int  get_int(char *arg, int flags, int *value, char *msg );
 
+/** get_dbl()
+    On successful processing, returns VALID_NUMBER and stores the resulting value
+    in value, otherwise returns one of the  error codes..
+    On return, msg contains a string with a suitable message for the caller
+    to pass to an error-handling function.
+    flags is used to decide whether trailing characters, negative values,
+    and zeros for strings without any digits are allowed.
+ *  @param  char*     arg     [IN]  string to parse
+ *  @param  int       flags   [IN]  flag specifying how to handle anomalies
+ *  @param  double*   value   [OUT] returned double
+ *  @param  char*     msg     [OUT] if not empty, error message
+ *  @return int       VALID_NUMBER or a negative error code indicating the
+                      type of error
+ */
+int  get_dbl(char *arg, int flags, double *value, char *msg );
 
 #endif
