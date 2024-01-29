@@ -45,7 +45,7 @@ interface.o: interface.h defs.h
 clean:
 	$(RM) $(OBJECTS) 
 
-# The following rule exists only to lessonnstrate how the three automatic
+# The following rule exists only to demonstrate how the three automatic
 # variables, $@, $^, and $?, work.  The target, dummy, is not a PHONY target,
 # since we want to keep track of whether its prerequisites are newer than the
 # target and will use a trick to do this. We create a dummy file, named dummy,

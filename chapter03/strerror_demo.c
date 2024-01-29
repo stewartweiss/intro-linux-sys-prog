@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-void main()
+int main(int argc, char* argv[])
 {
     char  name[4];   /* declare string to hold returned value */
     size_t len = 3;  /* purposely too small so error is revealed */
@@ -36,4 +36,6 @@ void main()
     }
     else
         printf("%s\n", name);
+   
+    return 0;
 }
