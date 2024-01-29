@@ -19,7 +19,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
-#define _DEFAULT_SOURCE
+
 #define _BSD_SOURCE
 #include "common_hdrs.h"
 #include "dir_utils.h"

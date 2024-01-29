@@ -1,5 +1,5 @@
 # Makefile for common code
-# Type  make          to build the library and header file 
+# Type  make          to build the library and header file
 #       make clean    to remove objects files and executables
 #       make install  to copy the library into ../lib and the
 #                     header to ../include
@@ -20,10 +20,10 @@ all: libspl.a
 install: libspl.a
 	cp libspl.a $(INSTALLDIR)
 	cp *.h $(INCLUDEDIR)
- 
+
 
 .c.o:
-	$(CC) $(CFLAGS) -c -fPIC  $< 
+	$(CC) $(CFLAGS) -c -fPIC  $<
 
 clean:
 	\rm $(OBJS)

@@ -17,5 +17,6 @@
 #include <paths.h>       /* For definition of _PATH_LASTLOG           */
 #include <locale.h>      /* For localization                          */
 #include <utmpx.h>       /* For utmp and wtmp processing              */
+#include <signal.h>      /* For all signal-related functions          */
 
 #endif /* SYS_HDRS_H */

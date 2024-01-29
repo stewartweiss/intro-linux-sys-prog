@@ -1,12 +1,12 @@
 /*****************************************************************************
-  Title          : spl_copy2.c
+  Title          : spl_cp2.c
   Author         : Stewart Weiss
   Created on     : August 4, 2023
   Description    : Modified version of copy.c with buffersize argument
   Purpose        : To test the effect of buffer size on performance
-  Usage          : spl_copy2 sourcefile targetfile buffersize
+  Usage          : spl_cp2 sourcefile targetfile buffersize
   Build with     : gcc -Wall -g -I../include -L ../lib -lspl \
-                   -o spl_copy2  spl_copy2.c
+                   -o spl_cp2  spl_cp2.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *

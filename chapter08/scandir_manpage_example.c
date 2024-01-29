@@ -1,4 +1,4 @@
-#define _DEFAULT_SOURCE
+
 #include <dirent.h>
 #include <stdio.h>
 #include <stdlib.h>
