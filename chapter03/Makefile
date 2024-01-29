@@ -26,5 +26,20 @@ cleanall: clean
 clean:
 	-rm -f $(OBJS)
 
-.c:
-	$(CC) $(CFLAGS) $@.c $(LDFLAGS) -o $@
+basename_demo.o: common_hdrs.h
+environ_demo.o: common_hdrs.h
+get_libc_version_demo.o: common_hdrs.h
+getenv_demo.o: common_hdrs.h
+gethostname_demo.o: common_hdrs.h
+gettid_demo.o: common_hdrs.h
+perror_demo.o: common_hdrs.h
+printargs1.o: common_hdrs.h
+printargs2.o: common_hdrs.h
+printargs3.o: common_hdrs.h
+progname_demo.o: common_hdrs.h
+risky_getenv.o: common_hdrs.h
+str2int.o: common_hdrs.h
+strerror_demo.o: common_hdrs.h
+strtol_demo.o: common_hdrs.h
+usagecheck_demo.o: common_hdrs.h
+

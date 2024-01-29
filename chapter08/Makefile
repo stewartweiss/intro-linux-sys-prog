@@ -24,8 +24,8 @@ all: $(EXECS)
 clean:
 	-rm -f $(OBJS)
 
-cleanall:
-	-rm -f $(OBJS) $(EXECS)
+cleanall: clean
+	-rm -f  $(EXECS)
 
 dircalls.o:    common_hdrs.h
 direnttest.o:  common_hdrs.h

@@ -21,8 +21,8 @@ all: $(EXECS)
 clean:
 	-rm -f $(OBJS)
 
-cleanall:
-	-rm -f $(OBJS) $(EXECS)
+cleanall: clean
+	-rm -f $(EXECS)
 
 
 fsidtest.o:      common_hdrs.h

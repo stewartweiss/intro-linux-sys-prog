@@ -25,7 +25,7 @@ VPATH     = ../include
 all: $(EXECS)
 
 cleanall: clean
-	-rm -f $(OBJS) $(EXECS)
+	-rm -f $(EXECS)
 
 clean:
 	-rm -f $(OBJS)
