@@ -1,11 +1,8 @@
-
-
 # Type  make          to compile all the programs in the chapter
 #       make clean    to remove objects files and executables
 #       make progname to make just progname
 
 include ../Makefile.inc
-
 
 CC      = /usr/bin/gcc
 SRCS    = kill_demo.c raise_demo1.c restart_demo.c send_sigint.c \
@@ -26,11 +23,11 @@ VPATH     = ../include
 
 all: $(EXECS)
 
+cleanall: clean
+	-rm -f $(EXECS)
+
 clean:
 	\rm -f $(OBJS)
-
-cleanall: clean
-	-rm -f $(OBJS) $(EXECS)
 
 
 kill_demo.o: common_hdrs.h
