@@ -10,8 +10,8 @@
 *****************************************************************************/
 
 
-#include "../include/common_hdrs.h"
-#include "../include/get_nums.h"
+#include "common_hdrs.h"
+#include "get_nums.h"
 
 
 

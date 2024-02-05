@@ -9,7 +9,7 @@
 * PARTICULAR PURPOSE. See the file COPYING.lgplv3 for details.               *
 *****************************************************************************/
 
-#include "../include/sys_hdrs.h"
+#include "common_hdrs.h"
 
 /** error_message()
    This prints an error message associated with errnum  on standard error
