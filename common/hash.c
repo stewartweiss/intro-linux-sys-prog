@@ -8,7 +8,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.lgplv3 for details.               *
 *****************************************************************************/
-
+#include "common_hdrs.h"
 #include "hash.h"
 const unsigned long long Hash_Constant = 0.6180339887498948482 * (unsigned long long int ) -1;
 

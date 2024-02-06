@@ -8,7 +8,7 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.lgplv3 for details.               *
 *****************************************************************************/
-#include "../include/common_hdrs.h"
+#include "common_hdrs.h"
 
 /*
 On successful processing, returns SUCCESS and stores the resulting value
