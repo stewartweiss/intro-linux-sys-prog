@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : getopt_demo.c
   Author         : Stewart Weiss
   Created on     : November 2, 2006
@@ -8,55 +8,41 @@
                    C or C++ program
   Usage          : getopt_demo
                    with any options following it, but the ones recognized are:
-                        -a
+                        -h
                         -b [optional_arg]
                         -c required_arg
                         -1
                     and any number of arguments after them
 
   Notes
-        The getopt() function parses the command-line arguments.  Its arguments
-        argc  and argv are the argument count and array as passed to the main()
-        function on program invocation.  An element of argv  that  starts  with
-        '-' (and is not exactly "-" or "--") is an option element.  The charac‐
-        ters of this element (aside from the initial '-')  are  option  charac‐
-        ters.   If  getopt() is called repeatedly, it returns successively each
-        of the option characters from each of the option elements.
+      The getopt() function parses the command-line arguments.  Its arguments
+      argc  and argv are the argument count and array as passed to the main()
+      function on program invocation.  An element of argv  that  starts  with
+      '-' (and is not exactly "-" or "--") is an option element.  The charac‐
+      ters of this element (aside from the initial '-')  are  option  charac‐
+      ters.   If  getopt() is called repeatedly, it returns successively each
+      of the option characters from each of the option elements.
 
-        The variable optind is the index of the next element to be processed in
-        argv.  The system initializes this value to 1.
+      The variable optind is the index of the next element to be processed in
+      argv.  The system initializes this value to 1.
 
-        When there are no more option characters, getopt() returns -1. Then
-        optind is the index in argv of the first argv-element that is not an
-        option. ( By default, getopt() permutes the contents of argv as it scans,
-        so that eventually all the nonoptions are at the end.)
+      When there are no more option characters, getopt() returns -1. Then
+      optind is the index in argv of the first argv-element that is not an
+      option. (By default, getopt() permutes the contents of argv as it scans,
+      so that eventually all the nonoptions are at the end.)
 
-        Copyright (C)  2006  Stewart Weiss
+******************************************************************************
+* Copyright (C) 2023 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
-        This program is free software: you can redistribute it and/or modify
-        it under the terms of the GNU General Public License as published by
-        the Free Software Foundation, either version 3 of the License, or
-        (at your option) any later version.
-
-        This program is distributed in the hope that it will be useful,
-        but WITHOUT ANY WARRANTY; without even the implied warranty of
-        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-        GNU General Public License for more details.
-
-        You should have received a copy of the GNU General Public License
-        along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
-
-******************************************************************************/
-
-#include <stdio.h>     /* for printf            */
-#include <stdlib.h>    /* for exit              */
-#include <unistd.h>    /* required for getopt() */
-#include <string.h>
-
-#define  TRUE  1
-#define  FALSE 0
+#include "common_hdrs.h"
 
 int main( int argc, char* argv[])
 {
@@ -86,9 +72,9 @@ int main( int argc, char* argv[])
        suppress the message by setting opterr to 0 (as is done below.) It will
        also do this if a required option argument is missing.
 
-       If the leading character is a colon':', then if getopt() finds a missing
-       required option argument, instead of returning a '?', it returns a ':',
-       which makes it possible to distinguish the type of error.
+       If the leading character is a colon':', then if getopt() finds a
+       missing required option argument, instead of returning a '?', it
+       returns a ':', making it possible to distinguish the type of error.
     */
 
     opterr = 0;  /* turn off error messages by getopt() */
