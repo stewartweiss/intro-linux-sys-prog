@@ -32,7 +32,7 @@ int main(int argc, char * argv[])
     else
         suffixptr = argv[0];
 
-    if ( suffixptr == NULL )
+    if ( *suffixptr == '\0' )
         fprintf(stderr, "Program name ends in a / character\n");
     else
         printf("Program name is %s\n", suffixptr);
