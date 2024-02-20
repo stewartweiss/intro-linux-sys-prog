@@ -10,7 +10,7 @@ CC      = /usr/bin/gcc
 SRCS    = basename_demo.c environ_demo.c get_libc_version_demo.c getenv_demo.c \
           gethostname_demo.c gettid_demo.c perror_demo.c printargs1.c  \
           printargs2.c printargs3.c progname_demo.c risky_getenv.c str2int.c \
-          strerror_demo.c  strtol_demo.c usagecheck_demo.c
+          strerror_demo.c  strtol_demo.c usagecheck_demo.c getopt_demo.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS  += -Wall -g
@@ -31,6 +31,7 @@ environ_demo.o: common_hdrs.h
 get_libc_version_demo.o: common_hdrs.h
 getenv_demo.o: common_hdrs.h
 gethostname_demo.o: common_hdrs.h
+getopt_demo.c: common_hdrs.h
 gettid_demo.o: common_hdrs.h
 perror_demo.o: common_hdrs.h
 printargs1.o: common_hdrs.h
