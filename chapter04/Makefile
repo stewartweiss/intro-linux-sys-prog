@@ -13,7 +13,8 @@ include ../Makefile.inc
 CC        = /usr/bin/gcc
 OBJS      = *.o
 EXECS     = spl_date1  spl_date2 spl_date3 spl_date4 \
-          nl_langinfo_demo strcoll_demo strfmon_demo newlocale_demo
+          nl_langinfo_demo strcoll_demo strfmon_demo newlocale_demo \
+          nl_langinfo_demo2
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
 CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
@@ -37,6 +38,7 @@ spl_date2.o:     common_hdrs.h get_nums.h error_exits.h
 spl_date3.o:     common_hdrs.h get_nums.h error_exits.h
 spl_date4.o:     common_hdrs.h get_nums.h error_exits.h
 nl_langinfo_demo.o: common_hdrs.h get_nums.h error_exits.h
+nl_langinfo_demo2.o: common_hdrs.h get_nums.h error_exits.h
 strcoll_demo.o:  common_hdrs.h get_nums.h error_exits.h
 newlocale_demo.o: common_hdrs.h get_nums.h error_exits.h
 strfmon_demo.o:  common_hdrs.h get_nums.h error_exits.h
