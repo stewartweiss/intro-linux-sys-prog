@@ -1,0 +1,4 @@
+This directory exists solely so that "make install" in the
+../common directory can copy the libspl.a file into it. But we don't want 
+to track libspl.a since it is a compiled file and we can't add empty
+directories to git.
