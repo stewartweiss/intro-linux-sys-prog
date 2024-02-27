@@ -77,3 +77,4 @@ int  get_long(char *arg, int flags, long *value, char *msg )
     *value = val;
     return VALID_NUMBER;
 }
+

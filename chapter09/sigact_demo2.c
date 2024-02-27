@@ -73,7 +73,6 @@ void fpe_handler (int signo, siginfo_t *info, void *context)
 int main(int argc, char* argv[])
 {
     struct sigaction action;
-    sigset_t     blocked;
     float      y=2.0, z = 0.0;
     BOOL  float_divzero = FALSE;
     BOOL  float_overflow = FALSE;
@@ -88,8 +87,7 @@ int main(int argc, char* argv[])
 
     action.sa_sigaction = fpe_handler;
     action.sa_flags = SA_SIGINFO;
-    sigemptyset(&blocked);
-    action.sa_mask = blocked;
+    sigemptyset(&(action.sa_mask));
     int excepts = FE_DIVBYZERO|FE_INEXACT|FE_INVALID|FE_OVERFLOW|FE_UNDERFLOW;
     feenableexcept(excepts);
     if ( sigaction(SIGFPE, &action, NULL) == -1 ) {

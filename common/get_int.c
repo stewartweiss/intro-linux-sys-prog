@@ -22,7 +22,8 @@ int  get_int(char *arg, int flags, int *value, char *msg )
 
     if ( VALID_NUMBER == res ) {
         if ( val > INT_MAX  || val < INT_MIN ) {
-            sprintf(msg, "%ld is out of range\n", val);
+            if ( NULL != msg )
+                sprintf(msg, "%ld is out of range\n", val);
             return OUT_OF_RANGE;
         }
         else {
