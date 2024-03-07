@@ -84,8 +84,9 @@ int main(int argc, char *argv[])
       }
       errno = 0;
       if (-1 == fsync(target_fd))  /* Flush data to device. */
-          /* Error trying to flush data to device. Just exit. */
-          fatal_error(errno, "fsync");
+          /* Error trying to flush data to device. */
+          if (errno != EINVAL) /* If not a terminal */
+              fatal_error(errno, "fsync");
      /* fsync() was successful. */
      errno = 0;
      if ( close(target_fd) == -1 ) {

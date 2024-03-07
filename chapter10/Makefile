@@ -1,6 +1,6 @@
 
 
-# Type  make          to compile all the programs in the chapter 
+# Type  make          to compile all the programs in the chapter
 #       make clean    to remove objects files and executables
 #       make progname to make just progname
 
@@ -12,13 +12,13 @@ SRCS    = alarm_demo1.c alarm_demo2.c clock_nanosleep_demo.c \
           posix_timer_demo1.c \
           posix_timer_demo2.c posix_timer_demo3.c posix_timer_manpage_example.c \
           progress_bar1.c progress_bar2.c progress_bar_blocked_signal.c \
-          watchfiles.c watchfiles2.c
+          watchfiles.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
 CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
-LDLIBS   +=  -lspl -lm
+LDLIBS   +=  -lspl -lm -lrt
 VPATH     = ../include
 
 .PHONY: all clean cleanall
@@ -46,5 +46,3 @@ progress_bar1.o: common_hdrs.h
 progress_bar2.o: common_hdrs.h
 progress_bar_blocked_signal.o: common_hdrs.h
 watchfiles.o: common_hdrs.h
-watchfiles2.o: common_hdrs.h
-
