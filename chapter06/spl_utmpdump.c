@@ -29,7 +29,7 @@
 /* print_header_row  prints a heading for the output.                       */
 void print_header_row( )
 {
-    printf("%-14s%-.9s%-9s%-9s%9s%-18s%-16s\n","TYPE","USER",
+    printf("%-14s%-.9s%-14s%-9s%9s%-18s%-16s\n","TYPE","USER",
              "ID","LINE"," ","HOST","TIME");
 }
 
