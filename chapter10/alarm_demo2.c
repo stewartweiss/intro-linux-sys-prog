@@ -1,14 +1,14 @@
 /*****************************************************************************
-  Title       : alarm_demo1.c
+  Title       : alarm_demo2.c
   Author      : Stewart Weiss
   Created on  : December 19, 2023
   Description : Put process to sleep for specified period.
   Purpose     : Show how alarm() behaves
-  Usage       : alarm_demo1 [seconds]
+  Usage       : alarm_demo2 [seconds]
                    If seconds is not supplied, the default is 5 seconds
 
-  Build with  : gcc -Wall -g -I../include -L../lib -o alarm_demo1  \
-                  alarm_demo1.c -lspl
+  Build with  : gcc -Wall -g -I../include -L../lib -o alarm_demo2  \
+                  alarm_demo2.c -lspl
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -57,4 +57,3 @@ int main(int argc, char* argv[])
     }
     return 0;
 }
-

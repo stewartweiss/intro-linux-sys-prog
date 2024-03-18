@@ -1,12 +1,12 @@
 /*****************************************************************************
-  Title          : progressbar1.c
+  Title          : progress_bar1.c
   Author         : Stewart Weiss
   Created on     : 1/23/2024
   Description/   : Displays a progress bar for a simulated computation
   Purpose        : To show how alarm() can be used as an interval timer
-  Usage          : progressbar1
-  Build with     : gcc -Wall -g -I../include -L../lib -o progressbar1 \
-                   progressbar1.c -lspl
+  Usage          : progress_bar1
+  Build with     : gcc -Wall -g -I../include -L../lib -o progress_bar1 \
+                   progress_bar1.c -lspl
 
   Note:
   This simulates a computation by updating a fraction_completed variable.

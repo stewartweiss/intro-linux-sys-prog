@@ -1,14 +1,14 @@
 /*****************************************************************************
-  Title       : alarm_demo1.c
+  Title       : alarm_demo3.c
   Author      : Stewart Weiss
   Created on  : December 19, 2023
   Description : Calls alarm, pause using the sigaction() to install handler
   Purpose     :
-  Usage       : alarmdemo2  <numseconds>
+  Usage       : alarmdemo3  <numseconds>
                  where <numseconds> is the number of seconds with which to
                        set the alarm
-  Build with  : gcc -Wall -g -I../include -L../lib -o alarm_demo1  \
-                  alarm_demo1.c -lspl
+  Build with  : gcc -Wall -g -I../include -L../lib -o alarm_demo3  \
+                  alarm_demo3.c -lspl
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -48,7 +48,7 @@ int main(int argc, char * argv[])
     int    resultcode;
 
     if (2 > argc) {
-        usage_error("alarm_demo1 <alarm-interval>");
+        usage_error("alarm_demo3 <alarm-interval>");
     }
 
     resultcode = get_int(argv[1], NON_NEG_ONLY|PURE, &k, NULL );
