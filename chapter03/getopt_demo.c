@@ -47,7 +47,7 @@
 int main( int argc, char* argv[])
 {
     int ch;
-    char options[] = "+:hb::c:1";
+    char options[] = ":hb::c:1";
     int opt_h = 0;
     int opt_1 = 0;
     int opt_b  = 0;
@@ -78,7 +78,7 @@ int main( int argc, char* argv[])
     */
 
     opterr = 0;  /* turn off error messages by getopt() */
-
+    optind = 0;
     while  (TRUE) {
         /* call getopt, passing argc and argv and the options string */
         ch = getopt(argc, argv, options);

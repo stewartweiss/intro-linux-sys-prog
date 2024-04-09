@@ -6,25 +6,32 @@
 #       make clean    to remove objects files and executables
 #       make progname to make just progname
 
-CC      = /usr/bin/gcc
+
+include ../Makefile.inc
+
+CC       = /usr/bin/gcc
 SRCS    = basename_demo.c environ_demo.c get_libc_version_demo.c getenv_demo.c \
           gethostname_demo.c gettid_demo.c perror_demo.c printargs1.c  \
           printargs2.c printargs3.c progname_demo.c risky_getenv.c str2int.c \
           strerror_demo.c  strtol_demo.c usagecheck_demo.c getopt_demo.c
-OBJS    = $(patsubst %.c,%.o,$(SRCS))
-EXECS   = $(patsubst %.c,%,$(SRCS))
-CFLAGS  += -Wall -g
-VPATH   =  ../include
+OBJS    := $(patsubst %.c,%.o,$(SRCS))
+EXECS   := $(patsubst %.c,%,$(SRCS))
+CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
+CPPFLAGS += -I${SPL_INCLUDE_DIR}
+LDFLAGS  += -L ${SPL_LIB_DIR}
+LDLIBS   +=  -lspl
+VPATH     = ../include
 
 .PHONY: all clean cleanall
 
 all: $(EXECS)
 
+clean:
+	-rm -f $(OBJS)
+
 cleanall: clean
 	-rm -f $(EXECS)
 
-clean:
-	-rm -f $(OBJS)
 
 basename_demo.o: common_hdrs.h
 environ_demo.o: common_hdrs.h
