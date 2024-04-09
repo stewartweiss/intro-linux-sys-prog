@@ -115,7 +115,10 @@ int main(int argc, char* argv[])
     get_dev_ino( ".", &current);
     front = PATH_MAX-1;
     pathname[PATH_MAX-1] = '\0';
-
+    if ( are_samefile(current, root)) {
+        printf("/\n");
+        return 0;
+    }
     while ( !are_samefile(current, root)) {
         /* go up to parent directory */
         chdir( ".." );

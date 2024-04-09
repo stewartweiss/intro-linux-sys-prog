@@ -17,10 +17,17 @@ int main()
     printf("no NAME_MAX\n");
 #endif
 
+
 #ifdef PATH_MAX
     printf("PATH_MAX = %d\n", PATH_MAX);
 #else
     printf("no PATH_MAX\n");
+#endif
+
+#ifdef SYMLINK
+    printf("SYMLINK_MAX = %d\n", SYMLINK_MAX);
+#else
+    printf("no SYMLINK_MAX\n");
 #endif
     return 0;
 }

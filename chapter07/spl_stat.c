@@ -8,6 +8,9 @@
   Build with     : gcc -Wall -g -I ../include spl_stat.c -o spl_stat \
                    -L../lib -lspl
 
+  Note:  This mimics the actual stat command, which ignores the LC_TIME
+         locale category's value. To use the local, compile with 
+         -DUSE_LOCALE
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
@@ -108,7 +111,11 @@ void print_time(const char* label, struct statx_timestamp *time_field)
         fatal_error(EOVERFLOW, "localtime");
 
     /* Create a string from the broken down time. */
+#ifdef USE_LOCALE
+    if ( strftime(formatted_time, sizeof(formatted_time), "%c", bdtime) == 0 )
+#else
     if ( strftime(formatted_time, sizeof(formatted_time), "%F %T", bdtime) == 0 )
+#endif
         fatal_error(BAD_FORMAT_ERROR,"strftime failed\n");
 
     printf("%s%s.%09u", label, formatted_time, time_field->tv_nsec );
