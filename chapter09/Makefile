@@ -5,7 +5,7 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = kill_demo.c raise_demo1.c restart_demo.c send_sigint.c \
+SRCS    = kill_demo.c raise_demo.c restart_demo.c send_sigint.c \
           sigact_demo1.c sigact_demo2.c sigact_demo3.c sigact_demo4.c \
           signal_counter.c signal_counter2.c signal_demo1.c signal_demo2.c \
           signal_demo3.c signal_demo4.c signal_demo5.c sigprocmask_demo1.c \

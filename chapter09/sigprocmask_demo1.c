@@ -51,7 +51,7 @@ int main(int argc, char* argv[])
     if ( -1 == sigprocmask(SIG_UNBLOCK, &blocked_set, NULL) )
         fatal_error(errno, "sigprocmask()");
     printf("SIGINT is no longer blocked. Enter a few CTRL-Cs.\n");
-    for ( i = 1; i <= 10; i++ )
+    for ( i = 1; i <= 5; i++ )
         usleep(800000);
 
     return 0;
