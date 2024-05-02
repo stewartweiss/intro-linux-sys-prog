@@ -12,7 +12,7 @@ SRCS    = alarm_demo1.c alarm_demo2.c clock_nanosleep_demo.c \
           posix_timer_demo1.c \
           posix_timer_demo2.c posix_timer_demo3.c posix_timer_manpage_example.c \
           progress_bar1.c progress_bar2.c progress_bar_blocked_signal.c \
-          watchfiles.c
+          watchfiles.c escapes_demo.c  simple_escapes_demo.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g

@@ -10,7 +10,7 @@ SRCS    = kill_demo.c raise_demo.c restart_demo.c send_sigint.c \
           signal_counter.c signal_counter2.c signal_demo1.c signal_demo2.c \
           signal_demo3.c signal_demo4.c signal_demo5.c sigprocmask_demo1.c \
           sigprocmask_demo2.c sigprocmask_demo3.c sigsuspendtest.c \
-          sigwaittest.c sysv_signal_demo.c
+          sigwait_demo1.c sysv_signal_demo.c sigwait_demo2.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
