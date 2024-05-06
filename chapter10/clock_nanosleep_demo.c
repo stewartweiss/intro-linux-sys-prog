@@ -27,6 +27,7 @@ const char mssge[]="Signal received.\n";
 void handler( int signum)
 {
     write(STDOUT_FILENO, mssge, strlen(mssge));
+    return;
 }
 
 int main(int argc, char* argv[])
@@ -47,6 +48,8 @@ int main(int argc, char* argv[])
                                 " without trailing characters.\n");
     }
 
+    act.sa_flags  = 0;
+    sigemptyset(&act.sa_mask);
     act.sa_handler = handler;
     if ( -1 == sigaction(SIGINT, &act, NULL) )
         fatal_error(errno, "sigaction");

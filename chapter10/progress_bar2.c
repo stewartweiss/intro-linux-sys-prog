@@ -4,7 +4,9 @@
   Created on     : 1/23/2024
   Description/   : Displays a progress bar for a simulated computation
   Purpose        : To show how a POSIX timer can be used as an interval timer
-  Usage          : progress_bar2
+  Usage          : progress_bar2 [refresh-interval]
+                   where 0 < refresh-interval < 6 is a fixed decimal
+                   number of seconds for the refresh rate
   Build with     : gcc -Wall -g -I../include -L../lib -o progress_bar2 \
                    progress_bar2.c -lspl
 
@@ -178,6 +180,8 @@ int main( int argc, char* argv[])
 
     draw_initial_bar();
     /* Set up signal handling. */
+    act.sa_flags = 0;
+    sigemptyset(&act.sa_mask);
     act.sa_handler = sig_handler;
     if ( sigaction(SIGINT, &act, NULL) == -1 )
         fatal_error(errno, "sigaction");

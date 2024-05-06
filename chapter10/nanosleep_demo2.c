@@ -49,6 +49,8 @@ int main(int argc, char* argv[])
     }
 
     /* Set up SIGINT handler. */
+    act.sa_flags  = 0;
+    sigemptyset(&act.sa_mask);
     act.sa_handler = handler;
     if ( -1 == sigaction(SIGINT, &act, NULL) )
         fatal_error(errno, "sigaction");
