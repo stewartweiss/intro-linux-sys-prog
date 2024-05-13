@@ -9,7 +9,7 @@ SRCS    = fork_demo1.c fork_demo2.c fork_demo3.c fork_demo4.c \
           sync_io_demo.c execve_demo1.c execve_demo2.c print_args_env.c \
           waitpid_demo.c waitid_demo.c spl_sh.c execl_demo.c execlp_demo.c \
           execle_demo.c execvp_demo.c wait_demo1.c wait_demo2.c \
-          sighandler_wait_demo.c
+          sighandler_wait_demo.c print_args_env.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
