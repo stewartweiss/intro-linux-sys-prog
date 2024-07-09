@@ -9,7 +9,24 @@
                    pthread_signal_demo.c  -lspl -lm -lrt -pthread
 
   Notes
+    By compiling the program, defining  zero or more of the three
+    symbols, MAINSIGNALS, BLOCK1, and SIGHANDLE, such as:
+         gcc -I../include -L../lib pthread_signal_demo.c  -o pthread_\
+          signal_demo -lspl -lm -lrt -pthread -DBLOCK1  -DSIGHANDLE
 
+    you can run it to confirm the signaling semantics.
+    The main() function creates three threads and then waits for them.
+
+    If MAINSIGNALS is defined when you compile it,  {main() will send a
+    thread-directed SIGINT signal to thread 1.
+
+    If SIGHANDLE is defined, then a signal handler will be registered by
+    thread 2.
+
+    If BLOCK1 is defined, then thread 1 blocks SIGINT.
+
+    If you run it without any of these symbols defined, the three
+    threads will exit normally.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
