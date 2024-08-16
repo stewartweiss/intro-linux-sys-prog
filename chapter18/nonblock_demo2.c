@@ -1,26 +1,23 @@
-/******************************************************************************
-  Title          : nonblockdemo.c
+/*****************************************************************************
+  Title          : nonblock_demo2.c
   Author         : Stewart Weiss
-  Created on     : April 11, 2013
-  Description    : Displays a pattern on screen and also reads user input
-  Purpose        : Demonstrates use of the O_NONBLOCK flag for nonblocking input
-  Usage          : nonblockdemo
-  Build with     : gcc -o nonblockdemo nonblockdemo.c
-  Modifications  :
+  Created on     : August 2, 2024
+  Description    : Like nonblock_demo1, but overwrites lines to compact output
+  Purpose        : Demonstrates use of  O_NONBLOCK flag for nonblocking input
+  Usage          : nonblock_demo1 [delay-usecs]
+  Build with     : gcc -Wall -g -I../include -L../lib -o nonblock_demo1 \
+                   nonblock_demo1.c -lspl
 
-  Notes          :
-  This just draws a sequence of dots on the screen while displaying a prompt
-  asking the user to enter a command. The user can type:
-  q to quit
-  p to pause,
-  r to resume,
-  any punctuation character, to change what' printed to that character.
-  The whole point is just to show how non-blocking mode on the input file
-  descriptor can be used while the program is busy doing something else.
-
-
-
-******************************************************************************/
+******************************************************************************
+* Copyright (C) 2024 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 
 #include "common_hdrs.h"
 #include <fcntl.h>
