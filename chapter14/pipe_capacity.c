@@ -37,6 +37,21 @@ void set_non_blocking_mode(int fd)
 }
 
 
+int fillpipe( int pipefd )
+{
+    char ch = '0';
+    int count = 0;
+    while ( TRUE ) {
+        if ( ( write(pipefd, &ch, 1) ) != 1) {
+            if ( errno != EAGAIN )
+                printf("errno = %d and write() failed\n", errno);
+            break;
+        }
+        count++;
+    }
+    return count;
+}
+
 int main(int argc, char* argv[])
 {
     int fd[2];
@@ -47,7 +62,7 @@ int main(int argc, char* argv[])
 
     set_non_blocking_mode(fd[1]);
     pipe_size = fpathconf(fd[0],  _PC_PIPE_BUF);
-
+/*
     while ( TRUE ) {
         if ( ( write(fd[1], "0", 1) ) != 1) {
             if ( errno != EAGAIN )
@@ -56,6 +71,9 @@ int main(int argc, char* argv[])
         }
         count++;
     }
+*/
+
+    count = fillpipe(fd[1]);
     printf( "The maximum number of bytes that a pipe can store is %d.\n",
               count);
     printf( "The maximum size of an atomic write to a pipe is %d bytes\n",

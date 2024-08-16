@@ -22,7 +22,7 @@
 #include "common_hdrs.h"
 #include <termios.h>
 
-#define CLEAR_SCREEN    "\033[2J"
+#define CLEAR_SCREEN    "\033[2J\033[3J"
 
 int main (int argc, char *argv[])
 {

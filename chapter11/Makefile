@@ -1,13 +1,8 @@
-
-
-# Type  make          to compile all the programs in the chapter
-#       make clean    to remove objects files and executables
-#       make progname to make just progname
-
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = showbreak.c
+SRCS    = ancestors.c displayvm.c hello_world.c memlayout.c showbreak.c \
+          print_elfhdrs.c print_elfphdr.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g

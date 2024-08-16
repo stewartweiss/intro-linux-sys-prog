@@ -2,8 +2,8 @@
   Title          : waitpid_demo.c
   Author         : Stewart Weiss
   Created on     : April 29, 2024
-  Description    : Creates 4 child processes and waits for them
-  Purpose        : To show how to use a loop to wait for multiple children.
+  Description    : Simulates a producer/consumer program with 2 processes
+  Purpose        : To show how to use sigwait to reap  children's status
   Usage          : waitpid_demo
   Build with     : gcc -Wall -I../include -L../lib -g -o waitpid_demo \
                           waitpid_demo.c -lspl
@@ -20,6 +20,7 @@
 *****************************************************************************/
 #include "common_hdrs.h"
 #include <sys/wait.h>
+#include <ctype.h>
 
 #define  PRODUCER_EXIT_VAL  63
 #define  CONSUMER_EXIT_VAL  127
@@ -58,13 +59,13 @@ void consumer(int fd,  int flag)
     int i;
     off_t  pos_to_read = 0;
     int nbytes;
-    char buffer;
+    char buffer, ch;
 
     if (flag > 0) {
         printf("Send a signal to consumer (%d) to terminate it.\n", getpid());
         pause();  /* Wait for signals */
     }
-    printf("Consumer receiving the following data from producer:\n");
+    printf("Data from producer, converted to uppercase:\n");
     for ( i = 0; i < CONSUME_TIME; i++ ) {
         sleep(1);
         if ( -1 == (nbytes = pread(fd, &buffer, 1, pos_to_read) ) )
@@ -73,7 +74,8 @@ void consumer(int fd,  int flag)
             break;
         else {
             pos_to_read++;
-            write(STDOUT_FILENO, &buffer, 1);
+            ch = toupper(buffer);
+            write(STDOUT_FILENO, &ch, 1);
         }
     }
     exit(CONSUMER_EXIT_VAL);

@@ -18,5 +18,6 @@
 #include <locale.h>      /* For localization                          */
 #include <utmpx.h>       /* For utmp and wtmp processing              */
 #include <signal.h>      /* For all signal-related functions          */
-#include <sys/stat.h>
+#include <sys/stat.h>    /* For lstat(), fstat(), etc.                */
+
 #endif /* SYS_HDRS_H */

@@ -1,7 +1,7 @@
 /*****************************************************************************
   Title          : sync_io_demo.c
   Author         : Stewart Weiss
-  Created on     : April 3, 2006
+  Created on     : April 3, 2024
   Description    : Parent and child synchronize reads/writes from shared file
   Purpose        : To demonstrate how two processes can use signals to
                    synchronize access to a shared file.

@@ -1,14 +1,15 @@
 /*****************************************************************************
-  Title          :
+  Title          : spl_ps.c
   Author         : Stewart Weiss
-  Created on     :
-  Description    :
-  Purpose        :
-  Usage          :
-  Build with     :
+  Created on     : March 24, 2024
+  Description    : A simplified ps command
+  Purpose        : To show how to use /procfs for accessing process stats
+  Usage          : spl_ps
+  Build with     : gcc -Wall -o spl_ps -I../include -L../lib spl_ps.c \
+                      -lspl -lm -lrt
 
 ******************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                         *
+* Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *
@@ -20,6 +21,7 @@
 #include "common_hdrs.h"
 #include <dirent.h>
 #include <pwd.h>
+#include <sys/stat.h>
 #include <sys/sysmacros.h>
 
 #define START_FORMAT "%H:%M"
@@ -103,12 +105,17 @@ void get_boot_time(unsigned long long *btime)
 
 void make_cpu_time_str( procstat ps, char* cputimestr )
 {
-
     long cputime = (ps.stime + ps.utime)/hz;
-    int minutes = cputime/60;
-    int hours   = minutes/60;
-    int seconds  = cputime%60;
-    sprintf( cputimestr, "%02d:%02d:%02d",hours, minutes, seconds);
+    int secs     = cputime % 60;
+    int minutes  = (cputime / 60) % 60;
+    int hours    = (cputime / 3600) % 24;
+    int days     = cputime / 86400;
+    if ( days > 0) {
+        sprintf( cputimestr, "%02d+%02d:%02d:%02d", days, hours,
+                  minutes, secs);
+    }
+    else
+        sprintf( cputimestr, "%02d:%02d:%02d",hours, minutes, secs);
 }
 
 void make_start_time_str(procstat ps, char* start_time )
@@ -236,7 +243,7 @@ void print_one_ps( procstat ps)
 {
     char   start_time[10];
     char   ttyname[10];
-    char   cputimestr[10];
+    char   cputimestr[16];
     char  *cmd;
     make_start_time_str(ps, start_time ); /* Create the start time string. */
 
@@ -250,7 +257,7 @@ void print_one_ps( procstat ps)
 
     cmd = strip_cmmd_parens(ps.comm);
 
-    printf("%-11s%5d%8d%3c %4ld  %4ld   %s  %-6s  %8s%10ld    %s \n",
+    printf("%-11s%5d%8d%3c %4ld  %4ld   %s  %-6s%10s%10ld    %s \n",
         uid2name(ps.uid), ps.pid, ps.ppid, ps.state, ps.priority, ps.nice,
         start_time, ttyname, cputimestr,    ps.vsize/1024, cmd);
     free(ps.comm);

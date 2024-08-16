@@ -19,7 +19,6 @@
 *****************************************************************************/
 
 #include "common_hdrs.h"
-//#include <pthread.h>
 #include <mqueue.h>
 #include <sys/wait.h>
 
@@ -31,6 +30,18 @@ void cleanup(int signo )
     exit(EXIT_SUCCESS);
 }
 
+void setup_sighandlers(struct sigaction *sa, int flags)
+{
+    sigemptyset(&sa->sa_mask);
+    sa->sa_handler = cleanup;
+    sa->sa_flags = flags;
+    if ( ((sigaction(SIGINT,  sa, NULL)) == -1 ) ||
+         ((sigaction(SIGHUP,  sa, NULL)) == -1 ) ||
+         ((sigaction(SIGQUIT, sa, NULL)) == -1)  ||
+         ((sigaction(SIGTERM, sa, NULL)) == -1)     )
+         fatal_error(errno,"sigaction");
+}
+
 int  main(int argc, char *argv[])
 {
     mqd_t  mqdes;              /* The message queue descriptor      */
@@ -38,6 +49,7 @@ int  main(int argc, char *argv[])
     char   *msg_buffer;        /* Stores the received message       */
     ssize_t msg_size;          /* Size of buffer                    */
     unsigned int priority;     /* Priority of received message      */
+    struct sigaction  sigact;
 
     if ( argc != 2 ) {
         fprintf(stderr, "Usage: %s <mq-name>\n", argv[0]);
@@ -52,6 +64,8 @@ int  main(int argc, char *argv[])
 
     if ( NULL == (msg_buffer = malloc(attr.mq_msgsize)) )
         fatal_error(errno, "malloc");
+
+    setup_sighandlers(&sigact, 0);
 
     sleep(20);
     while ( TRUE ) {

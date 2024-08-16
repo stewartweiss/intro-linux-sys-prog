@@ -51,7 +51,7 @@ int  get_long(char *arg, int flags, long *value, char *msg );
     and zeros for strings without any digits are allowed.
  *  @param  char*     arg     [IN]  string to parse
  *  @param  int       flags   [IN]  flag specifying how to handle anomalies
- *  @param  int*      value   [OUT] returned long int
+ *  @param  int*      value   [OUT] returned int
  *  @param  char*     msg     [OUT] if not empty, error message
  *  @return int       VALID_NUMBER or a negative error code indicating the
                       type of error

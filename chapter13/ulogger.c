@@ -2,7 +2,7 @@
   Title          : ulogger.c
   Author         : Stewart Weiss
   Created on     : June 16, 2024
-  Description    : Displays simulated list of user logged in
+  Description    : Displays simulated list of users logged in
   Purpose        : To show how to respond asynchronously to message queue
   Usage          :
   Build with     :
@@ -28,8 +28,10 @@
 #endif
 #include "ulogger.h"
 
-#define  MAX_TIMESTR  16
+#define  MAX_TIMESTR   16
 #define  MAX_USERS     256
+#define  SIGMSGAVAIL   SIGRTMIN
+#define  SIGUPDATE     SIGRTMIN+1
 
 typedef struct _user {
     uid_t   uid;
@@ -74,7 +76,7 @@ void print_status_line(char * start, char* name, uid_t uid)
              start,  name, uid);
     write(STDOUT_FILENO, buf, strlen(buf));
 }
-
+/* Create a new entry in the global users[] array for the message msg. */
 void update( msgtype *msg, uid_t uid, char *start  )
 {
     if ( count == MAX_USERS )
@@ -205,8 +207,8 @@ int  main(int argc, char *argv[])
     clearscreen();
 
     while ( TRUE ) {
-        sigwait(&mask, &signo);
-        if ( signo == SIGRTMIN+1) {
+        sigwait(&mask, &signo);  /* Wait for SIGRTMIN+1 */
+        if ( signo == SIGRTMIN+1) {/* This is raised in SIGRTMIN handler. */
             print_column_headings();
             int first = count - rows + 2;
             first = first >= 0 ? first : 0;

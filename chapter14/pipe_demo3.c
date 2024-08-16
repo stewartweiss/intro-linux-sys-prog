@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "common_hdrs.h"
 #include <sys/wait.h>
 
 
@@ -44,6 +41,30 @@
  * what, and when. Notice that these messages do not necessarily come out on
  * the console in a particular order, unless you synchronize the processes.
  */
+int fillpipe( int pipefd )
+{
+    int count = 0;
+    int flagset;
+    int nbytes = 0;
+
+    char fill[PIPE_BUF/2];
+    memset(fill, '0', PIPE_BUF/2);
+
+    flagset   = fcntl(pipefd, F_GETFL);
+    fcntl(pipefd, F_SETFL, flagset | O_NONBLOCK);
+    while ( count < 61000 ) {
+        if ( (nbytes = write(pipefd, fill, PIPE_BUF/2) ) <= 0) {
+            if ( errno != EAGAIN )
+                fatal_error(errno, "write to pipe");
+            break;
+        }
+        count += nbytes;
+    }
+    flagset   = fcntl(pipefd, F_GETFL);
+    fcntl(pipefd, F_SETFL, flagset & ~O_NONBLOCK);
+    return count;
+}
+
 
 
 int child( int readfd );
@@ -62,6 +83,7 @@ int main(int argc, char* argv[])
         perror("pipe call");
         exit(1);
     }
+
     if ( 0 == (pid = fork())) {
         int result;
         close(fd[1]);
@@ -79,7 +101,8 @@ int main(int argc, char* argv[])
         /* now delay 5 seconds to show that child will wait for message */
         sleep(5);
         close(fd[0]);      /* close the read end of the pipe */
-
+        int s = fillpipe(fd[1]);
+        printf("Pipe has %d bytes in it.\n", s);
         msg[0] = "If a packet hits a pocket on a socket on a port\n";
         msg[1] = "and the bus is interrupted as a very last resort,\n";
         msg[2] = "and the address of the memory makes your floppy disk abort,\n";
@@ -87,7 +110,8 @@ int main(int argc, char* argv[])
 
         for (i = 0; i < 4; i++) {
             length = strlen( msg[i]);
-            write(fd[1], msg[i], length);
+            if ( -1 == write(fd[1], msg[i], length))
+                printf("Parent cannot write all data into pipe.\n");
         }
 
         printf("\nParent: Finished sending message.\n");
@@ -115,7 +139,6 @@ int main(int argc, char* argv[])
 
 int child( int readfd /*, int writefd*/ )
 {
-
     const int BUFSIZE = 11;
     int pid;
     char buf[BUFSIZE];
@@ -127,9 +150,10 @@ int child( int readfd /*, int writefd*/ )
             pid, getppid());
     sleep(5);
     printf("Child: I have received the following message:\n\n");
+
     while ( 0 != (bytesread = read(readfd, buf, BUFSIZE-1))) {
-    buf[bytesread] = '\0';
-        printf("%s",  buf);
+          buf[bytesread] = '\0';
+          printf("%s",  buf);
     }
     printf("\nChild: End of message.\n");
     close(readfd);

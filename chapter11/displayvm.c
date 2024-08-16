@@ -5,17 +5,18 @@
   Description/   : Displays virtual memory addresses of a running program.
   Purpose        : To show where various types of symbols are in virtual mem
   Usage          : displayvm
-  Build with     : gcc -Wall -g -o displayvm -I../include  displayvm.c
+  Build with     : gcc -Wall -g -o displayvm -I../include  displayvm.c \
+                     -L../lib -lspl
 
 Notes.
 To make this more interesting, compile it a second time with PIE disabled:
    gcc -no-pie -fno-pie -O0 -o displayvm_no_pie  -I../include displayvm.c
 and run this executable. You'll discover radically different virtual
-addresses. Not only are they differrent but they will not be randomized
+addresses. Not only are they different but they will not be randomized
 from one run to the next.
 
 ******************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                         *
+* Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *
