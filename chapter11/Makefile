@@ -22,10 +22,12 @@ clean:
 	\rm -f $(OBJS)
 
 
-alarm_demo1.o: common_hdrs.h
+ancestors.o: common_hdrs.h
 displayvm.o:   common_hdrs.h
+hello_world.o: common_hdrs.h
 elf_utils.o:   common_hdrs.h
 memlayout1.o:  common_hdrs.h
+print_elfhdrs.o: common_hdrs.h
+print_elfphdr.o: common_hdrs.h
 showbreak.o:   common_hdrs.h
 spl_ps.o:      common_hdrs.h ps_utils.h ../common/ps_utils.c
-
