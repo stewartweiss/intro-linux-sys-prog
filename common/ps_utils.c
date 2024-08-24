@@ -28,19 +28,23 @@
 #include <sys/sysmacros.h>
 #include "ps_utils.h"
 
+static long hz;
+
 /** get_hertz() returns the number of clock ticks per second, also known
     as HZ, or the inverse of a system jiffy.
  */
 long get_hertz ()
 {
+    long freq;
 #ifdef _SC_CLK_TCK  /* If this is defined prefer it. */
-    if ((hz = sysconf(_SC_CLK_TCK)) > 0)
-        return hz;
+    if ((freq = sysconf(_SC_CLK_TCK)) > 0)
+        return (hz = freq);
+
 #endif
 #ifdef HZ           /* If this is defined use it.    */
-    return(HZ);
+    return (hz = HZ);
 #endif
-    return 100;     /* Hopefully we never need this. */
+    return (hz = 100);     /* Hopefully we never need this. */
 }
 
 /** uid2name(u) returns the username of the given uid u, truncated to
@@ -116,7 +120,9 @@ void make_start_time_str(procstat ps, char* start_time )
     struct tm           saved_start_time;
     const char* fmt =   START_FORMAT;
     unsigned long  long boot_time;
+    static unsigned long long seconds_since_epoch;
 
+    seconds_since_epoch = time(NULL);
     get_boot_time(&boot_time);
     if ( 0 == boot_time)
         fatal_error(-1, "Could not get boot time");
@@ -206,12 +212,12 @@ void parse_buf(char* buf, procstat *ps)
 }
 
 /** printheadings() prints the headings for the columns of the ps output
-    that this program allows. It isn't very extensible design.
+    that this program allows into buf. It isn't very extensible design.
     It should instead accept the heading strings as arguments and look up
     their formatting, but this is left as an exercise. */
-void printheadings()
+void printheadings(char *buf)
 {
-    printf("%-11s  %-4s %6s  %-2c%4s  "
+    sprintf(buf, "%-11s  %-4s %6s  %-2c%4s  "
            "%4s  %6s%5s    %5s    %10s    %-10s\n",
            "UID", "PID", "PPID", 'S', "PRI",
            "NI", "STIME", "TTY", "TIME", "SIZE", "CMD");
@@ -232,10 +238,10 @@ char* strip_cmmd_parens(char* comm)
         return comm+1;
 }
 
-/** print_one_ps(ps) prints a single process's stat information on a single
-   line, using the format specifiers defined by the man page for proc.
+/** print_one_ps(ps) prints a single process's stat information into buf,
+    using the format specifiers defined by the man page for proc.
 */
-void print_one_ps( procstat ps)
+void print_one_ps( procstat ps, char* buf)
 {
     char   start_time[10];
     char   ttyname[10];
@@ -253,7 +259,7 @@ void print_one_ps( procstat ps)
 
     cmd = strip_cmmd_parens(ps.comm);
 
-    printf("%-11s%5d%8d%3c %4ld  %4ld   %s  %-6s%10s%10ld    %s \n",
+    sprintf(buf, "%-11s%5d%8d%3c %4ld  %4ld   %s  %-6s%10s%10ld    %s \n",
         uid2name(ps.uid), ps.pid, ps.ppid, ps.state, ps.priority, ps.nice,
         start_time, ttyname, cputimestr,    ps.vsize/1024, cmd);
     free(ps.comm);

@@ -49,9 +49,6 @@ typedef struct
     unsigned long vsize;
 }  procstat;
 
-static unsigned long long seconds_since_epoch;
-static long hz;
-
 
 /** get_hertz() returns the number of clock ticks per second, also known
     as HZ, or the inverse of a system jiffy.
@@ -94,20 +91,20 @@ int tty_name(char *buf, unsigned maj, unsigned min);
 void parse_buf(char* buf, procstat *ps);
 
 /** printheadings() prints the headings for the columns of the ps output
-    that this program allows. It isn't very extensible design.
+    that this program allows into buf. It isn't very extensible design.
     It should instead accept the heading strings as arguments and look up
     their formatting, but this is left as an exercise. */
-void printheadings();
+void printheadings(char *buf);
 
 /** strip_cmmd_parens(cmd) returns the string obtained by removing
     the parentheses  in the first and  last positions of cmd.
 */
 char* strip_cmmd_parens(char* comm);
 
-/** print_one_ps(ps) prints a single process's stat information on a single
-   line, using the format specifiers defined by the man page for proc.
+/** print_one_ps(ps) prints a single process's stat information into buf,
+    using the format specifiers defined by the man page for proc.
 */
-void print_one_ps( procstat ps);
+void print_one_ps( procstat ps, char* buf);
 
 
 

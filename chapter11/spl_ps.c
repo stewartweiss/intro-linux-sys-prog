@@ -28,16 +28,20 @@
 
 void printallprocs( DIR *dirp )
 {
-    struct dirent   *direntp;     /* Pointer to directory entry structure  */
+    struct dirent   *direntp;     /* Pointer to directory entry structure   */
     char*   accepts="0123456789"; /* For matching directory names           */
     char    pathname[PATH_MAX];   /* Pathname to file to open               */
+    char    heading[MAX_LINE];    /* String containing heading              */
+    char    psline[MAX_LINE];     /* String containing one proc's data      */
     size_t  len = MAX_LINE;       /* Length of line getline() returned      */
     FILE*   fp;                   /* File stream to read                    */
     char*   buf;
     procstat  ps_fields;
     struct  stat  statbuffer;
 
-    printheadings();
+    memset(heading,0, MAX_LINE);
+    printheadings(heading);
+    printf("%s", heading);
     if ( NULL == (buf = malloc(MAX_LINE))) /* Allocate buffer for getline() */
         fatal_error(errno, "malloc");
 
@@ -60,7 +64,8 @@ void printallprocs( DIR *dirp )
             if ( -1 == getline(&buf,&len, fp ) )
                 fatal_error(errno, "getline()");
             parse_buf(buf, &ps_fields);
-            print_one_ps(ps_fields);
+            print_one_ps(ps_fields, psline);
+            printf("%s", psline);
         }
     }
     free(buf);
@@ -72,8 +77,7 @@ int main(int argc, char* argv[])
 {
     DIR   *dirp;
 
-    seconds_since_epoch = time(NULL);
-    hz = get_hertz();
+    get_hertz();
     errno = 0;
     if ( ( dirp = opendir("/proc") ) == NULL )
         fatal_error(errno, "opendir");           /* Could not open cwd. */
