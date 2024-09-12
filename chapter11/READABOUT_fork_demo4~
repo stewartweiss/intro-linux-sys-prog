@@ -1,0 +1,169 @@
+I want to explain what happened when I ran forkdemo1 in class on Wednesday. 
+I was puzzled by the fact that the command
+
+    forkdemo1 | wc
+
+reported twice as many lines of output as we saw on the terminal. In other words,
+when I ran forkdemo1 by itself, the output was like this:
+
+    [sweiss@cslab12 chapter07]$ forkdemo1
+    About to create many processes...
+    Process id = 8865
+    Process id = 8867
+    Process id = 8866
+    Process id = 8868
+    Process id = 8872
+    Process id = 8869
+    Process id = 8875
+    Process id = 8874
+    Process id = 8870
+    Process id = 8871
+    Process id = 8876
+    Process id = 8878
+    Process id = 8879
+    Process id = 8877
+    Process id = 8873
+    Process id = 8880
+    [sweiss@cslab12 chapter07]$
+
+But when I piped it through wc we got a "wrong" line count:
+
+    [sweiss@cslab12 chapter07]$ forkdemo1 | wc
+         32     144     832
+    [sweiss@cslab12 chapter07]$
+
+There is a very valuable lesson to learn in this seemingly contradictory output.
+I had never tried to pipe the output nor redirect it to a file, otherwise I 
+would have seen discovered this earlier. Please read on -- this is important
+and worth reading.
+
+1. Remember this important fact about fork():  when a process is created by 
+   a call to fork(), it is an almost exact duplicate of the original process. 
+   In particular it gets copies of all open file descriptors and naturally, all
+   of the process's user space memory image.
+
+2. What this means is that when a child process is created, its standard output 
+   descriptor points to the same open file structure as the parent and all other 
+   processes forked by the parent, and therefore the children and parent share 
+   the file position pointer. 
+
+3. Operations such as printf() are part of the C I/O library and act on objects
+   of type FILE, which are called streams. The C I/O Library uses stream 
+   buffering for all operations that act of FILE streams. There are three 
+   different kinds of buffering strategies:
+     * Unbuffered streams: Characters written to or read from an unbuffered 
+       stream are transmitted individually to or from the file as soon as 
+       possible.
+     * Line buffered streams: Characters written to a line buffered stream 
+       are transmitted to the file in blocks when a newline character is found.
+     * Fully buffered streams: Characters written to or read from a fully 
+       buffered stream are transmitted to or from the file in blocks of 
+       arbitrary size.
+   By default, when a stream is opened, it is fully buffered, except for 
+   streams connected to terminal devices, which are line buffered.
+
+4. The buffers created by the C I/O Library are in the process's own address 
+   space, not the kernel's address space. (When you call a function such as 
+   printf(), the library is linked into your program; all memory that it uses
+   is in your process's virtual memory.) 
+   This means that when fork() is called, the child gets a copy of the 
+   parent's library buffers, and all chidren get copies of these buffers. They
+   are NOT shared. They are duplicated.
+
+5. The C I/O library flushes all output buffers 
+   * When you try to do output and the output buffer is full.
+   * When the stream is closed. 
+   * When the program terminates by calling exit. 
+   * When a newline is written, if the stream is line buffered.
+   * Whenever an input operation on any stream actually reads data from its file.
+   * When fflush() is called on that buffer.
+
+6. A corollary to the preceding statement, until the buffer has been flushed,
+   it contains all characters that were written to it since the last time it was
+   flushed.
+
+7. No C I/O Library function is atomic. It is entirely possible that output can
+   be intermingled or even lost if the timing of calls by separate processes 
+   sharing a file position pointer leads to this.
+
+
+Now we put these facts together. The forkdemo1 program begins with the 
+instruction
+    printf("About to create many processes...\n");
+If output has not been redirected, then stdout is pointed to a terminal device
+and it is line buffered. The string "About to create many processes...\n" is 
+written to the terminal and removed from the buffer.
+
+When the process forks the children, they get empty buffers and write their
+individual messages to the terminal.  Unless by poor timing a line is 
+written over by another process, each process will produce exactly one line 
+of output. It is quite possible that this will happen if there are a large 
+enough number, N, of processes, as the probability of simultaneous writes 
+increases rapidly towards 1.0 as N increases. 
+
+If the fraction of time that each process spends in the portion of the 
+printf() function in which a race condition might occur is p, then there 
+is a probability of 1 - (1-p)^N that at least two processes are in that 
+portion of code at the same time. If, for example, p = 0.05 and N = 16, 
+then the probability of a race (and hence lost output) is 1 - 0.95^16 ~= 0.56. 
+If N = 32, it is 0.81 and when N = 64, it is 0.96.
+
+If standard output is redirected to a file or to a pipe, it no longer points
+to a terminal device and the library will fully buffer it instead of line
+buffering it. The consequence is that the string  
+    "About to create many processes...\n"
+will remain in the buffer of all child processes when they are forked, and
+when they each call
+    printf("Process id = %d\n", getpid());
+    fflush(stdout);
+the output will be of the form
+    About to create many processes...
+    Process id = 8810
+and there will be twice as many lines as there were to the terminal, roughly.
+
+Since the command 
+    forkdemo1 | wc
+redirects the standard output of forkdemo1 to a pipe, wc will see twice as
+many lines as appear on the terminal. Similarly, the command
+    forkdemo1 > outputfile
+redirects the standard output to a file, and the file will contain twice as
+many lines as what appears on the terminal.
+
+The foregoing statements are true ONLY IF the executions of the printf() 
+instructions do not overlap and no output is lost. We return to this 
+issue shortly.
+
+How can we make the behavior of the program the same regardless of whether 
+it is to a terminal or is redirected? We can force the first string to be
+flushed from the buffer by calling fflush() on stdout. Since there is no
+need to do this if it is a terminal, we can insert the two lines
+
+    if ( !isatty(fileno(stdout)) )
+        fflush(stdout);        
+
+just after the first printf().
+
+What about the problem of lost output?  How can we prevent this race condition?
+The answer is that we must not use the stream library but must use the lower 
+level write system call and file descriptors. Writes are unbuffered and we can 
+set the O_APPEND flag on file descriptor 1 so that the race condition is 
+eliminated. (Recall from Chapter 4 that this is how writes to the utmp file 
+avoid race conditions.)
+
+To use write, we must first create the output string using the sprintf()
+function:
+    char   str[32];
+    sprintf(str, "Process id = %d\n", getpid());
+
+Then we can call write():
+    write(1, str, strlen(str));
+
+But we start the program by setting O_APPEND on standard output's descriptor:
+    int flags;
+    flags = fcntl(1, F_GETFL);    
+    flags |= (O_APPEND);               
+    if (fcntl( 1, F_SETFL,flags) == -1 )
+        exit(1);
+
+This solves the problems.
+

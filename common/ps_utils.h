@@ -21,6 +21,9 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+#ifndef _PS_UTILS_H
+#define _PS_UTILS_H
+
 #include "common_hdrs.h"
 #include <dirent.h>
 #include <pwd.h>
@@ -28,7 +31,7 @@
 #include <sys/sysmacros.h>
 
 #define START_FORMAT "%H:%M"
-#define MAX_NAME    10
+#define MAX_NAME    9
 #define MAX_LINE    512
 
 typedef struct
@@ -47,6 +50,10 @@ typedef struct
     long  nice;
     unsigned long long start_time;
     unsigned long vsize;
+    long  rss;
+    long  shared;
+    double cpu_pct;
+    double mem_pct;
 }  procstat;
 
 
@@ -54,6 +61,10 @@ typedef struct
     as HZ, or the inverse of a system jiffy.
  */
 long get_hertz ();
+
+/** name2uid(n) returns the uid of the given name.
+ */
+int name2uid ( char * name );
 
 /** uid2name(u) returns the username of the given uid u, truncated to
     MAX_NAME (10) characters.
@@ -64,6 +75,8 @@ char* uid2name ( uid_t uid );
     retrieved from /proc/stat.
  */
 void get_boot_time(unsigned long long *btime);
+
+void get_cpu_time_str( procstat ps, char* cputimestr );
 
 /** make_cpu_time_str(ps, str) computes the sum of stime and utime in the
     procstat structure ps, converts it to a long int, and formats the
@@ -88,7 +101,7 @@ int tty_name(char *buf, unsigned maj, unsigned min);
 /** parse_buf(buf, ps) fills the procstat stucture ps with the fields
    from the stat file.
 */
-void parse_buf(char* buf, procstat *ps);
+int parse_buf(char* buf, procstat *ps);
 
 /** printheadings() prints the headings for the columns of the ps output
     that this program allows into buf. It isn't very extensible design.
@@ -108,7 +121,7 @@ void print_one_ps( procstat ps, char* buf);
 
 
 
-
+#endif //_PS_UTILS_H
 
 
 

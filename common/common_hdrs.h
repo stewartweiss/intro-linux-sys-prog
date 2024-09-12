@@ -13,6 +13,7 @@
 #define COMMON_HDRS_H
 
 #include "sys_hdrs.h"
+#include <sys/stat.h>
 /* Non-system headers */
 #include "get_nums.h"    /* string to number conversions              */
 #include "error_exits.h" /* error-handling and exit functions         */

@@ -1,7 +1,7 @@
 
 
 
-SUBDIRS = $(wildcard chapter*) ipc
+SUBDIRS = common $(wildcard chapter*)
 
 all:
 	for dir in $(SUBDIRS); \

@@ -1,9 +1,3 @@
-# Makefile for common code
-# Type  make          to build the library and header file
-#       make clean    to remove objects files and executables
-#       make install  to copy the library into ../lib and the
-#                     header to ../include
-
 include ../Makefile.inc
 
 INSTALLDIR = ../lib
@@ -11,24 +5,29 @@ INCLUDEDIR = ../include
 CC         = /usr/bin/gcc
 AR         = /usr/bin/ar
 SRCS       = $(wildcard *.c)
+HDRS       = $(wildcard *.h)
 OBJS       = $(patsubst %.c,%.o,$(SRCS))
 CFLAGS    += -Wall -g
 
 .PHONY: all clean cleanall install
-all: libspl.a
+all: libspl.a 
 
-install: libspl.a
+install: libspl.a $(HDRS)
 	cp libspl.a $(INSTALLDIR)
-	cp *.h $(INCLUDEDIR)
+	cp $(HDRS) $(INCLUDEDIR)
 
 
 .c.o:
 	$(CC) $(CFLAGS) -c -fPIC  $<
 
 clean:
-	\rm $(OBJS)
+	\rm $(OBJS) 
 
-libspl.a: $(OBJS)
+cleanall: clean 
+	$(RM) libspl.a
+
+libspl.a: $(OBJS)  $(HDRS)
 	$(AR) rcs libspl.a  $(OBJS)
+	cp libspl.a $(INSTALLDIR)
 
 

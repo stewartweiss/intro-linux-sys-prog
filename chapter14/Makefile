@@ -1,18 +1,14 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = pipe_demo1.c pipe_demo2.c  pipe_demo3.c popen_demo.c \
-          shellpipe_demo.c   popen_demo.c fifosender.c fifomonitor.c \
-          pipe_capacity.c
+SRCS    = calc_client.c calc_server.c upcased.c upcase.c syslog_demo.c 
 
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
-EXECS   = $(patsubst %.c,%,$(SRCS)) 
+EXECS   = $(patsubst %.c,%,$(SRCS)) spl_calc spl_calcd
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
 CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
 LDLIBS   +=  -lspl -lm -lrt
-VPATH     = ../include
-
 
 .PHONY: all clean cleanall
 
@@ -24,12 +20,14 @@ cleanall: clean
 clean:
 	-rm -f $(OBJS)
 
+spl_calc    : calc_client
+	@mv calc_client spl_calc
+	
+spl_calcd   : calc_server
+	@mv calc_server spl_calcd
 
-pipe_demo1: pipe_demo1.c 
-pipe_demo2: pipe_demo2.c 
-pipe_demo3: pipe_demo3.c 
-popen_demo: popen_demo.c
-shell_pipe_demo: shell_pipe_demo.c
-fifomonitor: fifomonitor.c fifodef.h
-fifosender: fifosender.c fifodef.h
-pipe_capacity: pipe_capacity.c
+upcased.o       : upcased.c upcase.h  $(SPL_LIB) $(SPL_HDRS)
+upcase.o        : upcase.c upcase.h  $(SPL_LIB) $(SPL_HDRS)
+calc_client.o   : calc_client.c spl_calc.h  $(SPL_LIB) $(SPL_HDRS)
+calc_server.o   : calc_server.c spl_calc.h  $(SPL_LIB) $(SPL_HDRS)
+syslog_demo.o   : syslog_demo.c  $(SPL_LIB) $(SPL_HDRS)

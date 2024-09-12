@@ -48,16 +48,28 @@ long get_hertz ()
 }
 
 /** uid2name(u) returns the username of the given uid u, truncated to
-    MAX_NAME (10) characters.
+    MAX_NAME (9) characters.
  */
 char* uid2name ( uid_t uid )
 {
     static char name[11];  /* Persistent memory */
     struct  passwd *pw_ptr;
+    if ( 0 == uid )
+      return "root";
     if ( ( pw_ptr = getpwuid( uid ) ) == NULL )
           return "";
     else
-      return strncpy(name, pw_ptr->pw_name, MAX_NAME) ;
+        return strncpy(name, pw_ptr->pw_name, MAX_NAME) ;
+}
+
+int name2uid ( char * name )
+{
+    struct  passwd *pw_ptr;
+    if ( strcmp(name, "root") == 0 )
+          return 0;
+    if ( ( pw_ptr = getpwnam( name ) ) == NULL )
+          return -1;
+    return pw_ptr->pw_uid;
 }
 
 /** get_boot_time(btime) returns the  system boot time in *btime,
@@ -71,8 +83,10 @@ void get_boot_time(unsigned long long *btime)
     FILE*  fp;
 
     *btime = 0;  /* In case we fail to get it. */
-    if ( NULL == (fp = fopen("/proc/stat", "r")) )
+    if ( NULL == (fp = fopen("/proc/stat", "r")) ) {
+        fclose(fp);
         return;
+    }
 
     if ( NULL == (buf = malloc(MAX_LINE)))
         fatal_error(errno, "malloc");
@@ -84,7 +98,35 @@ void get_boot_time(unsigned long long *btime)
             sscanf(bootline, "btime %llu", btime);
     } while ( bootline == NULL );
     free (buf);
+    fclose(fp);
 }
+
+/** get_cpu_time_str(ps, str) computes the sum of stime and utime in the
+    procstat structure ps, converts it to centiseconds as a long int, and
+    formats the total time in a string M:SS.CC unless it is greater than
+    one hour, in which case it is H:MM:SS.CC, or if greater than 24 hours,
+    in which case it formats it as DD:HH:MM:SS
+*/
+void get_cpu_time_str( procstat ps, char* cputimestr )
+{
+    long cputime = 100*(ps.stime + ps.utime)/hz;
+    int centisecs = cputime % 100;
+    cputime      /= 100;
+    int secs     = cputime % 60;
+    int minutes  = (cputime / 60) % 60;
+    int hours    = (cputime / 3600) % 24;
+    int days     = cputime / 86400;
+    if ( days > 0) {
+        sprintf( cputimestr, "%02d+%02d:%02d:%02d", days, hours,
+                  minutes, secs);
+    }
+    else if ( hours > 0 )
+        sprintf( cputimestr, "%d:%02d:%02d.%02d",hours, minutes, secs, centisecs);
+    else
+        sprintf( cputimestr, "%d:%02d.%02d", minutes, secs, centisecs);
+}
+
+
 
 /** make_cpu_time_str(ps, str) computes the sum of stime and utime in the
     procstat structure ps, converts it to a long int, and formats the
@@ -183,9 +225,10 @@ int tty_name(char *buf, unsigned maj, unsigned min)
 /** parse_buf(buf, ps) fills the procstat stucture ps with the fields
    from the stat file.
 */
-void parse_buf(char* buf, procstat *ps)
+int parse_buf(char* buf, procstat *ps)
 {
-    sscanf(buf, " %d %ms %c %d  %d " /* pid, comm, state, ppid, pgrp        */
+    int retval = 0;
+    retval = sscanf(buf, " %d %ms %c %d  %d " /* pid, comm, state, ppid, pgrp        */
                 " %d %d "            /* session, tty_nr                     */
                 " %*d %*u %*u "      /* skipping tty_pgrp, flags, min_flt   */
                 " %*u  %*u %*u "     /* skipping cmin_flt, maj_flt, cmaj_flt*/
@@ -209,6 +252,7 @@ void parse_buf(char* buf, procstat *ps)
             &ps->start_time,
             &ps->vsize
           );
+    return retval;
 }
 
 /** printheadings() prints the headings for the columns of the ps output
@@ -223,20 +267,26 @@ void printheadings(char *buf)
            "NI", "STIME", "TTY", "TIME", "SIZE", "CMD");
 }
 
+
+
 /** strip_cmmd_parens(cmd) returns the string obtained by removing
-    the parentheses  in the first and  last positions of cmd.
+     the parentheses  in the first and  last positions of cmd.
 */
 char* strip_cmmd_parens(char* comm)
 {
-    int i = 0;
+     int i = 0;
 
-    while ( comm[i] != ')' ) i++;
-    comm[i] = '\0';
-    if ( comm[0] != '(' )
-        return comm;
-    else
-        return comm+1;
+     if (NULL == comm ) return comm;
+
+     if ( comm[0] != '(' )
+         return comm;
+     else {
+         while ( comm[i] != '\0' && comm[i] != ')' ) i++;
+         comm[i] = '\0';
+         return comm+1;
+     }
 }
+
 
 /** print_one_ps(ps) prints a single process's stat information into buf,
     using the format specifiers defined by the man page for proc.

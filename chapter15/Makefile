@@ -1,16 +1,14 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = calc_client.c calc_server.c upcased.c upcase.c syslog_demo.c 
-
+SRCS    = pthread_create_demo.c pthread_create_demo2.c pthread_detach_demo.c \
+	  pthread_signal_demo.c threaded_upcased.c  pthread_getstacksize.c upcase.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
-EXECS   = $(patsubst %.c,%,$(SRCS)) spl_calc spl_calcd
+EXECS   = $(patsubst %.c,%,$(SRCS)) 
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
 CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
-LDLIBS   +=  -lspl -lm -lrt
-VPATH     = ../include
-
+LDLIBS   +=  -lspl -lm -lrt -pthread
 
 .PHONY: all clean cleanall
 
@@ -22,16 +20,10 @@ cleanall: clean
 clean:
 	-rm -f $(OBJS)
 
-spl_calc    : calc_client
-	@mv calc_client spl_calc
-	
-spl_calcd   : calc_server
-	@mv calc_server spl_calcd
-
-upcased : upcased.c upcase.h
-upcase  : upcase.c upcase.h
-upcased1 : upcased1.c upcase1.h
-upcased2: upcased2.c upcase2.h
-upcaseclient1 : upcaseclient1.c upcase1.h
-upcaseclient2: upcaseclient2.c upcase2.h
-syslog_demo:   syslog_demo.c
+pthread_create_demo.o  : pthread_create_demo.c   $(SPL_LIB) $(SPL_HDRS)
+pthread_create_demo2.o : pthread_create_demo2.c  $(SPL_LIB) $(SPL_HDRS)
+pthread_detach_demo.o  : pthread_detach_demo.c   $(SPL_LIB) $(SPL_HDRS)
+pthread_getstacksize.o : pthread_getstacksize.c  $(SPL_LIB) $(SPL_HDRS)
+pthread_signal_demo.o  : pthread_signal_demo.c   $(SPL_LIB) $(SPL_HDRS)
+threaded_upcased.o     : threaded_upcased.c      $(SPL_LIB) $(SPL_HDRS)
+upcase.o               : upcase.c                $(SPL_LIB) $(SPL_HDRS)
