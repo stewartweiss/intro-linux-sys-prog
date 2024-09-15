@@ -1,13 +1,11 @@
 /*****************************************************************************
-  Title          : nl_langinfo_demo2.c
+  Title          : spl_syscalloverhead.c
   Author         : Stewart Weiss
-  Created on     : March 13, 2023
-  Description    : Displays format used for dates in current locale
-  Purpose        : To show how to use nl_langinfo()
-  Usage          : LC_TIME=<locale-name> langinfo_demo
-  Build with     : gcc -Wall -I../include -L../lib langinfo_demo.c \
-                    -o langinfo_demo -lspl
-
+  Created on     : August 1, 2023
+  Description    : Call uname sufficiently many times to see cpu usage
+  Purpose        : To measure CPU usage of library call
+  Usage          : time -p  spl_syscalloverhead
+  Build with     : gcc -Wall -g -o spl_syscalloverhead  spl_syscalloverhead.c
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -20,19 +18,16 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#define _GNU_SOURCE
-#include <langinfo.h>
-#include "common_hdrs.h"
+#include <unistd.h>
+#include <stdio.h>
+#include <sys/utsname.h>
 
-int  main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
-    char*  mylocale;
-    if ( (mylocale = setlocale(LC_TIME, "") ) == NULL )
-        fatal_error( LOCALE_ERROR,
-           "setlocale() could not set the given locale");
+    int i;
+    struct utsname data;
 
-    printf("The  default date format is %s\n", nl_langinfo(D_T_FMT));
-
+    for ( i = 1; i < 100000000; i++ )
+        uname(&data);
     return 0;
 }
-
