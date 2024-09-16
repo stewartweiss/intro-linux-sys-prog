@@ -1,35 +1,30 @@
-# This relies on the implicit rule
-#    $(CC) $(LDFLAGS) x.o $(LOADLIBES) $(LDLIBS)
-# to link the files into x, and  the rule
-#    $(CC) -c $(CPPFLAGS) $(CFLAGS)  x.c
-# to make x.o from x.c
-
-
 include ../Makefile.inc
 
-CC        = /usr/bin/gcc
-SRCS      = spl_cp.c spl_cp2.c spl_libcalloverhead.c spl_syscalloverhead.c
-OBJS     := $(patsubst %.c,%.o,$(SRCS))
-EXECS    := $(patsubst %.c,%,$(SRCS))
+CC      = /usr/bin/gcc
+SRCS    = spl_utmpdump.c showallusers.c makefilehole.c getpwuid_demo.c \
+           spl_last.c spl_lastlog.c makelargefile.c
+OBJS    := $(patsubst %.c,%.o,$(SRCS))
+EXECS   := $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
 CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
 LDLIBS   +=  -lspl
-VPATH     = ../include
 
 .PHONY: all clean cleanall
 
 all: $(EXECS)
 
-
 cleanall: clean
-	-rm -f  $(EXECS)
+	-rm -f $(EXECS)
 
 clean:
 	-rm -f $(OBJS)
 
 
-spl_cp.o: common_hdrs.h
-spl_cp2.o: common_hdrs.h
-spl_libcalloverhead.o: common_hdrs.h
-spl_syscalloverhead.o: common_hdrs.h
+getpwuid_demo.o: getpwuid_demo.c $(SPL_LIB) $(SPL_HDRS)
+makefilehole.o: makefilehole.c  $(SPL_LIB) $(SPL_HDRS)
+makelargefile.o: makelargefile.c $(SPL_LIB) $(SPL_HDRS)
+showallusers.o: showallusers.c  $(SPL_LIB) $(SPL_HDRS)
+spl_last.o: spl_last.c      $(SPL_LIB) $(SPL_HDRS)
+spl_lastlog.o: spl_lastlog.c   $(SPL_LIB) $(SPL_HDRS)
+spl_utmpdump.o: spl_utmpdump.c  $(SPL_LIB) $(SPL_HDRS)
