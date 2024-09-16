@@ -16,6 +16,7 @@
 #define NO_TRAILING           1     /* forbid trailing characters     */
 #define NON_NEG_ONLY          2     /* forbid negative numbers        */
 #define ONLY_DIGITS           4     /* forbid strings with no digits  */
+#define POS_ONLY              8     /* forbid zero and negative numbers */
 #define PURE   NO_TRAILING | ONLY_DIGITS
 
 /* return codes */

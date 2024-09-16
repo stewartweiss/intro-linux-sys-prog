@@ -74,6 +74,13 @@ int  get_long(char *arg, int flags, long *value, char *msg )
             return NEG_NUM_FOUND;
         }
 
+    if ( flags & POS_ONLY && val <= 0) {
+            if (msg != NULL )
+                sprintf(msg, "number is not positive\n");
+            arg = endptr;
+            return NEG_NUM_FOUND;
+        }
+
     *value = val;
     return VALID_NUMBER;
 }
