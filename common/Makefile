@@ -21,7 +21,7 @@ install: libspl.a $(HDRS)
 	$(CC) $(CFLAGS) -c -fPIC  $<
 
 clean:
-	\rm $(OBJS) 
+	-rm -f $(OBJS)
 
 cleanall: clean 
 	$(RM) libspl.a
