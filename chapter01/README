@@ -3,6 +3,6 @@ $ make -k
 The -k is needed because the program bad_getenv_demo.c will not compile and
 the -k option tells make to continue making the other target executables.
 
-badgetenv.c is included in this directory because negative examples
+bad_getenv_demo.c is included in this directory because negative examples
 are just as useful as positive ones. It illustrates a common mistake that
 beginning C programmers make.
