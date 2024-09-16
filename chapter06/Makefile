@@ -1,7 +1,3 @@
-# Type  make          to compile all the programs in the chapter
-#       make clean    to remove objects files and executables
-#       make progname to make just progname
-
 include ../Makefile.inc
 
 CC       = /usr/bin/gcc
@@ -24,8 +20,7 @@ clean:
 cleanall: clean
 	-rm -f $(EXECS)
 
-
-fsidtest.o:      common_hdrs.h
-lstat_manpage_example.o:
-spl_stat.o:      common_hdrs.h
-spl_statfs.o:    common_hdrs.h
+fsidtest.o             : fsidtest.c       $(SPL_LIB) $(SPL_HDRS)
+lstat_manpage_example.o: lstat_manpage_example.c $(SPL_LIB) $(SPL_HDRS)
+spl_stat.o             : spl_stat.c       $(SPL_LIB) $(SPL_HDRS)
+spl_statfs.o           : spl_statfs.c     $(SPL_LIB) $(SPL_HDRS)
