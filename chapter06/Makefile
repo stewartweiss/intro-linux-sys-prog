@@ -1,18 +1,11 @@
-# Type  make          to compile all the programs in the directory
+# Type  make          to compile all the programs in the chapter
 #       make clean    to remove objects files and executables
 #       make progname to make just progname
-# This relies on the implicit rule
-#    $(CC) $(LDFLAGS) x.o $(LOADLIBES) $(LDLIBS)
-# to link the files into x, and  the rule
-#    $(CC) -c $(CPPFLAGS) $(CFLAGS)  x.c
-# to make x.o from x.c
-
 
 include ../Makefile.inc
 
-CC      = /usr/bin/gcc
-SRCS    = spl_utmpdump.c showallusers.c makefilehole.c getpwuid_demo.c \
-           spl_last.c spl_lastlog.c makelargefile.c
+CC       = /usr/bin/gcc
+SRCS     = fsidtest.c lstat_manpage_example.c spl_stat.c spl_statfs.c
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 EXECS   := $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
@@ -20,21 +13,19 @@ CPPFLAGS += -I${SPL_INCLUDE_DIR}
 LDFLAGS  += -L ${SPL_LIB_DIR}
 LDLIBS   +=  -lspl
 VPATH     = ../include
+
 .PHONY: all clean cleanall
 
 all: $(EXECS)
 
-cleanall: clean
-	-rm -f $(EXECS)
-
 clean:
 	-rm -f $(OBJS)
 
+cleanall: clean
+	-rm -f $(EXECS)
 
-getpwuid_demo.o: common_hdrs.h
-makefilehole.o:  common_hdrs.h
-makelargefile.o: common_hdrs.h
-showallusers.o:  common_hdrs.h
-spl_last.o:      common_hdrs.h
-spl_lastlog.o:   common_hdrs.h
-spl_utmpdump.o:  common_hdrs.h
+
+fsidtest.o:      common_hdrs.h
+lstat_manpage_example.o:
+spl_stat.o:      common_hdrs.h
+spl_statfs.o:    common_hdrs.h
