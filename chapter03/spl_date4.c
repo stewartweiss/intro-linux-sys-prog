@@ -83,6 +83,24 @@ int update_time( struct tm* datetm, struct tm* date_to_add )
     return 0;
 }
 
+void getformat( int nargs, char* argvec[], char* format_str)
+{
+    char   err_msg[MAXLEN]; /* For error messages        */
+    if ( argvec[nargs-1][0] == '+' ) /* argument starts with + */
+        if ( strlen(argvec[nargs-1]+1) < MAXLEN )
+            strncpy(format_str, argvec[nargs-1]+1, MAXLEN-1);
+        else {
+            sprintf(err_msg, "format string length is too long\n");
+            fatal_error(BAD_FORMAT_ERROR, err_msg);
+        }
+    else {
+        sprintf(err_msg,"%s: format should be +\"format-string\"\n",
+                basename(argvec[0]));
+        fatal_error(BAD_FORMAT_ERROR,err_msg);
+    }
+}
+
+
 int  main(int argc, char *argv[])
 {
     char       formatted_date[MAXLEN];/* String storing formatted date      */
@@ -147,18 +165,23 @@ int  main(int argc, char *argv[])
         }
     }
 
-    if (optind < argc) {
-        /* Non-option argument found - should be format specification.*/
-       if ( argv[optind][0] == '+' ) /* argument starts with + */
-            strncpy(format_string, argv[optind]+1, MAXLEN-1);
-        else {
-            sprintf(usage_msg, "%s [-d <time adjustment>]"
-                   " [+\"format specification\"]\n", basename(argv[0]));
-            usage_error(usage_msg);
-        }
-    }
-    else  /* No argument - use default */
-        strcpy(format_string,  FORMAT);
+    if (0 == argc - optind )
+        strcpy(format_string, FORMAT);
+    else
+        getformat( argc, argv, format_string);
+
+    //if (optind < argc) {
+        ///* Non-option argument found - should be format specification.*/
+       //if ( argv[optind][0] == '+' ) /* argument starts with + */
+            //strncpy(format_string, argv[optind]+1, MAXLEN-1);
+        //else {
+            //sprintf(usage_msg, "%s [-d <time adjustment>]"
+                   //" [+\"format specification\"]\n", basename(argv[0]));
+            //usage_error(usage_msg);
+        //}
+    //}
+    //else  /* No argument - use default */
+        //strcpy(format_string,  FORMAT);
 
     /* Get the current time.           */
     current_time = time(NULL);

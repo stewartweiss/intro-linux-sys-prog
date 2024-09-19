@@ -22,7 +22,7 @@
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
-void getformat( int nargs, char** argvec, char* format_str)
+void getformat( int nargs, char* argvec[], char* format_str)
 {
     char   err_msg[MAXLEN]; /* For error messages        */
     if ( argvec[nargs-1][0] == '+' ) /* argument starts with + */
