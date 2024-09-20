@@ -170,19 +170,6 @@ int  main(int argc, char *argv[])
     else
         getformat( argc, argv, format_string);
 
-    //if (optind < argc) {
-        ///* Non-option argument found - should be format specification.*/
-       //if ( argv[optind][0] == '+' ) /* argument starts with + */
-            //strncpy(format_string, argv[optind]+1, MAXLEN-1);
-        //else {
-            //sprintf(usage_msg, "%s [-d <time adjustment>]"
-                   //" [+\"format specification\"]\n", basename(argv[0]));
-            //usage_error(usage_msg);
-        //}
-    //}
-    //else  /* No argument - use default */
-        //strcpy(format_string,  FORMAT);
-
     /* Get the current time.           */
     current_time = time(NULL);
 
