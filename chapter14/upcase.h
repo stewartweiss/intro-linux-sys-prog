@@ -9,6 +9,8 @@
                    named converted_text_fifo is the one it reads.
 
 ******************************************************************************/
+#ifndef _UPCASE_H
+#define  _UPCASE_H
 
 #include "common_hdrs.h"
 #define PUBLIC        "/tmp/UPCASE_FIFO"
@@ -27,3 +29,4 @@ typedef struct  _message {
     char   locale[LOCALELENGTH];
 } message;
 
+#endif //  _UPCASE_H
