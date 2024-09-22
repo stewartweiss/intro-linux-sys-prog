@@ -6,7 +6,27 @@
   Purpose        : To show how to use curses for an interactive command
   Usage          : spl_top
   Build with     : gcc -g -Wall -I../include -L../lib -o spl_top spl_top.c \
-                      -lm -lspl 
+                      -lm -lspl
+
+  Notes:
+  This program is a simplified version of top. It accepts the following
+  interactive inputs:
+'q':  Quit
+'m':  Sort by memory usage percentage
+'c':  Sort by CPU time percentage
+'t':  Sort by total running time
+'p':  Sort by PID
+'u':  Sort by username, using collating order of locale
+'r':  Reverse the sort direction
+'U':  Prompt for username to filter output
+KEY_DOWN:
+'F':  Scroll down to view next unseen line
+KEY_UP:
+'B':  Scroll up to view line on top no longer visible.
+
+Scrolling has no effect if all lines are visible.
+Changing the sort always resets the screen to start with s decreasing
+order sort with the new  field, and with the largest value visible.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -42,7 +62,7 @@ For sorting by any procstat field, an array of comparison functions is used.
 #define   SUMMARY_HEIGHT  6
 #define   MAX(a,b)   ((a) >= (b))?(a):(b)
 #define   MIN(a,b)   ((a) <= (b))?(a):(b)
-FILE*     logfp;     // Not currently used
+FILE*     logfp;     // Not currently used, but can enable logging.
 
 /*
   The fields are ordered as follows:
@@ -61,7 +81,10 @@ FILE*     logfp;     // Not currently used
   cmd            COMMAND         "%s"           " %s"
 */
 
-
+/* The fieldtab table has anentry for each field. Each entry is a structure
+   that stores the field format string, heading and heading format string,
+   a mask to control whether the field is displayed, and if it's a field for
+   which sorting is supported, its comparison function pointer. */
 field fieldtab[] = {
      {"pid",      F_PID,     "%7d",   "PID",     "%7s",    7, pid_cmp},
      {"user",     F_USER,    " %-9s", "USER",    " %-10s",11, user_cmp},
@@ -106,7 +129,7 @@ void get_curtime( char* timenow)
 }
 
 /* get_uptime() stores the total uptime of the host formatted as a
-   string, either S sec, M min, HH:MM, or D:HH:MM */ 
+   string, either S sec, M min, HH:MM, or D:HH:MM */
 void get_uptime(char *uptime)
 {
     FILE *fp;
@@ -138,7 +161,10 @@ void get_uptime(char *uptime)
     fclose(fp);
 }
 
-
+/** get_numusers() returns the number of non-root users curently logged in,
+    using the utmp database for its input. To prevent overcounting, it hashes
+    each logged-in user's real uid and only counts unique users.
+ */
 int  get_numusers()
 {
     struct utmpx    utbuf;          /* read info into here */
@@ -163,13 +189,17 @@ int  get_numusers()
                 count++;
             }
         }
-    free_hash(&users);
+    free_hash(&users);  /* Must free hash table allocated by init_hash. */
     close(utmpfd);
     return count;
 }
 
 
-
+/** get_loadavges(str) extracts load averages from /proc/loadavg and creates
+    a string containing them and suitable for printing in the summary window.
+    The values are the averages over the last 1,5, and 15 minutes
+    respectively.
+ */
 void get_loadavges( char *loadstr )
 {
     FILE *fp;
@@ -180,11 +210,16 @@ void get_loadavges( char *loadstr )
     else if ( fscanf(fp, "%f %f %f", &avg1, &avg5, &avg15) < 3 )
         sprintf(loadstr, " load averages unknown ");
     else
-        sprintf(loadstr, " load average: %2.2f, %2.2f, %2.2f", avg1, avg5, avg15);
+        sprintf(loadstr, " load average: %2.2f, %2.2f, %2.2f",
+                         avg1, avg5, avg15);
     fclose(fp);
 
 }
 
+/** get_cpustates(states) extracts the combined times  of all cpus
+    from the /proc/stat file. These include user, nice system, idle,
+    waits for I/O, interrupt, hard and soft,and stolen time.
+ */
 int get_cpustates( int *states )
 {
     FILE *fp;
@@ -249,6 +284,11 @@ int get_procmem_usage( pid_t p, unsigned long *vmem, long *res, long *shr)
     return 1;
 }
 
+/** get_mem_summary(l1,l2) creates the strings to be printed in the summary
+    window on lines 1 and 2, in a format identical to that of top.
+    It gets its input from /proc/meminfo and uses the proc manpage to guide
+    which fields correspond to top output.
+ */
 int get_mem_summary( char* line1, char* line2 )
 {
 
@@ -312,7 +352,8 @@ int get_mem_summary( char* line1, char* line2 )
 
 
 
-
+/** calc_memsums(proclist, np, &sum) stores the total resident memory
+    used by all np procs in proclist into sum.*/
 void calc_memsums(procstat *proclist, int numprocs,
      unsigned long* memsum)
 {
@@ -322,8 +363,16 @@ void calc_memsums(procstat *proclist, int numprocs,
     }
 }
 
+/*****************************************************************************
+  The next 5 functions display the summary data that belongs in the summary
+  window. The first three display lines 1,2, and 3 respectively. The 4th
+  displays lines 4 and 5.  The 5th calls each of these to assemble the 5 lines
+  of the summary window.
+*****************************************************************************/
 
-
+/** show_summary_line1(win) displays current time, up time, number of users,
+    and load averages.
+*/
 void show_summary_line1(WINDOW *win)
 {
     char buf[128];
@@ -354,8 +403,9 @@ void show_summary_line1(WINDOW *win)
     wrefresh(win);
 }
 
-/* Show number of tasks and which are running, sleeping, stopped or
-     zombies. */
+/** show_summary_line2(win, proclist, np) shows number of tasks and which
+    are running, sleeping, stopped or zombies.
+ */
 void show_summary_line2(WINDOW *win, procstat* proctab, int numprocs)
 {
     int count[4] = {0,0,0,0};
@@ -378,6 +428,12 @@ void show_summary_line2(WINDOW *win, procstat* proctab, int numprocs)
     wrefresh(win);
 }
 
+/** show_summary_line3(win) shows the cpu usage statistics since the last
+    update. To do this, it has to maintain previous statistics from last
+    update in a static array variable. It computes differences between
+    last update and current one.
+
+ */
 void show_summary_line3(WINDOW *win)
 {
     int cpustate[8];
@@ -395,19 +451,24 @@ void show_summary_line3(WINDOW *win)
             df[i] = (cpustate[i] - prev_cpustate[i]) / (1.0* hz);
             sum += df[i];
         }
-        for (  i = 0; i < 8; i++)
-            df[i] = 100 * df[i]/sum;
+        if ( sum < 0.0000001 )
+            wprintw(win,"No CPU stats available.");
+        else {
+            for (  i = 0; i < 8; i++)
+                df[i] = 100 * df[i]/sum;
 
-        for (  i = 0; i < 8; i++) {
-            prev_cpustate[i] = cpustate[i];
+            for (  i = 0; i < 8; i++) {
+                prev_cpustate[i] = cpustate[i];
+            }
+            wprintw(win, " %2.1f us, %2.1f sy, %2.1f ni, %2.1f id,"
+                         " %2.1f wa, %2.1f hi, %2.1f si, %2.1f st,",
+                         df[0], df[2], df[1], df[3], df[4], df[5], df[6], df[7]);
         }
-        wprintw(win, " %2.1f us, %2.1f sy, %2.1f ni, %2.1f id,"
-                     " %2.1f wa, %2.1f hi, %2.1f si, %2.1f st,",
-                     df[0], df[2], df[1], df[3], df[4], df[5], df[6], df[7]);
-        }
+    }
     wrefresh(win);
 }
 
+/** show_summary_line4_5(win) displays memory stats from /proc/meminfo. */
 void show_summary_line4_5(WINDOW *win)
 {
     char line4[128];
@@ -434,12 +495,13 @@ void show_summary(WINDOW *win, procstat* proctab, int numprocs)
 }
 
 
-
+/** isprocdir(dirp) returns 1 if dirp is a directory whose name is
+    a sequence of digits, and 0 otherwise.
+*/
 int isprocdir(  const struct dirent *direntp)
 {
     struct stat    statbuf;
     char*   accepts="0123456789"; /* For matching directory names           */
-
 
 #ifdef _DIRENT_HAVE_D_TYPE
     if( direntp->d_type  == DT_DIR)
@@ -455,6 +517,28 @@ int isprocdir(  const struct dirent *direntp)
         return 0;
 }
 
+/** loadprocs(&proclist, &np) creates a new proctable and populates it with
+    an entry for every process represented at the current time in /proc.
+    It fills np with the number of entries it created.
+    This is the workhorse function.
+    It uses scandir() to construct an array of process directory entries
+    and for each it opens the contained stat file to extract the data.
+    The userid is extracted from the owner of the directory file, not the
+    stat file.
+
+    It uses parsebuf() on the data from the stat file toextract all
+    statistics that the program might display. parsebuf() was created for
+    spl_ps.c and is implemented in ps_utils.c.
+
+    Because the cpu percentage field must contain statistics for the time
+    interval since the lastupdate, it has to preserve the data from the
+    last update each time it's called. This is further complicated by the
+    possibility that some processes may have terminated in that interval
+    and others may have been created.
+    Since the proctable indexes are not PIDs, it uses an array of structures
+    containing cpu times and PIDs.
+
+ */
 void loadprocs(procstat** proclist,  int *numprocs)
 {
     struct dirent **namelist;     /* Array of names of proc directories    */
@@ -569,36 +653,40 @@ void loadprocs(procstat** proclist,  int *numprocs)
     free(buf);
 }
 
+/** print_procs(win,...) prints one line of content in the given window.
+    It calls print_one_proc() on each entry in the proclist.
+    If user filtering is in place, the filter will store a uid, and only
+    entries with that uid will be displayed.
+    The fmask has a bit for each column. Only those coumns whose bits are
+    set will be displayed.
+    print_one_proc() is defined in top_utils.c.
+ */
+
 void print_procs( WINDOW* win, procstat* proclist,  int numprocs, int win_lines,
                  int start, uid_t filter, fieldmask fmask)
 {
     char    psline[MAX_LINE];
     int i = start ;
-
     int   numprintlines = MIN(win_lines, numprocs);
-
-    //if ( filter == -1 ) {
-        //while ( i < numprintlines + start) {
-            //memset(psline, 0, MAX_LINE);
-            //print_one_proc(fieldtab, proclist[i], fmask, psline);
-            //mvwaddnstr(win, i-start, 0, psline, COLS);
-            //i++;
-        //}
-    //}
-    //else {
-        int count = 0;
-        while ( (i < numprocs) && (count < numprintlines + start) ){
-            if ( ( filter == -1) || (proclist[i].uid == filter) ) {
-                memset(psline, 0, MAX_LINE);
-                print_one_proc(fieldtab, proclist[i], fmask, psline);
-                mvwaddnstr(win, count-start, 0, psline, COLS);
-                count++;
-            }
-            i++;
+    int count = 0;
+    while ( (i < numprocs) && (count < numprintlines + start) ){
+        if ( ( filter == -1) || (proclist[i].uid == filter) ) {
+            memset(psline, 0, MAX_LINE);
+            print_one_proc(fieldtab, proclist[i], fmask, psline);
+            mvwaddnstr(win, count-start, 0, psline, COLS);
+            count++;
         }
-    //}
+        i++;
+    }
 }
 
+
+/** iowait(ts) runs the user interface. It calls pselect() with a
+    timeout of timespec ts. If no user input occurs and no signal
+    interrupts it, pselect() returns -1 when the timeout occurs.
+    If the user enters input it returns 1;
+    if a signal was caught before that it returns 0.
+ */
 int iowait (struct timespec *ts) {
     fd_set fds;                  /* A descriptor set for pselect     */
     int rc;                      /* Return code from pselect()       */
@@ -626,7 +714,11 @@ int iowait (struct timespec *ts) {
     return rc;
 }
 
-
+/** pick_user(win, &username) displays a prompt and collects an entered
+    username. If the username is valid, it returns its uid.
+    Otherwise it reverses video and prints Invalid user  until the next
+    update.
+ */
 int pick_user( WINDOW* win, char* user )
 {
     int  uid;
@@ -661,12 +753,16 @@ int pick_user( WINDOW* win, char* user )
     return uid;
 }
 
+
+/** cleanup() sets a glbal flag that is handled in main(). */
 void cleanup( int signum )
 {
     caught_signal = 1;
     sigcaught = signum;
 }
 
+/** setup_sighandlers() registers the cleanup() handler to run for
+    all bad signals. */
 void setup_sighandlers()
 {
     struct sigaction sa;
@@ -682,6 +778,7 @@ void setup_sighandlers()
          fatal_error(errno, "sigaction");
 }
 
+/** create_sigmask(sm) creates a signal mask tfor all signals to e blocked. */
 void create_sigmask(sigset_t *sigmask)
 {
     sigemptyset(sigmask);
@@ -766,6 +863,7 @@ int main(int argc, char *argv[])
         cleanup_exit(errno, "calloc");
     username[0] = '\0';
 
+    /* Now start updates. */
     while ( !done ) {
         show_summary(summary_win, procarray, numprocs);
         wclear(content_win);

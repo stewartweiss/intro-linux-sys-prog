@@ -1,11 +1,12 @@
 /*****************************************************************************
-  Title          : ps_utils.c
+  Title          : top_utils.c
   Author         : Stewart Weiss
-  Created on     :
-  Description    :
+  Created on     : August 24, 2024
+  Description    : A collection of utility functions for spl_top.c
   Purpose        :
   Usage          :
-  Build with     :
+  Build with     : gcc -Wall -g -I../include -L../lib -c top_utils.c \
+                      -lspl -lm
 
   Notes:
   This file contains utility functions used by programs that access the

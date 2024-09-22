@@ -2,11 +2,23 @@
   Title          : sprite_curses.c
   Author         : Stewart Weiss
   Created on     : July 28, 2024
-  Description    : Puts terminal into noncanonical, but not quite raw mode
-  Purpose        : To show how to control the terminal .
+  Description    : Displays a moving sprite on screen that user can control.
+  Purpose        : To show how curses makes sprite program easier.
   Usage          :
   Build with     : gcc -Wall -I../include -L../lib -o sprite_curses \
                       sprite_curses.c  -lspl -lncurses
+
+  Notes:
+  This program is a simple video game. It displays a sprite that moves one
+  cell every 0.4 seconds. The user can enter keyboard characters to control
+  the game.   Entering
+     'q' quits.
+     'p' pauses.
+     'c' continues or resumes.
+     'u', 'r', 'd', 'l' changes the direction of the sprite to up, right,
+          down, or left respectively.
+  If the sprite reaches a boundary, it turns to its right and continues.
+  The bottom row is reserved for a menu and the sprite never moves into it.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *

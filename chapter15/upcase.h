@@ -13,7 +13,7 @@
 #include "common_hdrs.h"
 #define PUBLIC        "/tmp/UPCASE_FIFO"
 #define LOCALELENGTH  128
-#define NAMELENGTH   ((PIPE_BUF) - LOCALELENGTH)/2
+#define NAMELENGTH   (PIPE_BUF - LOCALELENGTH)/2
 
 
 /*

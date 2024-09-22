@@ -18,14 +18,12 @@ cleanall: clean
 	-rm -f $(EXECS)
 
 clean:
-	-rm -f $(OBJS)
+	-rm -f $(OBJS) top_utils.o
 
 spl_top: spl_top.o top_utils.o top_utils.h ps_utils.c ps_utils.h \
                   $(SPL_LIB)  $(SPL_HDRS)
 	$(CC)  $(CFLAGS) $(CPPFLAGS) -o spl_top top_utils.o spl_top.c  \
            $(LDFLAGS) $(LDLIBS)
-
-$(EXECS): -lspl
 
 getstr_demo.o: getstr_demo.c $(SPL_LIB)  $(SPL_HDRS)
 curses_demo1.o: curses_demo1.c $(SPL_LIB)  $(SPL_HDRS)

@@ -2,11 +2,24 @@
   Title          : sprite.c
   Author         : Stewart Weiss
   Created on     : July 28, 2024
-  Description    : Puts terminal into noncanonical, but not quite raw mode
-  Purpose        : To show how to control the terminal .
+  Description    : Displays a moving sprite on screen that user can control.
+  Purpose        : To show how to control the terminal completely.
   Usage          : sprite_demo
   Build with     : gcc -Wall -I../include -L../lib -o sprite \
                       sprite.c  -lspl
+
+  Notes:
+  This program is a simple video game. It displays a sprite that moves one
+  cell every 0.4 seconds. The user can enter keyboard characters to control
+  the game.   Entering
+     'q' quits.
+     'p' pauses.
+     'c' continues or resumes.
+     'u', 'r', 'd', 'l' changes the direction of the sprite to up, right,
+          down, or left respectively.
+  If the sprite reaches a boundary, it turns to its right and continues.
+  The bottom row is reserved for a menu and the sprite never moves into it.
+
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
@@ -84,7 +97,7 @@ sprite sprite_obj;              /* The sprite object                            
 int    direction;           /* The sprite's current direction               */
 int    count = 0;           /* Number of times the sprite moved             */
 
-
+/* Utility function prototypes */
 void addto(screenpos *target, const screenpos adjust);
 void update_sprite(sprite *sp, int dir);
 int  on_boundary(sprite sp, int rows, int cols, int cur_direction);
@@ -106,21 +119,26 @@ void show_moves_only(int count);
 void show_menubar(int count);
 void setup_screen(int count, sprite *sprite_obj, int *initial_dir);
 
+/* Utility function implementations */
 
+/** addto(target,r,c) adds r rows, c cols to target's position. */
 void addto(screenpos *target, const screenpos adjust)
 {
     target->r += adjust.r;
     target->c += adjust.c;
 }
 
-/* update sprite(s, d) changes character displayed and direction of motion. */
+/** update sprite(s, d) changes character displayed and direction of motion.*/
 void update_sprite(sprite *sp, int dir)
 {
     addto(&(sp->pos), sprite_state[dir].pos);
     sp->symbol = sprite_state[dir].symbol;
 }
 
-
+/** on_boundary(s,r,c,dir) returns 0 if the sprite s is not on a boundary.
+    Being on a boundary means it is next to a window edge and facing that
+    edge. If it's on boundary B, it returns B.
+ */
 int on_boundary(sprite sp, int rows, int cols, int cur_direction)
 {
     if ( 1 == sp.pos.c  && cur_direction == LEFT )
@@ -135,7 +153,7 @@ int on_boundary(sprite sp, int rows, int cols, int cur_direction)
         return 0;
 }
 
-/* Start sprite_obj in the middle row, left column. */
+/** init_sprite(s) starts sprite s in the middle row, left column. */
 void init_sprite(sprite *sprite_obj)
 {
     moveto(numrows/2, 1);
@@ -144,7 +162,7 @@ void init_sprite(sprite *sprite_obj)
     sprite_obj->symbol = '>';
 }
 
-
+/** moveto(r,c) moves cursor to (r,c). */
 void moveto(int line, int col )
 {
     char seq_str[20];
@@ -153,10 +171,14 @@ void moveto(int line, int col )
     write(STDOUT_FILENO, seq_str, strlen(seq_str));
 }
 
+/** enter_alt_screen() switches terminal to use alternate screen. */
 void enter_alt_screen(void)
 {
     write(STDOUT_FILENO, USE_ALTSCREEN,strlen(USE_ALTSCREEN) );
 }
+
+/** leave_alt_screen() switches terminal to use original screen. */
+
 void leave_alt_screen(void)
 {
     write(STDOUT_FILENO, USE_OLDSCREEN,strlen(USE_OLDSCREEN) );
@@ -170,8 +192,9 @@ void clear_screen()
 }
 
 
-/* If the window is resized while the program is running, don't try to
-   save its state. Instead, just restart everything with the new size. */
+/** on_resize() handles a window resizing event.  If the window is resized
+    while the program is running, this does not save its state. Instead,
+    it just restart everything with the new size. */
 void on_resize( int signo )
 {
     struct winsize size;
@@ -223,7 +246,7 @@ int init_terminal(int ttyfd )
     return ( tcsetattr(ttyfd, TCSANOW, &cur_tty) );
 }
 
-/*****************************************************************************/
+/****************************************************************************/
 void save_tty()
 {
     if ( -1 == tcgetattr(STDIN_FILENO, &savedtty) )
@@ -236,9 +259,7 @@ void restore_tty()
         fatal_error(errno, "tcsetattr");
 }
 
-/****************************************************************************/
-
-
+/** cleanup(sig) is the handler for SIGINT and SIGQUIT signals. */
 void cleanup( int signum )
 {
     write(STDOUT_FILENO, SHOW_CURSOR, strlen(SHOW_CURSOR));
@@ -286,6 +307,10 @@ void show_menubar(int count)
     show_moves(count);
 }
 
+/** setup_screen(c,s,dir) clears the screen, hides the cursor, displays
+    the menu in the last row, or just the count if there's not enough room,
+    and initializes the sprite s.
+ */
 void setup_screen(int count, sprite *sprite_obj, int *initial_dir)
 {
     clear_screen();
@@ -352,7 +377,7 @@ int main (int argc, char *argv[])
             show_menubar(count);
         else
             show_moves_only(count);
-        usleep(delay);        /* delay a bit */
+        usleep(delay);        /* Delay a bit */
         /* Do the read. If nothing was typed, do nothing */
         if ( read(STDIN_FILENO, &ch, 1)  > 0 ) {
             switch( ch ) {

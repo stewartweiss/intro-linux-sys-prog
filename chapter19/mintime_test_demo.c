@@ -6,7 +6,17 @@
   Purpose        : To provide a way to test how settings affect read()
   Usage          : mintime_test_demo [-m M ] [ -t T]
                    where M is MIN value and T is TIME value
-  Build with     :
+  Build with     : gcc -Wall -I../include -L../lib -o mintime_testing_demo \
+                      mintime_testing_demo.c -lncurses -lspl
+  Notes:
+  This is designed to explore effects of MIN and TIME in noncanonical mode.
+  You should try at least 5 combinations:
+         0 == MIN     and TIME == 0
+         0 < MIN < 6  and TIME == 0
+         6 < MIN      and TIME == 0
+         0 == MIN     and 0 < TIME
+         0 < MIN      and 0 < TIME
+  Make TIME at least 20 to see effect easily.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -22,7 +32,9 @@
 #include <termios.h>
 
 
-/* sets the VMIN value to vmin, VTIME to vtime, turns off icanon */
+/** set_non_canonical(tts, vmin,vtie) sets the VMIN value to vmin, VTIME to
+ *  vtime, turns off icanon in the termios* tts
+ */
 void set_non_canonical(struct termios *ttystate, int vmin, int vtime)
 {
     tcgetattr( 0, ttystate);              /*  Read current setting.   */
@@ -33,6 +45,26 @@ void set_non_canonical(struct termios *ttystate, int vmin, int vtime)
         fatal_error(errno, "tcsetattr");
 }
 
+void help(char *progname)
+{
+    printf("Usage: %s [-h] | [ -m MIN ] [ -t TIME ]\n",progname);
+    printf("       -h : help");
+    printf("       -m : set VMIN value \n");
+    printf("       -t : set VTIME value \n");
+    printf("\nThis is designed to explore effects of MIN and TIME in "
+           "noncanonical mode.\nYou should try at least 5 combinations:\n"
+                "  0 == MIN     and TIME == 0\n"
+                "  0 < MIN < 6  and TIME == 0\n"
+                "  6 < MIN      and TIME == 0\n"
+                "  0 == MIN     and 0 < TIME \n"
+                "  0 < MIN      and 0 < TIME\n"
+            "Make TIME at least 20 to see its effect easily.\n");
+}
+
+/** do_read() repeatedly reads up to 6 bytes from standard input.
+ *   Terminates when the first character in the input buffer is 'q'.
+ *   Prints number of chars returned and what was read.
+ */
 void do_read( )
 {
     int    num_bytes_read;
@@ -83,10 +115,7 @@ int main(int argc, char* argv[])
             break;
         switch (ch) {
         case 'h' :
-            printf("Usage: %s [-h] | [ -m MIN ] [ -t TIME ]\n",argv[0]);
-            printf("       -h : help\n");
-            printf("       -m : set VMIN value \n");
-            printf("       -t : set VTIME value \n");
+            help(argv[0]);
             exit(0);
         case 'm' :
             min = strtol(optarg,'\0',0);
