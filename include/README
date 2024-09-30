@@ -1,0 +1,3 @@
+This directory exists solely so that "make install" in the
+../common directory can copy the header files into it. But we don't want 
+to track copies of headers and we can't add empty directories to git.
