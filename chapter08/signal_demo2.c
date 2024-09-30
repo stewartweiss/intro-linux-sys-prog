@@ -24,12 +24,11 @@
 
 int main(int argc, char* argv[])
 {
-    int i;
     if ( SIG_ERR == signal( SIGINT,  SIG_IGN ))   /* ignore Ctrl-C */
         fatal_error(errno, "signal()");
     if ( SIG_ERR == signal( SIGQUIT, SIG_IGN ))  /* ignore Ctrl-\ */
         fatal_error(errno, "signal()");
-    for( i = 10; i > 0; i-- ) {
+    for( int i = 10; i > 0; i-- ) {
         printf("Try to kill me with ^C or ^\\. "
                "Seconds remaining: %2d\n", i);
         sleep(1);

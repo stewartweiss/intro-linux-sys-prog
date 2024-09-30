@@ -37,12 +37,11 @@ void catch_sigquit(int signum)
 
 int main()
 {
-    int	i;
     if ( SIG_ERR == signal( SIGINT,  catch_sigint) )
         fatal_error(errno, "signal()");
     if ( SIG_ERR == signal( SIGQUIT, catch_sigquit) )
         fatal_error(errno, "signal()");
-    for(i = 20; i > 0; i-- ) {
+    for(int i = 20; i > 0; i-- ) {
         printf("Try to terminate me with ^C or ^\\.\n");
         sleep(1);
     }
