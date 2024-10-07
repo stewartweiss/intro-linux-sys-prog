@@ -29,8 +29,13 @@
 /* print_header_row  prints a heading for the output.                       */
 void print_header_row( )
 {
-    printf("%-14s%-.9s%-14s%-9s%9s%-18s%-16s\n","TYPE","USER",
-             "ID","LINE"," ","HOST","TIME");
+    printf("%-14s%-7s%-9s%-9s%-9s","TYPE","PID","USER","ID","LINE");
+#ifdef SHOW_EXIT
+    printf("%-9s", "STATUS");
+#else
+    printf(" ");
+#endif
+    printf("%-18s%-16s\n","HOST","TIME");
 }
 
 
@@ -53,22 +58,25 @@ void print_rec_type( int t)
 }
 
 
-/*  print_one() prints the contents of the utmp struct in human readable form.
+/*  print_one_rec() prints the contents of the utmp struct in human readable form.
     The sizes used in the printf below may not display well on all systems.
 */
-void print_one( struct utmpx *utbufp )
+void print_one_rec( struct utmpx *utbufp )
 {
     struct tm * bdtime;
     char   timestring[64];
 
     print_rec_type(utbufp->ut_type);
-    printf("%-8.8s ", utbufp->ut_user);      /* the user name  */
-    printf("%-8.8s ", utbufp->ut_id);        /* the id  */
-    printf("%-8.8s ", utbufp->ut_line);      /* the tty      */
-    printf("%-3d ", utbufp->ut_exit.e_exit);
-    printf("%-3d ", utbufp->ut_exit.e_termination);
+    printf("%-6d ",   utbufp->ut_pid);       /* Process id */
+    printf("%-8.8s ", utbufp->ut_user);      /* User name  */
+    printf("%-8.8s ", utbufp->ut_id);        /* utmp id    */
+    printf("%-8.8s ", utbufp->ut_line);      /* Line       */
+#ifdef SHOW_EXIT
+    printf("%-3d ",   utbufp->ut_exit.e_exit);
+    printf("%-3d ",   utbufp->ut_exit.e_termination);
+#endif
     if ( utbufp->ut_host[0] != '\0' )
-        printf(" %-18s", utbufp->ut_host);   /* the host    */
+        printf(" %-18s", utbufp->ut_host);   /* Host    */
     else
         printf(" %-18s", " ");
 
@@ -94,22 +102,24 @@ void print_one( struct utmpx *utbufp )
 *****************************************************************************/
 int main(int argc, char* argv[])
 {
-    struct utmpx     utmp_entry;          /* read info into here */
-    int              fd_utmp;         /* read from this descriptor */
-    size_t           utmp_size;
+    struct utmpx     *utmp_entry;   /* For returned pointer from getutxent */
 
     if ( (argc > 1) && (strcmp(argv[1],"wtmp") == 0) ) {
-        if ( (fd_utmp = open(WTMPX_FILE, O_RDONLY)) == -1 )
-           fatal_error(errno, "while opening "  WTMPX_FILE);
+        if ( -1 == utmpxname(WTMPX_FILE) )
+            fatal_error(errno, "utmpxname()");
     }
-    else if ( (fd_utmp = open(UTMPX_FILE, O_RDONLY)) == -1 ){
-           fatal_error(errno, "while opening "  UTMPX_FILE);
-        }
+    else
+        if ( -1 == utmpxname(UTMPX_FILE) )
+            fatal_error(errno, "utmpxname()");
 
     print_header_row();
-    utmp_size = sizeof(utmp_entry);
-    while( read(fd_utmp, &utmp_entry, utmp_size) == utmp_size )
-        print_one( &utmp_entry );
-    close(fd_utmp);
+    setutxent();
+    errno = 0;
+    while( (utmp_entry = getutxent()) != NULL )
+        print_one_rec( utmp_entry );
+    if ( 0 != errno )
+        fatal_error(errno, "getutxent()");
+
+    endutxent();
     return 0;
 }

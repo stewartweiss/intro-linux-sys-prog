@@ -5,7 +5,7 @@ SPL_LIB_DIR     = ../lib
 SPL_LIB         = $(SPL_LIB_DIR)/libspl.a
 VPATH           = ../include:../common
 SPL_HDRS        = \
-common_defs.h\
+#common_defs.h\
 common_hdrs.h\
 dir_utils.h\
 error_exits.h\
