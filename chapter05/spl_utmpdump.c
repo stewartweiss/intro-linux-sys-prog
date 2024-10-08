@@ -7,8 +7,8 @@
   Usage          : spl_utmpdump [wtmp]
                    if wtmp argument supplied, it prints the contents of
                    wtmp file, otherwise it prints the utmp file
-  Build with     : gcc -o spl_utmpdump spl_utmpdump.c  -I../include -L../lib -lutils
-
+  Build with     : gcc -o spl_utmpdump spl_utmpdump.c  -I../include \
+                          -L../lib -lutils
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -35,7 +35,7 @@ void print_header_row( )
 #else
     printf(" ");
 #endif
-    printf("%-18s%-16s\n","HOST","TIME");
+    printf("%-19s%-16s\n","HOST","TIME");
 }
 
 
@@ -58,8 +58,9 @@ void print_rec_type( int t)
 }
 
 
-/*  print_one_rec() prints the contents of the utmp struct in human readable form.
-    The sizes used in the printf below may not display well on all systems.
+/*  print_one_rec() prints the contents of the utmp struct in human readable
+    form. The sizes used in the printf below may not display well on all
+    systems.
 */
 void print_one_rec( struct utmpx *utbufp )
 {
@@ -76,9 +77,9 @@ void print_one_rec( struct utmpx *utbufp )
     printf("%-3d ",   utbufp->ut_exit.e_termination);
 #endif
     if ( utbufp->ut_host[0] != '\0' )
-        printf(" %-18s", utbufp->ut_host);   /* Host    */
+        printf(" %-19s", utbufp->ut_host);   /* Host    */
     else
-        printf(" %-18s", " ");
+        printf(" %-19s", " ");
 
 #if __WORDSIZE_TIME64_COMPAT32
     time_t utmp_time =  utbufp->ut_tv.tv_sec;
@@ -89,7 +90,7 @@ void print_one_rec( struct utmpx *utbufp )
     if (bdtime == NULL)
         fatal_error(EOVERFLOW, "localtime");
 
-    /* create a string from the broken down time using the %c format */
+    /* Create a string from the broken down time using the %c format */
     if (0 == strftime(timestring, sizeof(timestring),"%c", bdtime) )
         fatal_error(-1, "Conversion to a date-time string failed "
                     " or produced an empty string\n");
