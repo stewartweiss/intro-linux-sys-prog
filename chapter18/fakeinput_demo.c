@@ -23,7 +23,7 @@
 #include <sys/ioctl.h>
 #include <sys/termios.h>
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
     char word[]= "/usr/bin/echo 'This is a dangerous thing to do!'";
     char nl = '\n';

@@ -25,7 +25,7 @@
 #define  MAX  3
 extern char **environ;
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     int count = 0;
     for (int i = 0; argv[i] != NULL; i++ )

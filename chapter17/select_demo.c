@@ -200,7 +200,7 @@ void manager(int sndpipe[NSENDERS][2],int* senders, int *recvpipe,int recvpid)
     exit(EXIT_SUCCESS);
 }
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     int pipefd[NSENDERS][2];  /* Array of pipes for senders   */
     int senderpid[NSENDERS];  /* Sender process PIDs          */

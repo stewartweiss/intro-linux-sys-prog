@@ -83,7 +83,7 @@ int update_time( struct tm* datetm, struct tm* date_to_add )
     return 0;
 }
 
-void getformat( int nargs, char* argvec[], char* format_str)
+void getformat( int nargs, char *argvec[], char* format_str)
 {
     char   err_msg[MAXLEN]; /* For error messages        */
     if ( argvec[nargs-1][0] == '+' ) /* argument starts with + */

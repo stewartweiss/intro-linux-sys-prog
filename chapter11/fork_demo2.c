@@ -25,7 +25,7 @@
 const char str[] = "On the heap.";
 int   globalvar = 10;
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int    localvar = 0;
     pid_t  result, mypid;

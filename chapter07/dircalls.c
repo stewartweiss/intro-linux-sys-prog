@@ -1,7 +1,7 @@
 
 #include "common_hdrs.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int fd;
     char buf[2];

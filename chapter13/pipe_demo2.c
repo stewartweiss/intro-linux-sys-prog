@@ -58,7 +58,7 @@ void consumer(int fd[] )
     exit(EXIT_SUCCESS);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int  pipefd[2];            /* The array of file descriptors for pipe()  */
 

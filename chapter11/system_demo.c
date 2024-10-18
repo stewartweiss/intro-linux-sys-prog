@@ -22,7 +22,7 @@
 
 #include "common_hdrs.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc < 2)
         usage_error("Usage: system_demo command ");

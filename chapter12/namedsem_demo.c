@@ -29,7 +29,7 @@
 #define  WAIT(S)  if ( -1 == sem_wait(S)) fatal_error(errno, "sem_wait")
 #define  POST(S)  if ( -1 == sem_post(S)) fatal_error(errno, "sem_post")
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     sem_t *sem;
     int   status;

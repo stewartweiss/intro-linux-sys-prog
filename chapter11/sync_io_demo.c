@@ -82,7 +82,7 @@ void produce_data(int fd )
     exit(EXIT_SUCCESS);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t          pid;
     const int      CHUNKSIZE = 8;

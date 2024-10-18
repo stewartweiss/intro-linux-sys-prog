@@ -25,7 +25,7 @@
 #include "common_hdrs.h"
 #include <sys/wait.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t pid;
     int   status;

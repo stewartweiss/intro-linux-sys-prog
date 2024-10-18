@@ -29,7 +29,7 @@
 #define  READ_FD  0         /* Make it easier to see the read end.          */
 #define  WRITE_FD 1         /* Make it easier to see the write end.         */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int    fd[2];
     int    i;

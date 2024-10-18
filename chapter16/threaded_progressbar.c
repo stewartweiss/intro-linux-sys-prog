@@ -134,7 +134,7 @@ void* sighandler( void * data)
 }
 
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     const struct timespec slight_pause = {2,0};
     struct timespec remaining_sleep;

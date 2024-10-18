@@ -30,7 +30,7 @@ void handler( int signum)
     write(STDOUT_FILENO, mssge, strlen(mssge));
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct timespec initial_sleep, remainder, starttime, endtime, difftime;
     char            errmssge[100];

@@ -34,7 +34,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #include <dirent.h>
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 
     DIR            *dir;

@@ -67,7 +67,7 @@ int scan_one_dir(const char* dirname, void (*process )(const struct dirent* ))
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 
     if ( setlocale(LC_TIME, "")  == NULL )

@@ -30,7 +30,7 @@ void sigint_handler( int signum)
     return;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct timespec initial_sleep, remainder;
     char            errmssge[100];

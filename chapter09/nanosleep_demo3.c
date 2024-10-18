@@ -23,7 +23,7 @@
 
 #define NSECS  250000000L    /* 250,000,000 nsecs = 1/4 second */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct timespec sleeptime = {0,NSECS};
     int i, retval;

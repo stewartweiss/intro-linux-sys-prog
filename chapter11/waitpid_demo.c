@@ -81,7 +81,7 @@ void consumer(int fd,  int flag)
     exit(CONSUMER_EXIT_VAL);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t pid[2];                         /* Store pids of two children.    */
     pid_t retval;                         /* Return value of waitpid()      */

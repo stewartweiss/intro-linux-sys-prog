@@ -29,7 +29,7 @@ void catch_sigint(int signum)
     printf("%s caught CTRL-C!\n", progname);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     progname = argv[0];
     printf("PID=%d\n", getpid());

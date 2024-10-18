@@ -26,7 +26,7 @@
 
 #include "common_hdrs.h"
 
-int main (int argc, char * argv[], char * envp[])
+int main (int argc, char *argv[], char *envp[])
 {
     if ( argc < 2 )
         usage_error("execve_demo1 options to date\n");

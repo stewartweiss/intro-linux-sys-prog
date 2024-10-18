@@ -22,7 +22,7 @@
 #include "common_hdrs.h"
 
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
 
     printf("PID = %d, GPID = %d\n", getpid(), getpgrp());

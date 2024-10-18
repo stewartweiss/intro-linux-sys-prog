@@ -146,7 +146,7 @@ void sig_handler( int signum )
     raise(SIGTERM);
 }
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     struct sigaction act;                /* For calling sigaction           */
     int    retval;                       /* Return value from various calls */

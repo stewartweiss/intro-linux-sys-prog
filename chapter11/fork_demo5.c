@@ -22,7 +22,7 @@
 
 #include "common_hdrs.h"
 
-int main( int argc, char* argv[] )
+int main( int argc, char *argv[] )
 {
     pid_t newpid;
     int   num_children = 4;

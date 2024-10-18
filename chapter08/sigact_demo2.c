@@ -70,7 +70,7 @@ void fpe_handler (int signo, siginfo_t *info, void *context)
         raise(SIGTERM); /* To force program to quit. */
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct sigaction action;
     float      y=2.0, z = 0.0;

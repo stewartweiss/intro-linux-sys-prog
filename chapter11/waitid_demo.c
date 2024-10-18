@@ -36,7 +36,7 @@
 
 #define SLEEPTIME  60
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t      pid;
     siginfo_t  siginfo;

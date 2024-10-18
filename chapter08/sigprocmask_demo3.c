@@ -30,7 +30,7 @@ void catch_sigint(int signum)
     sig_received = 1;
 }
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
     sigset_t blockedset;
     int count = 0;

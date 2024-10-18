@@ -77,7 +77,7 @@ void printallprocs( DIR *dirp )
     printf("\n");
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     DIR   *dirp;
 

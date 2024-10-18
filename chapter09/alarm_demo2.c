@@ -34,7 +34,7 @@ void catchalarm(int signum)
     exit(EXIT_SUCCESS);      /* Exit the program */
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int delay = DEFAULT_DELAY;
     int retval = 0, k = 0;

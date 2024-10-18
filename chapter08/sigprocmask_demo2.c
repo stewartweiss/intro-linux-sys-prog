@@ -24,7 +24,7 @@
 #include  "common_hdrs.h"
 #include  <signal.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     sigset_t signals, prevsignals;
 

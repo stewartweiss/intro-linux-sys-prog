@@ -42,7 +42,7 @@ void sig_handler (int signo, siginfo_t *info, void *context)
            sigabbrev_np(info->si_signo), call_id );
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     const  int  maxsize = INPUTLEN; /* Maximum input size */
     const char  intr_message[] = "    read() was interrupted.\n";

@@ -42,7 +42,7 @@ void get_winsize(int fd, unsigned short *rows, unsigned short *cols )
                                Main Program
 *****************************************************************************/
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     unsigned short int rows, cols;
 

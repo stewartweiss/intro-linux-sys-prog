@@ -22,7 +22,7 @@
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
-int main (int argc, char * argv[] )
+int main (int argc, char *argv[] )
 {
     if ( argc < 2 )
         usage_error("execve_demo1: program-to-execute [arguments]");

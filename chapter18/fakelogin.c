@@ -32,7 +32,7 @@
 const  char loginstr[]  = "login: ";
 const  char passwdstr[] = "password: ";
 
-int main(int argc, char* argv[] )
+int main(int argc, char *argv[] )
 {
     struct termios tt;
     char username[33];

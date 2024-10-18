@@ -17,7 +17,7 @@
 #include "common_hdrs.h"
 #include   <sys/ioctl.h>
 
-int main(int argc, char* argv[] )
+int main(int argc, char *argv[] )
 {
     int     count;
     int     fd;

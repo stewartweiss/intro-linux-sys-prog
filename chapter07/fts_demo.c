@@ -28,7 +28,7 @@ int namecmp(const FTSENT **s1, const FTSENT **s2)
     return (strcoll((*s1)->fts_name, (*s2)->fts_name));
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     FTS *tree;
     FTSENT *file;

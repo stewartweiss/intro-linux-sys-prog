@@ -61,7 +61,7 @@ void sort(symbol addresses[], int count)                    /* Text segment */
     }
 }
 
-int main(int argc, char* argv[], char* envp[])              /* Text segment */
+int main(int argc, char *argv[], char* envp[])              /* Text segment */
 {
     int  i;                                               /* Stack variable */
     static long  diff;              /* Global in uninitialized data segment */

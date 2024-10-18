@@ -22,7 +22,7 @@
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     char *smallest;
     char usage_msg[256];

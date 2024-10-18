@@ -102,7 +102,7 @@ char* get_filename( dev_ino child_entry)
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     dev_ino     current;            /* dev-ino pair for node to find        */
     dev_ino     root;               /* dev-ino pair for root directory      */

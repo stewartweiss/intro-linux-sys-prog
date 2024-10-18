@@ -130,7 +130,7 @@ void child( int exit_val)
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t pid[NUM_CHILDREN];
     int   i;

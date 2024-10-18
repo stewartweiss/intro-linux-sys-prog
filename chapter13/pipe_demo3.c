@@ -73,7 +73,7 @@ int child( int readfd );
 /* file dscriptors. I pass it in instead to simplify matters. */
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int pid;
     int fd[2];

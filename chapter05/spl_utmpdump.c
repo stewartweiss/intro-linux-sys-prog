@@ -101,7 +101,7 @@ void print_one_rec( struct utmpx *utbufp )
 /*****************************************************************************
                                Main Program
 *****************************************************************************/
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct utmpx     *utmp_entry;   /* For returned pointer from getutxent */
 

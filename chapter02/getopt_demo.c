@@ -44,7 +44,7 @@
 
 #include "common_hdrs.h"
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     int ch;
     char options[] = ":hb::c:1";

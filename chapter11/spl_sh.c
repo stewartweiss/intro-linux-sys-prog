@@ -22,7 +22,7 @@
 #include "common_hdrs.h"
 #include <sys/wait.h>
 
-int main( int argc, char* argv[] )
+int main( int argc, char *argv[] )
 {
     char*   line = NULL;   /* Buffer to store input from user.      */
     size_t  len = 0;       /* Length of buffer.                     */

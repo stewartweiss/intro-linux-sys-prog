@@ -30,7 +30,7 @@ void handler( int signum)
     return;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct timespec endsleep, starttime, endtime, difftime;
     char            errmssge[100];

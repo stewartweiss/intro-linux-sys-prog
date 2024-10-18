@@ -42,7 +42,7 @@ int f(funcp q, int x, int y)
     return res;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     funcp two_op_function;
     two_op_function = &g;

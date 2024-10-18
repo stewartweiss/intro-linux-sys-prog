@@ -52,7 +52,7 @@ int fillpipe( int pipefd )
     return count;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int fd[2];
     int pipe_size;

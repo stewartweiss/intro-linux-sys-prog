@@ -27,7 +27,7 @@
 #define  READ_FD  0         /* Make it easier to see the read end.          */
 #define  WRITE_FD 1         /* Make it easier to see the write end.         */
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int  pipefd[2];        /* The array of file descriptors for pipe()      */
     char buffer;           /* A single char to receive and print            */

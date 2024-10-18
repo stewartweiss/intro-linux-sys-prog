@@ -37,7 +37,7 @@ void  handler(int signum)
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct sigaction  sigact;
     sigset_t mask;

@@ -113,7 +113,7 @@ void print_progheader64(Elf64_Phdr* hdr )
 }
 
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     int  fd;
     ssize_t  nbytes;

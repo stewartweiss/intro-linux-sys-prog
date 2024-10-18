@@ -23,7 +23,7 @@
 #include "common_hdrs.h"
 #include <pwd.h>
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     /* Declare a passwd structure to store returned record. */
     struct passwd  *psswd_struct;

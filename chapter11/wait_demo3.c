@@ -69,7 +69,7 @@ void child( int exit_val)
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t pid[4], w;
     int   i, num_children = 4;

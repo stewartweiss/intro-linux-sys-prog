@@ -478,7 +478,7 @@ BOOL  set_switch(struct termios *tt, char *name)
 
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct  termios ttyinfo;  /* termios structure to store settings        */
     int     ttyfd;            /* File descriptor for control terminal       */

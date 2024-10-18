@@ -25,7 +25,7 @@
 #include "common_hdrs.h"
 #include <pwd.h>
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     uid_t           userid;
     struct passwd  *psswd_struct;

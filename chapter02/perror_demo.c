@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int main(int argc, char* argv[] )
+int main(int argc, char *argv[] )
 {
     char  name[4];   /* declare string to hold returned value */
     size_t len = 3;  /* purposely too small so error is revealed */

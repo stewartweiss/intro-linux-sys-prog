@@ -47,7 +47,7 @@ void on_interrupt(int signo)
         write(1, alert, alertlen);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     struct sigaction sigact;
     int n;

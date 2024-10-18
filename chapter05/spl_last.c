@@ -241,7 +241,7 @@ void erase_utlist(utlist **list)
 }
 
 
-int main( int argc, char* argv[] )
+int main( int argc, char *argv[] )
 {
 
     struct utmpx  utmp_entry;              /* Read info into here             */

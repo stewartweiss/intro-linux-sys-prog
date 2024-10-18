@@ -51,7 +51,7 @@ pid_t getparentid( pid_t p)
     return parentpid;
 }
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     pid_t pid, parentpid;
     char errmessage[128];

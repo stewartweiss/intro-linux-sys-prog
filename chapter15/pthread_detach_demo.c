@@ -39,7 +39,7 @@ void *thread_routine(void * arg)
     return(NULL);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     /* Some artificial data */
     char * buf = "abcdefghijklmnopqrstuvwxyz";

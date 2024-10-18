@@ -22,7 +22,7 @@
 #include "common_hdrs.h"
 #include <signal.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if ( SIG_ERR == signal( SIGINT,  SIG_IGN ))   /* ignore Ctrl-C */
         fatal_error(errno, "signal()");

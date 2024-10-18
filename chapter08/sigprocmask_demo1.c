@@ -30,7 +30,7 @@ void catch_sigint( int signum )
     printf("  Caught SIGINT\n"); /* UNSAFE */
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int i;
     sigset_t blocked_set;

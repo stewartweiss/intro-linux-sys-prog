@@ -94,7 +94,7 @@ void sig_handler( int signum )
     raise(SIGTERM);
 }
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     struct sigaction act;
     const struct timespec slight_pause = {2,0};

@@ -20,7 +20,7 @@
 #define _GNU_SOURCE
 #include "common_hdrs.h"
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
     if ( argc < 5 )
          usage_error("execl_demo command arg1 arg2 arg3\n");

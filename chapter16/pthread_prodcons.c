@@ -126,7 +126,7 @@ void *consumer( void * data )
                                    Main Program
 ----------------------------------------------------------------------------*/
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     char      ch;
     long i;

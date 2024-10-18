@@ -21,7 +21,7 @@
 #include "common_hdrs.h"
 #include <sys/wait.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int    nbytes;             /* Number of bytes read from pipe            */
     FILE  *fin;                /* Stream pointing to read end of pipe       */

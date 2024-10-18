@@ -96,7 +96,7 @@ void child( int exit_val)
 }
 
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     pid_t pid[NUM_CHILDREN], w;
     int   exitval[NUM_CHILDREN] = {0,0,0,0}; /* Default values for children */

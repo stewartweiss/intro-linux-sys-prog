@@ -57,7 +57,7 @@ void print_amount(double amount)
 
 }
 
-int main( int argc, char* argv[])
+int main( int argc, char *argv[])
 {
     if ( argc < 2) {
         usage_error("missing argument");

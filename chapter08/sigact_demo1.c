@@ -38,7 +38,7 @@ void sig_handler (int signo, siginfo_t *info,  void *context)
         raise(SIGTERM);
 }
 
-int main (int argc, char* argv[])
+int main (int argc, char *argv[])
 {
     struct sigaction the_action;
 
