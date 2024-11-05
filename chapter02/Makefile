@@ -4,7 +4,8 @@ CC       = /usr/bin/gcc
 SRCS    = basename_demo.c environ_demo.c get_libc_version_demo.c getenv_demo.c \
           gethostname_demo.c gettid_demo.c perror_demo.c printargs1.c  \
           printargs2.c printargs3.c progname_demo.c risky_getenv.c str2int.c \
-          strerror_demo.c  strtol_demo.c usagecheck_demo.c getopt_demo.c
+          strerror_demo.c  strtol_demo.c usagecheck_demo.c getopt_demo.c \
+          test_get_long.c test_get_int.c
 OBJS    := $(patsubst %.c,%.o,$(SRCS))
 EXECS   := $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
@@ -40,3 +41,6 @@ str2int.o: str2int.c  $(SPL_LIB) $(SPL_HDRS)
 strerror_demo.o: strerror_demo.c  $(SPL_LIB) $(SPL_HDRS)
 strtol_demo.o: strtol_demo.c  $(SPL_LIB) $(SPL_HDRS)
 usagecheck_demo.o: usagecheck_demo.c  $(SPL_LIB) $(SPL_HDRS)
+# DO NOT DELETE
+
+usagecheck_demo.o: /usr/include/stdio.h /usr/include/stdlib.h

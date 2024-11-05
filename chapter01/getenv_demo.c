@@ -2,7 +2,7 @@
   Title          : getenv_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
-  Description    : Displays value of COLUMNS environment variable
+  Description    : Displays value of SHELL environment variable
   Purpose        : To show one way to get value of an environment variable
   Usage          : getenv_demo
   Build with     : gcc -o getenv_demo getenv_demo.c
@@ -23,6 +23,6 @@
 
 int main()
 {
-    char* num_columns = getenv("COLUMNS");
-    printf("This window has %s columns.\n", num_columns);
+    char* shell = getenv("SHELL");
+    printf("The current shell is %s.\n", shell);
 };

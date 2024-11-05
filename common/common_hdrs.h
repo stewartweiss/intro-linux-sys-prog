@@ -15,12 +15,12 @@
 #include "sys_hdrs.h"
 #include <sys/stat.h>
 /* Non-system headers */
-#include "get_nums.h"    /* string to number conversions              */
-#include "error_exits.h" /* error-handling and exit functions         */
+#include "get_nums.h"          /* String to number conversions              */
+#include "error_exits.h"       /* Error-handling and exit functions         */
 
 
 
-/* Define various constants and types used throughout the examples.   */
+/* Define various constants and types used throughout the examples.         */
 #define  STRING_MAX  1024
 
 /* Create a BOOL type */
@@ -46,7 +46,7 @@ typedef enum{FALSE, TRUE} BOOL;
 #define LOCALE_ERROR        -3    /* Non-specific error from setlocale()    */
 
 /* General errors */
-#define READ_ERROR          -4    /* Incomplete read of a file             */
-#define MEM_ERROR           -5    /* Insufficient memory                   */
+#define READ_ERROR          -4    /* Incomplete read of a file              */
+#define MEM_ERROR           -5    /* Insufficient memory                    */
 
 #endif /* COMMON_HDRS_H */

@@ -120,9 +120,9 @@ int  main(int argc, char *argv[])
     /* Turn on locale awareness for strftime() to format the output
        in the user's locale. To test whether it is working, change the
        environment variable LC_TIME preceding the program run, as in
-               LC_TIME=de_DE.UTF-8  showdate4
+               LC_TIME=de_DE.UTF-8  spl_date4
        and to change the time zone, change TZ prior to the call, as in
-               TZ=fr_FR LC_TIME=fr_FR.UTF-8 showdate 4
+               TZ=fr_FR LC_TIME=fr_FR.UTF-8 spl_date4
     */
 
     char*  mylocale;
