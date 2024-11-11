@@ -39,9 +39,9 @@ void print_header_row( )
 }
 
 
-/*  print_rec_type prints the string representation of the integer value
+/*  print_ut_type prints the string representation of the integer value
     of utmp type  */
-void print_rec_type( int t)
+void print_ut_type( int t)
 {
     switch (t)
     {
@@ -67,7 +67,7 @@ void print_one_rec( struct utmpx *utbufp )
     struct tm * bdtime;
     char   timestring[64];
 
-    print_rec_type(utbufp->ut_type);
+    print_ut_type(utbufp->ut_type);
     printf("%-6d ",   utbufp->ut_pid);       /* Process id */
     printf("%-8.8s ", utbufp->ut_user);      /* User name  */
     printf("%-8.8s ", utbufp->ut_id);        /* utmp id    */
