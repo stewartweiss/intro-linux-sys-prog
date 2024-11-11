@@ -103,7 +103,7 @@ int get_prev_utrec(int fd, struct utmpx *ut, BOOL *finished )
     }
     else if ( nbytes_read < utsize ) {
         /* Full utmpx struct not read; do not exit - let main() do that. */
-        error_mssge(2, "less than full record read");
+        error_mssge(READ_ERROR, "less than full record read");
         return FALSE;
     }
     else { /* Successful read of utmpx record */
@@ -173,7 +173,7 @@ void print_one_line(struct utmpx *ut, time_t end_time)
 
     bd_ut_time     = localtime(&utrec_time); /* Convert login time to broken-down time. */
     if (bd_ut_time == NULL)
-        fatal_error(EOVERFLOW, "localtime");
+        fatal_error(errno, "localtime");
 
     if (0 == strftime(formatted_login, sizeof(formatted_login),
              start_date_fmt, bd_ut_time) )
@@ -182,7 +182,7 @@ void print_one_line(struct utmpx *ut, time_t end_time)
                         " an empty string\n");
     bd_end_time = localtime(&end_time);   /* Convert end time to broken-down time. */
     if (bd_end_time == NULL)
-        fatal_error(EOVERFLOW, "localtime");
+        fatal_error(errno, "localtime");
 
     if (0 == strftime(formatted_logout, sizeof(formatted_logout),
              end_date_fmt, bd_end_time) )
@@ -190,7 +190,7 @@ void print_one_line(struct utmpx *ut, time_t end_time)
                      "Conversion to a date-time string failed or produced "
                         " an empty string\n");
 
-    ut->ut_host[sizeof(ut->ut_host)] = '\0';
+    ut->ut_host[sizeof(ut->ut_host)-1] = '\0';
     printf("%-8.8s %-12.12s %-18s %s - %s %s\n", ut->ut_user, ut->ut_line,
             ut->ut_host, formatted_login, formatted_logout, duration);
 }
