@@ -28,6 +28,12 @@ int main( int argc, char *argv[])
     /* Declare a passwd structure to store returned record. */
     struct passwd  *psswd_struct;
 
+
+    /* Set the locale. */
+    if ( NULL == setlocale(LC_TIME, "")  )
+        fatal_error( LOCALE_ERROR,
+                 "setlocale() could not set the given locale");
+
     /* Initialize the iterator. */
     setpwent();
 
