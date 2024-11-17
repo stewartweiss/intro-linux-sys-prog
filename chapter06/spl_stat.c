@@ -9,7 +9,7 @@
                    -L../lib -lspl
 
   Note:  This mimics the actual stat command, which ignores the LC_TIME
-         locale category's value. To use the local, compile with 
+         locale category's value. To use the local, compile with
          -DUSE_LOCALE
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -34,8 +34,9 @@
 /****************************************************************************/
 char* mode2str( int mode)
 {
-    static char str[] = "----------";           /* Initial string   */
+    static char str[11];                        /* Initial string    */
 
+    strcpy(str, "----------");
     if      ( S_ISDIR(mode) )  str[0] = 'd';    /* Directory         */
     else if ( S_ISCHR(mode) )  str[0] = 'c';    /* Char devices      */
     else if ( S_ISBLK(mode) )  str[0] = 'b';    /* Block device      */
