@@ -42,6 +42,18 @@
   visited, including those in all subtrees of those trees  already visited.
 */
 static  uintmax_t total_usage[MAXDEPTH];  /* total disk usage for level n   */
+
+
+/* prev_level is the level of the node in the tree visited immediately
+   before the current node. Before each tree search, it is initialized to -1
+   to indicate that no node has been visited yet. It must be in file scope
+   so that its value is preserved  across calls to file_usage() but can be
+   initialized to -1 by the main() function before each tree search.
+*/
+static int  prev_level;
+
+
+
 static  hash_table  visited;              /* Set of inodes already visited  */
 
 BOOL  was_visited(ino_t inode, dev_t dev)
@@ -65,7 +77,6 @@ int file_usage(const char *fpath, const struct stat *sb,
        and if prev_level != -1, then it is the level of the file
        processed immediately before the current file.
     */
-    static int prev_level = -1;
     int        cur_level;
     BOOL       already_visited = FALSE;
 
@@ -180,6 +191,7 @@ int main(int argc, char *argv[])
     if ( argc < 2 )  {
         init_hash(&visited, INITIAL_HASH_SIZE);
         memset( total_usage, 0, MAXDEPTH*sizeof(uintmax_t));
+        prev_level = -1;
         if ( 0 != (status = nftw(".", file_usage, 20, flags) ) )
            fatal_error(status, "nftw");
         free_hash(&visited);
@@ -188,7 +200,8 @@ int main(int argc, char *argv[])
         while (i < argc) {
             init_hash(&visited, INITIAL_HASH_SIZE);
             memset( total_usage, 0, MAXDEPTH*sizeof(uintmax_t));
-            if ( 0 != ( status = nftw(argv[i], file_usage, MAXDEPTH, flags)))
+            prev_level = -1;
+        if ( 0 != ( status = nftw(argv[i], file_usage, MAXDEPTH, flags)))
                 fatal_error(status, "nftw");
             else {
                 i++;

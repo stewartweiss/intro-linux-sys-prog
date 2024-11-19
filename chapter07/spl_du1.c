@@ -41,6 +41,13 @@
 */
 static  uintmax_t totalsize[MAXDEPTH];
 
+/* prev_level is the level of the node in the tree visited immediately
+   before the current node. Before each tree search, it is initialized to -1
+   to indicate that no node has been visited yet. It must be in file scope
+   so that its value is preserved  across calls to file_usage() but can be
+   initialized to -1 by the main() function before each tree search.
+*/
+static int  prev_level;
 
 
 int file_usage(const char *fpath, const struct stat *sb,
@@ -52,7 +59,6 @@ int file_usage(const char *fpath, const struct stat *sb,
        and if prev_level != -1, then it is the level of the file
        processed immediately before the current file.
     */
-    static int prev_level = -1;
     int        cur_level;
 
     /* the size of the current object. If it is a direcory, it includes the
@@ -143,12 +149,14 @@ int main(int argc, char *argv[])
 
     if ( argc < 2 )  {
         memset( totalsize, 0, MAXDEPTH*sizeof(uintmax_t));
+        prev_level = -1;
         if ( 0 != (status = nftw(".", file_usage, 20, flags) ) )
            fatal_error(status, "nftw");
     }
     else
         while (i < argc) {
             memset( totalsize, 0, MAXDEPTH*sizeof(uintmax_t));
+            prev_level = -1;
             if ( 0 != ( status = nftw(argv[i], file_usage, MAXDEPTH, flags)))
                 fatal_error(status, "nftw");
             else
