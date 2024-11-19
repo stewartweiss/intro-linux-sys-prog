@@ -5,7 +5,7 @@
   Description    : Directory hierarchy traversal
   Purpose        : To show a simple application of the nftw function
   Usage          : spl_du2  file file ...
-  Build with     : gcc -Wall -g -I ../include spl_du1.c -o spl_du1 \
+  Build with     : gcc -Wall -g -I ../include spl_du2.c -o spl_du2 \
                    -L../lib -lspl
   NOTES:
   This walks the directory tree for each file argument, displaying file name
