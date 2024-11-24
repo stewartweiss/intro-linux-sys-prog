@@ -116,8 +116,8 @@ int main( int argc, char *argv[])
     act.sa_handler = refresh_progressbar;
     if ( sigaction(SIGALRM, &act, NULL) == -1 )
         fatal_error(errno, "sigaction");
-    alarm(REFRESH_INTERVAL);
-    lengthy_task();
+    alarm(REFRESH_INTERVAL);  /* Set first alarm.          */
+    lengthy_task();           /* Run the simulated task.   */
 
      /* Delay a bit before erasing the progress bar. */
     if ( -1 == nanosleep(&slight_pause, &remaining_sleep) )
