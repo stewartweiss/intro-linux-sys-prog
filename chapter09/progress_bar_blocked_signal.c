@@ -59,7 +59,7 @@ void draw_initial_bar()
 }
 
 
-void long_running_task()
+void lengthy_task()
 {
     double sleep_secs    = (double) (1.0*SLEEPNSECS) / 1000000000 ;
     double progress_rate = sleep_secs / MIN_SIMULATION_SECS;
@@ -175,7 +175,7 @@ int main( int argc, char *argv[])
     fraction_completed = 0;
     if (-1 == timer_settime(timerid, 0, &interval, NULL) )
         fatal_error(errno, "timer_settime");
-    long_running_task();
+    lengthy_task();
 
     printf("Timer overruns: %d\n", timer_getoverrun(timerid));
     if ( -1 == nanosleep(&slight_pause, &rem) )  /* Pause before erasing progress bar. */

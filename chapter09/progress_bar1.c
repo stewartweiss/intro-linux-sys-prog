@@ -55,7 +55,7 @@ void draw_initial_bar()
 }
 
 
-void long_running_task()
+void lengthy_task()
 {
     double sleep_secs    = (double) (1.0*SLEEPNSECS) / 1000000000 ;
     double progress_rate = sleep_secs / MIN_SIMULATION_SECS;
@@ -117,7 +117,7 @@ int main( int argc, char *argv[])
     if ( sigaction(SIGALRM, &act, NULL) == -1 )
         fatal_error(errno, "sigaction");
     alarm(REFRESH_INTERVAL);
-    long_running_task();
+    lengthy_task();
 
      /* Delay a bit before erasing the progress bar. */
     if ( -1 == nanosleep(&slight_pause, &remaining_sleep) )
