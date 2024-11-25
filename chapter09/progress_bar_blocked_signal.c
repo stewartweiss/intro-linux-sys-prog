@@ -34,9 +34,9 @@
 #define BAR_LENGTH           64      /* Length of progress bar between [ ]  */
 #define DONE_CHAR           '#'      /* Character for completed part        */
 #define NOT_DONE_CHAR       '-'      /* Character for incomplete part       */
-#define SLEEPNSECS    480000000      /* Nanosecs in simulated differential  */
+#define SLEEPNSECS    480000000      /* Nanosecs in simulated delay time    */
 
-double  fraction_completed;           /* Fraction of operation completed    */
+double  fraction_completed;          /* Fraction of operation completed     */
 int or;
 
 /* Remove the progress bar from the display device. */
@@ -63,7 +63,7 @@ void lengthy_task()
 {
     double sleep_secs    = (double) (1.0*SLEEPNSECS) / 1000000000 ;
     double progress_rate = sleep_secs / MIN_SIMULATION_SECS;
-    struct timespec differential={0, SLEEPNSECS}, rem;
+    struct timespec dt={0, SLEEPNSECS}, rem;
     sigset_t    blocked_signals;
 
 
@@ -71,7 +71,7 @@ void lengthy_task()
     sigaddset(&blocked_signals, SIGUSR1);
     while ( fraction_completed < 1.0 ) {
         sigprocmask(SIG_BLOCK, &blocked_signals, NULL);
-        if ( -1 == nanosleep(&differential, &rem) )
+        if ( -1 == nanosleep(&dt, &rem) )
             nanosleep(&rem, NULL );
         sigprocmask(SIG_UNBLOCK, &blocked_signals, NULL);
 
@@ -178,7 +178,7 @@ int main( int argc, char *argv[])
     lengthy_task();
 
     printf("Timer overruns: %d\n", timer_getoverrun(timerid));
-    if ( -1 == nanosleep(&slight_pause, &rem) )  /* Pause before erasing progress bar. */
+    if ( -1 == nanosleep(&slight_pause, &rem) )  /* Pause before erasing. */
         nanosleep(&rem, NULL);
     interval.it_value = zero_interval;
     if ( -1 == timer_settime(timerid, 0, &interval, NULL) )

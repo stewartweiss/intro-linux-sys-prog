@@ -37,7 +37,7 @@
 #define NOT_DONE_CHAR       '-'      /* Character for incomplete part       */
 #define SLEEPNSECS    480000000      /* Nanosecs in simulated dt            */
 
-double  fraction_completed =0;        /* Fraction of operation completed    */
+double  fraction_completed =0;       /* Fraction of operation completed     */
 
 
 /* Remove the progress bar from the display device. */

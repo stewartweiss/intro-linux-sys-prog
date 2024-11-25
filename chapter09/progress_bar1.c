@@ -31,7 +31,7 @@
 #define BAR_LENGTH           64      /* Length of progress bar between [ ]  */
 #define DONE_CHAR           '#'      /* Character for completed part        */
 #define NOT_DONE_CHAR       '-'      /* Character for incomplete part       */
-#define SLEEPNSECS    480000000      /* Nanosecs in simulated differential  */
+#define SLEEPNSECS    480000000      /* Nanosecs in simulated dt  */
 
 double  fraction_completed = 0;       /* Fraction of operation completed    */
 
@@ -59,13 +59,13 @@ void lengthy_task()
 {
     double sleep_secs    = (double) (1.0*SLEEPNSECS) / 1000000000 ;
     double progress_rate = sleep_secs / MIN_SIMULATION_SECS;
-    struct timespec differential={0, SLEEPNSECS}, rem;
+    struct timespec dt={0, SLEEPNSECS}, rem;
     sigset_t    blocked_signals;
 
     sigemptyset(&blocked_signals);
     sigaddset(&blocked_signals, SIGALRM);
     while ( fraction_completed < 1.0 ) {
-        if ( -1 == nanosleep(&differential, &rem) )
+        if ( -1 == nanosleep(&dt, &rem) )
             nanosleep(&rem, NULL );
         sigprocmask(SIG_BLOCK, &blocked_signals, NULL);
         fraction_completed += progress_rate * drand48();
