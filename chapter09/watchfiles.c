@@ -45,6 +45,7 @@ long long *prevsize;          /* Array of file sizes in previous update     */
 int        stable_cnt = 0;    /* Count of consecutive unchanged updates     */
 int        nochange_limit;    /* When stable_cnt reaches it, time to stop   */
 const int  MAX_LENGTH = 50;   /* Width of filename field in output          */
+const int  MAX_FILES  = 20;   /* Maximum number of files allowed  to track  */
 char       heading[66];       /* Heading with column labels to be displayed */
 char       rownum[3];         /* Row number of line containing the prompt   */
 volatile sig_atomic_t  stopflag = 0; /* Flag that handler sets to stop main */
@@ -183,6 +184,12 @@ int main(int argc, char **argv)
 
     /* Initialize filelist and its size. */
     numfiles = argc - optind;
+
+    if ( numfiles >= MAX_FILES )
+        usage_error("The maximum number of files to watch is 20.\n"
+                "Make sure that the screen has at least 24 rows,"
+                " or else the program will fail.\n");
+
     if ( (filelist = calloc(numfiles, sizeof(char*)) ) == NULL )
         fatal_error(errno, "calloc");
 
@@ -218,7 +225,7 @@ int main(int argc, char **argv)
         }
         else {
             memset(displayname[i], ' ', MAX_LENGTH);
-            displayname[MAX_LENGTH] = '\0';
+            displayname[i][MAX_LENGTH] = '\0';
             strncpy(displayname[i], filelist[i], len);;
         }
         /* The length of displayname[i] should be MAX_LENGTH always now */

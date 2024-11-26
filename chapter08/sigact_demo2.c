@@ -91,18 +91,18 @@ int main(int argc, char *argv[])
     int excepts = FE_DIVBYZERO|FE_INEXACT|FE_INVALID|FE_OVERFLOW|FE_UNDERFLOW;
     feenableexcept(excepts);
     if ( sigaction(SIGFPE, &action, NULL) == -1 ) {
-        perror("sigaction");
+        fatal_error(errno, "sigaction");
         exit(1);
     }
 
 
-    m = 2*n - m;
+    m = 2*n - m;  /* m == 0 but compiler doesn't detect it. */
     if ( float_divzero )
         n = (int) y/z;
     else if ( float_overflow )
         feraiseexcept(FE_OVERFLOW);
     else
-        n = n/m;
+        n = n/m; /* Prevent compiler from warning about unused n. */
 
     return n;
 }
