@@ -73,12 +73,10 @@ void print_status2( pid_t pid, int status )
         write(1, msg2, sizeof msg2);
         write(1, statstr2, sizeof statstr2);
 
-    #ifdef WCOREDUMP
         if ( WCOREDUMP(status) ) {
             char msg3[] = " and a core dump took place";
             write(1, msg3, sizeof msg3);
         }
-    #endif
         write(1, newline, 1);
     }
     else if (WIFSTOPPED(status)) {
