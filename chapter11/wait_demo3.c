@@ -99,10 +99,8 @@ int main(int argc, char *argv[])
              printf("Process %d continued\n", w);
          else if ( WIFSIGNALED(status) ) {
             printf("Process exited as a result of signal %d ", WTERMSIG(status));
-         #ifdef WCOREDUMP
             if ( WCOREDUMP(status) )
                 printf("and a core dump took place");
-         #endif
             printf(".\n");
         }
     }
