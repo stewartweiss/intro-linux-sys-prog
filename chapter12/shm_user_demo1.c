@@ -4,7 +4,7 @@
   Created on     : June 7, 2024
   Description    : A reader program that reads shared memory
   Purpose        : To introduce basics of shared memory
-  Usage          : shm_user_demo1  <shared-memory-name>
+  Usage          : shm_user_demo1  /<shared-memory-name>
   Build with     : gcc -Wall -g -I../include -L../lib  -o shm_user_demo1 \
                     shm_user_demo1.c -lrt
 
@@ -24,12 +24,12 @@
 
 int main(int argc, char *argv[])
 {
-    int fd;       /* File descriptor referring to shared memory object */
-    char *shmp;   /* Pointer to start of shared memory region          */
-    char  usage[256];
+    int fd;            /* File descriptor referring to shared memory object */
+    char *shmp;        /* Pointer to start of shared memory region          */
+    char  usage[256];  /* For error message                                 */
 
-    if (argc != 2) {
-        sprintf(usage, "Usage: %s /shm-path\n", argv[0]);
+    if ( (argc != 2) || (argv[1][0] != '/') ){
+        sprintf(usage, "Usage: %s /shm-name\n", argv[0]);
         usage_error(usage);
     }
     /* Open the named shared memory object for reading and writing.    */

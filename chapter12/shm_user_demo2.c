@@ -19,17 +19,17 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#include "shm_demo1.h"  /* For definitions of constants */
+#include "shm_demo2.h"  /* For definitions of constants */
 
 
 int main(int argc, char *argv[])
 {
-    int fd;       /* File descriptor referring to shared memory object */
-    shareddata *shmp;   /* Pointer to start of shared memory region          */
-    char  usage[256];
+    int fd;            /* File descriptor referring to shared memory object */
+    shareddata *shmp;  /* Pointer to start of shared memory region          */
+    char  usage[256];  /* For error message                                 */
 
-    if (argc != 2) {
-        sprintf(usage, "Usage: %s /shm-path\n", argv[0]);
+    if ( (argc != 2) || (argv[1][0] != '/') ){
+        sprintf(usage, "Usage: %s /shm-name\n", argv[0]);
         usage_error(usage);
     }
     /* Open the named shared memory object for reading and writing.    */
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
     if ( -1 == close(fd))  /* Close unneeded file descriptor.          */
         fatal_error(errno, "close");
 
-    printf("%s\n", shmp->ptr);            /* Neither of these is correct. */
+    printf("%s\n", shmp->ptr1);           /* Neither of these is correct. */
     printf("%s\n", (char*) (shmp->ptr2));
 
     shm_unlink(argv[1]); /* Remove this reference to the memory object. */

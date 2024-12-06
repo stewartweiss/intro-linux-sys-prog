@@ -1,11 +1,12 @@
 /*****************************************************************************
-  Title          :
+  Title          : shm_producer.c
   Author         : Stewart Weiss
-  Created on     :
-  Description    :
-  Purpose        :
-  Usage          :
-  Build with     :
+  Created on     : June 8, 2024
+  Description    : The producer side of  shared-memory producer/consumer
+  Purpose        : To show how to share memory properly
+  Usage          : shm_producer /<shm-name>
+  Build with     : gcc -Wall -g -I../include -L../lib  -o shm_producer \
+                    shm_producer.c -lrt
 
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
@@ -35,10 +36,11 @@ int main(int argc, char *argv[])
 {
     int fd;
     int val;
+    char  usage[256];
 
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s /shm-path\n", argv[0]);
-        exit(EXIT_FAILURE);
+    if ( (argc != 2) || (argv[1][0] != '/') ){
+        sprintf(usage, "Usage: %s /shm-name\n", argv[0]);
+        usage_error(usage);
     }
 
     shmpath = argv[1];

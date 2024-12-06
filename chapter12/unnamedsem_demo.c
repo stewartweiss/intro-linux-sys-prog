@@ -1,8 +1,8 @@
 /*****************************************************************************
   Title          : unnamedsem_demo.c
   Author         : Stewart Weiss
-  Created on     : June 9, 1024
-  Description    :
+  Created on     : June 9, 2024
+  Description    : To introduce unnamed semaphores
   Purpose        : To show how to use POSIX unnamed semaphore
   Usage          : unnamedsem_demo
   Build with     : gcc -Wall -9 -o unnamedsem_demo -I../include -L../lib \
