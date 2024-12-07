@@ -6,16 +6,8 @@
 #include <sys/stat.h>
 
 
-#define BUF_SIZE 65536
-const   int offset1 = 100;
-const   int offset2 = 200;
-
-typedef struct _shared
-{
-    char*  ptr;
-    char*  ptr2;
-    char   data[4096];
-}  shareddata;
-
+#define BUF_SIZE      8192
+const   int offset1 = 0x64;
+const   int offset2 = 0xC8;
 
 #endif /* _SHM_DEMO1_H */

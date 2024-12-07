@@ -6,6 +6,10 @@
 #include <sys/stat.h>
 
 
+#define BUF_SIZE      8192
+const   int offset1 = 0x64;
+const   int offset2 = 0xC8;
+
 typedef struct _shared
 {
     char*  ptr1;
