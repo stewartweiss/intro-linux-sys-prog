@@ -70,7 +70,7 @@ int fillpipe( int pipefd )
 int child( int readfd );
 /* This function encapsulates the child's code. Normally, */
 /* the child would be exec-ed and would inherit the parent's open */
-/* file dscriptors. I pass it in instead to simplify matters. */
+/* file descriptors. I pass it in instead to simplify matters. */
 
 
 int main(int argc, char *argv[])
