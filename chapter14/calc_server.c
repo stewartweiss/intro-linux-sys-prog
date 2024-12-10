@@ -92,9 +92,14 @@ int main( int argc, char *argv[])
             fatal_error(errno, "sigaction");
 
     /* Create public FIFO. */
-    if ( mkfifo(PUBLIC, 0666) < 0 )
+    if ( mkfifo(PUBLIC, 0666) < 0 ) {
         if (errno != EEXIST )
             fatal_error(errno, "mkfifo");
+        else
+            fprintf(stderr,"%s already exists. Delete it and restart.\n",
+                    PUBLIC);
+        exit(EXIT_FAILURE);
+    }
 
     /* Open public FIFO for reading and writing so that it does not get an  */
     /* EOF on the read-end while waiting for a client to send data.         */
