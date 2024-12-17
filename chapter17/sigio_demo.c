@@ -8,6 +8,14 @@
   Build with     : gcc -Wall -L../lib -I../include -o sigio_demo \
                      sigio_demo.c -lspl
 
+  Notes:
+  This program will not behave "perfectly". If you type fast enough, you might
+  see your typing in a row below the first row.
+
+  The program should not be run in windows that are too small, and it prevents
+  you from doing this. All bets are off if you resize the window while it's
+  running.
+
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
@@ -25,6 +33,9 @@
 #ifndef TIOCGWINSZ
 #include <sys/ioctl.h>
 #endif
+
+#define  FREQ_NS  100000000
+
 
 volatile sig_atomic_t input_ready = 0;
 volatile sig_atomic_t timer_expired = 0;
@@ -72,23 +83,31 @@ int  get_window_size( int ttyfd, int *rows, int *cols )
 
 int main( int argc, char * argv[])
 {
+
+    const char CLEAR_SCREEN[] = "\033[2J"; /* Escape seq to clear screen    */
+    const char CLEAR_ABOVE[] =  "\033[1J"; /* Clears all lines above        */
+    const int  TOP_ROW = 3;   /* Highest row in which sprite is displayed   */
+    int   clr_above_len   = 4;
     struct sigaction sigact;             /* For installing handlers         */
-    struct timespec refresh_timespec = {0, 250000000};  /*0.25 sec refresh  */
+    struct timespec refresh_timespec = {0, FREQ_NS};  /* Refresh rate       */
     struct itimerspec refresh_interval;  /* The timer value and repeat      */
     struct sigevent sev;                 /* Notification structure          */
     timer_t timerid;                     /* Timer ID from timer_create()    */
-    char   ch;                           /* User input */
-    BOOL   finished = FALSE;             /* Loop exit condition */
-    int  row = 1, oldrow;                /* Drawing positions   */
-    int  col = 1, oldcol;
-    const char CLEAR_SCREEN[] = "\033[2J"; /* Escape sequence   */
-    char sprite = 'O';                   /* The sprite to draw  */
-    char blank = ' ';                    /* For erasing         */
-    int  numrows;                        /* Window dimenions    */
-    int  numcols;
+    char   ch;                           /* User input                      */
+    BOOL   finished = FALSE;             /* Loop exit condition             */
+    int  row = TOP_ROW, oldrow;          /* Drawing position row coordinate */
+    int  col = 1, oldcol;                /* Drawing position col coordinate */
+    char sprite = 'O';                   /* The sprite to draw              */
+    char blank = ' ';                    /* For erasing                     */
+    int  numrows;                        /* Window row dimension            */
+    int  numcols;                        /* Window column dimension         */
     char msg[32];                        /* To print in bottom row          */
     int  user_row_adjust = 0;            /* Net row change caused by user   */
 
+    if ( -1 == get_window_size(0, &numrows, &numcols))
+        fatal_error(errno, "ioctl");
+    else if ( numrows < 10 || numcols < 40 )
+        usage_error("The window should be at least 10 rows by 40 columns.\n");
 
     /* Set up signal handling  */
     sigact.sa_flags = SA_RESTART;
@@ -121,10 +140,12 @@ int main( int argc, char * argv[])
     get_window_size(0, &numrows, &numcols);
     setup_fd(STDIN_FILENO);
     write(STDOUT_FILENO, CLEAR_SCREEN, strlen(CLEAR_SCREEN));
+    moveto(1,1);
     while( !finished  ) {
         if ( input_ready ) {
             input_ready = 0;
             user_row_adjust = 0;
+            moveto(1,1);
             while ( read(STDIN_FILENO, &ch, 1)  > 0  && !finished ) {
                 switch ( ch ) {
                 case 'q': finished = TRUE; break;
@@ -134,6 +155,8 @@ int main( int argc, char * argv[])
                           break;
                 case '\n': continue;
                 }
+                moveto(2,1);
+                write(1, CLEAR_ABOVE, clr_above_len);
                 sprintf(msg, "\rYou entered %c\r", ch);
                 moveto(numrows, 1);
                 write(1, msg, strlen(msg));
@@ -145,15 +168,17 @@ int main( int argc, char * argv[])
             oldcol = col;
             oldrow = row;
             row += user_row_adjust;
+            if ( row < TOP_ROW )
+                row = TOP_ROW;
             if ( row > numrows-1 )
-                row = 1;
+                row = TOP_ROW;
             if ( col < numcols )
                 col++;
             else {
                 if ( row < numrows-1)
                     row++;
                 else
-                    row = 1;
+                    row = TOP_ROW;
                 col = 1;
             }
             moveto(oldrow, oldcol);
