@@ -10,7 +10,13 @@
 
   Notes:
   This program will not behave "perfectly". If you type fast enough, you might
-  see your typing in a row below the first row.
+  see the characters typed in a row below the first row.If you enter a long
+  sequence of characters before a newline, such as 'dddddd\n', you may see
+  it briefly before it's erased.
+
+  Because it's not disabling echoing of characters, these characters will be
+  visible at the current cursor position. Therefore, it employs frequent
+  movements of the cursor to position (1,1).
 
   The program should not be run in windows that are too small, and it prevents
   you from doing this. All bets are off if you resize the window while it's
@@ -34,11 +40,16 @@
 #include <sys/ioctl.h>
 #endif
 
-#define  FREQ_NS  100000000
-
+#define  FREQ_NS  100000000    /* Number of nanosecs in the  timer interval */
+#define  TOP_ROW  2            /* Highest row in which sprite can be        */
 
 volatile sig_atomic_t input_ready = 0;
 volatile sig_atomic_t timer_expired = 0;
+
+void home_cursor()
+{
+   write(STDOUT_FILENO, "\033[1;1H", 6);
+}
 
 void moveto(int line, int col )
 {
@@ -84,10 +95,6 @@ int  get_window_size( int ttyfd, int *rows, int *cols )
 int main( int argc, char * argv[])
 {
 
-    const char CLEAR_SCREEN[] = "\033[2J"; /* Escape seq to clear screen    */
-    const char CLEAR_ABOVE[] =  "\033[1J"; /* Clears all lines above        */
-    const int  TOP_ROW = 3;   /* Highest row in which sprite is displayed   */
-    int   clr_above_len   = 4;
     struct sigaction sigact;             /* For installing handlers         */
     struct timespec refresh_timespec = {0, FREQ_NS};  /* Refresh rate       */
     struct itimerspec refresh_interval;  /* The timer value and repeat      */
@@ -103,7 +110,12 @@ int main( int argc, char * argv[])
     int  numcols;                        /* Window column dimension         */
     char msg[32];                        /* To print in bottom row          */
     int  user_row_adjust = 0;            /* Net row change caused by user   */
+    const char CLEAR_SCREEN[] = "\033[2J"; /* Escape seq to clear screen    */
+    const char CLEAR_ABOVE[] =  "\033[1J"; /* Clears all lines above        */
+    int   clr_above_len   = strlen(CLEAR_ABOVE); /* Length of CLEAR_ABOVE   */
 
+
+    /* Get window dimensions and check that the window is large enough.     */
     if ( -1 == get_window_size(0, &numrows, &numcols))
         fatal_error(errno, "ioctl");
     else if ( numrows < 10 || numcols < 40 )
@@ -140,40 +152,39 @@ int main( int argc, char * argv[])
     get_window_size(0, &numrows, &numcols);
     setup_fd(STDIN_FILENO);
     write(STDOUT_FILENO, CLEAR_SCREEN, strlen(CLEAR_SCREEN));
-    moveto(1,1);
+    home_cursor();
     while( !finished  ) {
-        if ( input_ready ) {
-            input_ready = 0;
-            user_row_adjust = 0;
-            moveto(1,1);
-            while ( read(STDIN_FILENO, &ch, 1)  > 0  && !finished ) {
-                switch ( ch ) {
-                case 'q': finished = TRUE; break;
-                case 'd': user_row_adjust++;
-                          break;
-                case 'u': user_row_adjust--;
-                          break;
-                case '\n': continue;
-                }
-                moveto(2,1);
-                write(1, CLEAR_ABOVE, clr_above_len);
-                sprintf(msg, "\rYou entered %c\r", ch);
-                moveto(numrows, 1);
-                write(1, msg, strlen(msg));
-                moveto(1, 1);
+    if ( input_ready ) {       /* SIGIO received. */
+        input_ready = 0;       /* Reset flag.     */
+        user_row_adjust = 0;   /* Net change in row position */
+        home_cursor();
+        while ( read(STDIN_FILENO, &ch, 1)  > 0  && !finished ) {
+            switch ( ch ) {
+            case 'q': finished = TRUE; break;  /* User wants to quit.       */
+            case 'd': user_row_adjust++;       /* Increment adjustment.     */
+                      break;
+            case 'u': user_row_adjust--;       /* Decrement adjustmen.      */
+                      break;
+            case '\n': continue;               /* Ignore newline.           */
+            }
+            moveto(TOP_ROW-1,1);
+            write(STDOUT_FILENO, CLEAR_ABOVE, clr_above_len); /* Clear line.*/
+            sprintf(msg, "\rYou entered %c\r", ch); /* Format message.      */
+            moveto(numrows, 1);                /* Move to bottom row.       */
+            write(STDOUT_FILENO, msg, strlen(msg)); /* Print message.       */
+            home_cursor();                     /* Home cursor at (1,1).     */
             }
         }
-        if ( timer_expired ) {
-            timer_expired = 0;
-            oldcol = col;
-            oldrow = row;
-            row += user_row_adjust;
-            if ( row < TOP_ROW )
+        if ( timer_expired ) {  /* Timer expiration. */
+            timer_expired = 0;  /* Reset timer flag. */
+            oldcol = col;       /* Save old position to replace.            */
+            oldrow = row;       /* with space char.                         */
+            row += user_row_adjust;  /* Adjust row by user's input.         */
+            if ( row < TOP_ROW )     /* If above top row, move to top row.  */
                 row = TOP_ROW;
-            if ( row > numrows-1 )
+            if ( row > numrows-1 )   /* Boundary conditions to check */
                 row = TOP_ROW;
-            if ( col < numcols )
-                col++;
+            if ( col < numcols )       col++;
             else {
                 if ( row < numrows-1)
                     row++;
@@ -181,12 +192,12 @@ int main( int argc, char * argv[])
                     row = TOP_ROW;
                 col = 1;
             }
-            moveto(oldrow, oldcol);
-            write(1, &blank, 1);
-            moveto(row, col);
-            write(1, &sprite, 1);
-            user_row_adjust = 0;
-            moveto(1,1);
+            moveto(oldrow, oldcol); /* Get set to erase old sprite.         */
+            write(STDOUT_FILENO, &blank, 1); /* Erase it.                   */
+            moveto(row, col);       /* Move to new position to draw it.     */
+            write(STDOUT_FILENO, &sprite, 1); /* Draw it.                   */
+            user_row_adjust = 0;    /* Reset row adjustment to zero.        */
+            home_cursor();          /* Home the cursor.                     */
         }
         pause();
     }
