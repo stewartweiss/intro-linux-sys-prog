@@ -366,7 +366,7 @@ int main (int argc, char *argv[])
                 case RIGHT: direction = DOWN; break;
                 case DOWN : direction = LEFT; break;
                 case LEFT : direction = UP; break;
-                default   : /* No change */
+                default   : break; /* No change */
             }
             /* Draw sprite in next position */
             moveto(sprite_obj.pos.r, sprite_obj.pos.c);
