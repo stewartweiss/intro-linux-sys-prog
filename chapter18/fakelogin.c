@@ -6,7 +6,8 @@
   Purpose        : Demonstrates use of tcgetattr and tcsetattr to turn
                    off echo and turn it back on.
   Usage          : fakelogin
-  Build with     :
+  Build with     : gcc -Wall -L../lib -I../include -o fakelogin \
+                     fakelogin.c -lspl
 
   Notes          : This program does not simulate what the real login process
                    does. It is the getty() process that gets the

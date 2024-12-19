@@ -1,13 +1,13 @@
 /*****************************************************************************
-  Title          : login_ioctl.c
+  Title          : fakelogin_ioctl.c
   Author         : Stewart Weiss
-  Created on     : March 12, 2013
+  Created on     : July 21, 2024
   Description    : Display login and get username and password
   Purpose        : Demonstrates use of ioctl to turn
                    off echo and turn it back on.
-  Usage          : login_ioctl
-  Build with     : gcc -Wall -g -o login_ioctl login_ioctl.c
-  Modifications  :
+  Usage          : fakelogin_ioctl
+  Build with     : gcc -Wall -L../lib -I../include -o fakelogin_ioctl \
+                     fakelogin_ioctl.c -lspl
 
   Notes          : This program does not simulate what the login process
                    really does. It is the getty() process that gets the
@@ -16,14 +16,23 @@
                    user's entered password, and uses the password database
                    to authenticate the user.
 
+******************************************************************************
+* Copyright (C) 2024 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
 #include "common_hdrs.h"
 #include   <termios.h>
 #include   <termios.h>
-#include <sys/ioctl.h>
-
-
+#ifndef TIOCGWINSZ
+    #include <sys/ioctl.h>
+#endif
 
 int main(int argc, char *argv[] )
 {

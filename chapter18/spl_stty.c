@@ -2,11 +2,21 @@
   Title          : spl_stty.c
   Author         : Stewart Weiss
   Created on     : July 21, 2024
-  Description    :
-  Purpose        :
+  Description    : Simulates the stty command
+  Purpose        : To show how to program the terminal settings.
   Usage          : spl_stty [-a | name | name value ]
-  Build with     :
+  Build with     : gcc -Wall -L../lib -I../include -o spl_stty \
+                     spl_stty.c -lspl
 
+******************************************************************************
+* Copyright (C) 2024 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
 #include   "common_hdrs.h"
@@ -16,7 +26,6 @@
 #ifndef TIOCGWINSZ
     #include <sys/ioctl.h>
 #endif
-
 
 
 typedef struct _maskmap
