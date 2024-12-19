@@ -184,11 +184,12 @@ int main( int argc, char * argv[])
                 row = TOP_ROW;
             if ( row > numrows-1 )   /* Boundary conditions to check */
                 row = TOP_ROW;
-            if ( col < numcols )       col++;
-            else {
-                if ( row < numrows-1)
+            if ( col < numcols )     /* Is it at rightmost column?   */
+                col++;
+            else {                   /* Yes - go to next row down.   */
+                if ( row < numrows-1)/* OK to go down.               */
                     row++;
-                else
+                else                 /* Not OK to go down. Start at top.    */
                     row = TOP_ROW;
                 col = 1;
             }
