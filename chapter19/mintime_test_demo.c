@@ -118,10 +118,10 @@ int main(int argc, char* argv[])
             help(argv[0]);
             exit(0);
         case 'm' :
-            min = strtol(optarg,'\0',0);
+            min = strtol(optarg,NULL,0);
             break;
         case 't' :
-            time = strtol(optarg, '\0',0);
+            time = strtol(optarg, NULL,0);
             break;
         case '?' :
             break;
