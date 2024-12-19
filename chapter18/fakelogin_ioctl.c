@@ -18,12 +18,11 @@
 
 *****************************************************************************/
 
-#include   <stdio.h>
-#include   <unistd.h>
-#include   <stdlib.h>
+#include "common_hdrs.h"
+#include   <termios.h>
 #include   <termios.h>
 #include <sys/ioctl.h>
-#include  "utils.h"
+
 
 
 int main(int argc, char *argv[] )
@@ -34,29 +33,29 @@ int main(int argc, char *argv[] )
     FILE   *fp;
     int fd;
 
-    /* get a FILE* to the control terminal --   don't assume stdin  */
+    /* Get a FILE* to the control terminal --   don't assume stdin.         */
     if ((fp = fopen(ctermid(NULL), "r+")) == NULL)
          return(1);
     fd = fileno(fp);
 
-    printf("login: ");                   /* display message          */
-    fgets(username, 32, stdin);          /* get user's typing        */
+    printf("login: ");                    /* Display message.               */
+    fgets(username, 32, stdin);           /* Get user's typing.             */
 
     /* Now turn off echo */
     if ( ioctl( fd , TCGETS, &info ) == -1 )
-        die("ioctl", "1");
-    orig = info;                         /* Save a copy of it */
-    info.c_lflag &= ~ECHO ;              /* Turn off echo bit   */
+        fatal_error(errno, "ioctl");
+    orig = info;                          /* Save a copy of it.             */
+    info.c_lflag &= ~ECHO ;               /* Turn off echo bit.             */
     if ( ioctl(fd,TCSETS, &info) == -1 )
-        die("ioctl","2");
+        fatal_error(errno, "ioctl");
 
     printf("password: ");
-    fgets( passwd, 32, stdin);           /* Get user's non-echoed typing   */
+    fgets( passwd, 32, stdin);             /* Get user's non-echoed typing. */
 
     if ( ioctl( fd , TCSETS, &orig ) == -1 )
-        die("ioctl", "1");
+        fatal_error(errno, "ioctl");
 
-    printf("\n");                        /* Print a fake message      */
+    printf("\n");                          /* Print a fake message.         */
     printf("Last login: Tue Apr 31 21:29:54 2088 from the twilight zone.\n");
     return 0;
 }
