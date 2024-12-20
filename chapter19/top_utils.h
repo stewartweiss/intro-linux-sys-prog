@@ -3,9 +3,6 @@
   Author         : Stewart Weiss
   Created on     : August 24, 2024
   Description    : A header file containing prototypes for proc-related tasks
-  Purpose        :
-  Usage          :
-  Build with     :
 
   Notes:
   This file contains utility functions used by programs that access the
