@@ -436,7 +436,7 @@ void show_summary_line2(WINDOW *win, procstat* proctab, int numprocs)
  */
 void show_summary_line3(WINDOW *win)
 {
-    int cpustate[8];
+    int cpustate[8];   /* Sum of time each CPU spent in each of 8 states.  */
     static int prev_cpustate[8] = {0,0,0,0,0,0,0,0};
     double df[8];
     int hz = get_hertz();
