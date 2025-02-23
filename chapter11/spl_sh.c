@@ -6,10 +6,11 @@
   Purpose        : To demonstrate how a simple shell can be implemented
   Usage          : spl_sh
 
-  Build with     :
+  Build with     : gcc -Wall -I../include -L../lib -g -o spl_sh \
+                          spl_sh.c -lspl  :
 
 ******************************************************************************
-* Copyright (C) 2024 - Stewart Weiss                                         *
+* Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *
@@ -32,10 +33,10 @@ int main( int argc, char *argv[] )
     pid_t   pid;           /* Return value from fork, child's PID   */
 
     do {
-        printf("spl_sh$ ");                /*Print a prompt. */
+        printf("spl_sh$ ");                /* Print a prompt. */
         if ( 0 >= (nread = getline(&line, &len, stdin )) )
-            break;
-        if ( 1 == nread )
+            break;                         /* An input error                */
+        if ( 1 == nread )                  /* Just the newline, so continue */
             continue;
         line[nread-1] = '\0';              /* Replace newline at end.       */
         token = strtok(line, " \t");       /* Parse the line using strtok() */
