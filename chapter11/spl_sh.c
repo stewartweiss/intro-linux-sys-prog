@@ -33,8 +33,10 @@ int main( int argc, char *argv[] )
 
     do {
         printf("spl_sh$ ");                /*Print a prompt. */
-        if ( -1 == (nread = getline(&line, &len, stdin )) )
+        if ( 0 >= (nread = getline(&line, &len, stdin )) )
             break;
+        if ( 1 == nread )
+            continue;
         line[nread-1] = '\0';              /* Replace newline at end.       */
         token = strtok(line, " \t");       /* Parse the line using strtok() */
         int i = 0;
