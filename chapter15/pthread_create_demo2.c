@@ -4,7 +4,7 @@
   Created on     : June 24, 2024
   Description    : Computes sum of numbers in an array using threads
   Purpose        : To show how to pass structured arguments to threads
-  Usage          : pthread_demo2  size_of_array  number_of_threads
+  Usage          : pthread_demo2  number_of_threads size_of_array  [file]
 
   Build with     : gcc -Wall -o pthread_demo2 -I../include -L../lib \
                    pthread_demo2.c  -lspl -lm -lrt -pthread
@@ -47,6 +47,8 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
+#define  _GNU_SOURCE
 #include "common_hdrs.h"
 #include <pthread.h>
 #include <locale.h>
@@ -128,6 +130,7 @@ int main( int argc, char *argv[])
     int        t;
     int        n;
     double    *array;      /* dynamically allocated array of data     */
+    char       usage[512];
 
     task_data  *thread_data;
     pthread_attr_t attr;
@@ -139,8 +142,9 @@ int main( int argc, char *argv[])
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-    if ( argc < 2 ) {
-        usage_error("this that");
+    if ( argc < 3 ) {
+        sprintf(usage, "%s <num-threads> <array-size>", basename(argv[0]));
+        usage_error(usage);
     }
 
     /* Get command line arguments, convert to ints, and compute size of each

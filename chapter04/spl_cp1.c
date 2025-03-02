@@ -61,38 +61,38 @@ int main(int argc, char *argv[])
     }
     /* Start copying:
        Transfer BUFFER_SIZE bytes at a time from source_fd to target_fd.    */
-      errno = 0;
-      while ( (num_bytes_read = read(source_fd , buffer, BUFFER_SIZE)) > 0 ){
-          errno = 0;
-          num_bytes_written = write( target_fd, buffer, num_bytes_read ) ;
-          if ( errno != 0 )
-              fatal_error(errno, "copy");
-          else
-              if ( num_bytes_written  != num_bytes_read) {
-                  sprintf(message,"write error to %s\n", argv[2]);
-                  fatal_error(-1, message);
-              }
-          errno = 0;
-      }
-      if (num_bytes_read == -1)
-          fatal_error(errno, "error reading");
+    errno = 0;
+    while ( (num_bytes_read = read(source_fd , buffer, BUFFER_SIZE)) > 0 ){
+        errno = 0;
+        num_bytes_written = write( target_fd, buffer, num_bytes_read ) ;
+        if ( errno != 0 )
+            fatal_error(errno, "copy");
+        else
+            if ( num_bytes_written  != num_bytes_read) {
+                sprintf(message,"write error to %s\n", argv[2]);
+                fatal_error(-1, message);
+            }
+        errno = 0;
+    }
+    if (num_bytes_read == -1)
+        fatal_error(errno, "error reading");
 
-      /* Close files.                                                       */
-      errno = 0;
-      if ( close(source_fd) == -1 ) {
+    /* Close files.                                                       */
+    errno = 0;
+    if ( close(source_fd) == -1 ) {
           sprintf(message, "error closing source file %s", argv[1]);
           fatal_error(errno, message);
-      }
-      errno = 0;
-      if (-1 == fsync(target_fd))  /* Flush data to device. */
-          /* Error trying to flush data to device. */
-          if (errno != EINVAL) /* If not a terminal */
-              fatal_error(errno, "fsync");
+    }
+    errno = 0;
+    if (-1 == fsync(target_fd))  /* Flush data to device. */
+        /* Error trying to flush data to device. */
+        if (errno != EINVAL) /* If not a terminal */
+            fatal_error(errno, "fsync");
      /* fsync() was successful. */
-     errno = 0;
-     if ( close(target_fd) == -1 ) {
-          sprintf(message, "error closing target file %s", argv[2]);
-          fatal_error(errno, "error closing target file");
-      }
-      return 0;
+    errno = 0;
+    if ( close(target_fd) == -1 ) {
+        sprintf(message, "error closing target file %s", argv[2]);
+        fatal_error(errno, "error closing target file");
+    }
+    return 0;
   }
