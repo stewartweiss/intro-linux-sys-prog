@@ -256,9 +256,8 @@ int main( int argc, char *argv[] )
     char          options[] = ":x";        /* getopt string                   */
     int           show_sys_events = FALSE; /* Flag to indicate -x found       */
     char          usage_msg[MAXLEN];       /* For error messages              */
-
-    BOOL          done = FALSE;
-    BOOL          found = FALSE;
+    BOOL          done = FALSE;            /* Flag to stop utmp loop          */
+    BOOL          found = FALSE;           /* Flag to indicate match found    */
     char          ch;
     utlist        *p, *next;
 

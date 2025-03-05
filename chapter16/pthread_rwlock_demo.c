@@ -1,16 +1,17 @@
 
 /*****************************************************************************
-  Title          : rwlock_demo.c
+  Title          : pthread_rwlock_demo.c
   Author         : Stewart Weiss
-  Created on     :
+  Created on     : Oct. 20, 2024
   Description    : Runs a set of readers and writers
   Purpose        : To show how to use reader/writer locks and how to avoid
                    starvation.
-  Usage          : rwlock_demo
+  Usage          : rwlock_demo [-r <nreaders> -w<nwriters> -s<sleeptime> \
+                         -R ] <logile>
   Build with     :
 
   Notes:
-  This program would be very simple if we did not care about trying to prevent
+  This program would be very simple if we didn't care about trying to prevent
   starvation, either of readers or writers. You can comment out the barrier
   code and the code to initialize the rwlock attributes in this case.
 
@@ -22,13 +23,13 @@
   necessarily get the rwlock first; all threads start their loops at the same
   time (up to scheduling decisions).
 
-  If the number of writers is changed to be greater than one, they will starve
-  the readers. If you do make this change, first verify that this happens and
-  then comment out the code that gives them priority, although they will still
-  most likely starve the readers.
+  Play around with the command line options to see if you can make readers
+  starve or writers starve. Do you see a pattern in the amount of time that
+  readers and writers acquire the lock in terms of the numbers of readers
+  and writers?
 
 ******************************************************************************
-* Copyright (C) 2024 - Stewart Weiss                                         *
+* Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *
@@ -38,7 +39,7 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-
+//#define MONITOR
 
 
 #define  _GNU_SOURCE
@@ -81,6 +82,7 @@ pthread_rwlock_t  rwlock;              /* The reader/writer lock            */
 pthread_barrier_t barrier;             /* Barrier to improve fairness       */
 pthread_mutex_t   print_mutex;         /* To serialize printing with printf */
 FILE             *logfp;               /* FILE stream for log file          */
+int              rdrsleep_ns = 200000; /* Nanosecs in reader delay time     */
 #ifdef MONITOR
 pthread_mutex_t   counter_mutex;       /* Used by the monitor code          */
 int               num_threads_in_lock; /* for the monitor code */
@@ -103,7 +105,7 @@ void *reader(void * data)
     int retval;
     reader_task_data *t_data  = (reader_task_data*) data;
     int t            = t_data->task_id;
-    struct timespec sleeptime = {1,0};
+    struct timespec sleeptime = {0,rdrsleep_ns};
     struct timespec rem = sleeptime;
 
     /* Wait here until all threads are created */
@@ -114,7 +116,7 @@ void *reader(void * data)
     while ( TRUE ) {
         if ( 0 != (retval = pthread_rwlock_rdlock(&rwlock)) )
             fatal_error( retval, "pthread_rwlock_rdlock");
-        /* pthread_mutex_lock(&print_mutex); */
+        pthread_mutex_lock(&print_mutex);
         for ( int k = t_data->first; k <= t_data->last; k++ )
             printf("Read by %2d: %3d\t%6lu.%-12lu [%4d] %s", t,
                     t_data->data[k].wrid,
@@ -123,7 +125,7 @@ void *reader(void * data)
                     k,
                     t_data->data[k].text);
         fflush(stdout);
-        /* pthread_mutex_unlock(&print_mutex); */
+        pthread_mutex_unlock(&print_mutex);
         fprintf(logfp, "Reader %d got the read lock\n", t);
         fflush(logfp);
 
@@ -253,7 +255,7 @@ int main(int argc, char *argv[])
     reader_task_data     *thread_data;
     BOOL           reader_preference = FALSE;
     char           ch;
-    char           options[] = "r:w:R";
+    char           options[] = "r:w:s:R";
 
 
     opterr = 0;
@@ -273,13 +275,20 @@ int main(int argc, char *argv[])
                  NULL ))
                 usage_error("Invalid argument to -w");
             break;
-         case 'R':
+         case 's':
+            if ( VALID_NUMBER != get_int(optarg, NON_NEG_ONLY, &rdrsleep_ns,
+                 NULL ))
+                usage_error("Invalid argument to -s");
+            if (rdrsleep_ns > 999999 )
+                usage_error("Argument to -s must be at most 999999");
+            break;
+        case 'R':
             reader_preference = TRUE;
             break;
         }   }
 
     if ( optind >= argc )
-        usage_error("rwlock_demo [-r <num> -w <num> ] data-file");
+        usage_error("rwlock_demo [-r <num> -w <num> -R ] data-file");
 
 
     num_threads         = nreaders + nwriters;
