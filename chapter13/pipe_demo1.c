@@ -42,8 +42,7 @@ int main(int argc, char *argv[])
     case -1:
         fatal_error(errno, "fork()");
 
-    case 0:    /* Child code */
-        {
+    case 0: {   /* Child code */
         char  label[] = "Child received: ";
         close(pipefd[WRITE_FD]); /* MUST DO THIS otherwise child will       */
                                  /* never terminate!                        */
@@ -55,7 +54,7 @@ int main(int argc, char *argv[])
         write(STDOUT_FILENO, "\n", 1);
         close(pipefd[READ_FD]);
         exit(EXIT_SUCCESS);
-        }
+    }
     default:                      /* Parent code                            */
         close(pipefd[READ_FD]);   /* Parent is writing, so close read end.  */
         write(pipefd[WRITE_FD], argv[1], strlen(argv[1]));

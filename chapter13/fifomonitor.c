@@ -55,10 +55,10 @@ int main( int argc, char *argv[])
     int              msg_count = 0;   /* Number of messages received        */
     static char      buffer[PIPE_BUF+1];   /* Buffer for received message   */
     struct sigaction handler;         /* sigaction for registering handlers */
-    struct timespec  tp;
-    struct tm        *bdtime;
-    char             timestr[64];
-    char             msgnum[16];
+    struct timespec  tp;              /* timespec for message arrival time  */
+    struct tm        *bdtime;         /* Broken-down time for tp            */
+    char             timestr[64];     /* Arrival time as a string           */
+    char             msgnum[16];      /* String for message number          */
 
 
     /* Register the signal handler to handle termination signals.           */
