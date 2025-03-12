@@ -103,8 +103,6 @@ field fieldtab[] = {
 
 static volatile sig_atomic_t  caught_signal = 0;
 static volatile sig_atomic_t  sigcaught;
-static int  offset;    /* The offset relative to the start of a line at which
-                           the substring to be printed begins. */
 static int  delaysecs; /* Number of seconds between refreshes */
 static int  ticks;     /* Number of ticks in a seconds */
 
@@ -500,7 +498,7 @@ void show_summary(WINDOW *win, procstat* proctab, int numprocs)
 */
 int isprocdir(  const struct dirent *direntp)
 {
-    struct stat    statbuf;
+    struct stat    statbuf;       /* Ignore warning if not used.            */
     char*   accepts="0123456789"; /* For matching directory names           */
 
 #ifdef _DIRENT_HAVE_D_TYPE
@@ -824,22 +822,22 @@ void configure_windows(WINDOW *sum_win, WINDOW *head_win, WINDOW *cnt_win )
 
 int main(int argc, char *argv[])
 {
-    WINDOW *content_win;         /* The content area                     */
-    WINDOW *heading_win;         /* The one-line heading                 */
-    WINDOW *summary_win;         /* The summary at the top of the screen */
-    char   heading[MAX_LINE];    /* The string storing the heading       */
-    struct timespec  delay;      /* Time interval for refreshes          */
-    bool   done = FALSE;         /* Controls main loop.                  */
-    procstat  *procarray = NULL; /* Array storing process data           */
-    int   numprocs = 0;          /* Number of processes in the array     */
-    int   contentlines;          /* Number of lines in content window    */
-    int   startline = 0;         /* Vertical offset in array of procs    */
-    BOOL  sortdir = FALSE;       /* Sort direction                       */
-    char  *username;             /* Entered username for filtering       */
-    int filter_uid = -1;         /* Userid by which to filter            */
-    fieldmask printfields = F_ALL; /* Mask of columns to print           */
-    enum field_t sortfield = CPU; /* Sort field, defaulting to CPU %     */
-    sigset_t  sigmask;           /* Signals to block during main loop    */
+    WINDOW *content_win;           /* The content area                     */
+    WINDOW *heading_win;           /* The one-line heading                 */
+    WINDOW *summary_win;           /* The summary at the top of the screen */
+    char   heading[MAX_LINE];      /* The string storing the heading       */
+    struct timespec  delay;        /* Time interval for refreshes          */
+    bool   done = FALSE;           /* Controls main loop.                  */
+    procstat  *procarray = NULL;   /* Array storing process data           */
+    int   numprocs = 0;            /* Number of processes in the array     */
+    int   contentlines;            /* Number of lines in content window    */
+    int   startline = 0;           /* Vertical offset in array of procs    */
+    BOOL  sortdir = FALSE;         /* Sort direction                       */
+    char  *username;               /* Entered username for filtering       */
+    int filter_uid = -1;           /* Userid by which to filter            */
+    fieldmask printfields = F_ALL; /* Mask of columns to print             */
+    enum field_t sortfield = CPU;  /* Sort field, defaulting to CPU %      */
+    sigset_t  sigmask;             /* Signals to block during main loop    */
 
     setup_sighandlers();
     create_sigmask(&sigmask);

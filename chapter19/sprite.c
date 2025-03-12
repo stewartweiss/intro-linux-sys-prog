@@ -6,7 +6,7 @@
   Purpose        : To show how to control the terminal completely.
   Usage          : sprite_demo
   Build with     : gcc -Wall -I../include -L../lib -o sprite \
-                      sprite.c  -lspl
+                      sprite.c  -lspl -lncurses -lm
 
   Notes:
   This program is a simple video game. It displays a sprite that moves one
