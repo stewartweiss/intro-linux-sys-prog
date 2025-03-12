@@ -9,6 +9,13 @@
                      sigio_demo.c -lspl
 
   Notes:
+
+  After you start the program, there are 3 characters that alter its behavior:
+  d:  Moves the cursor down
+  u:  Moves the cursor up
+  q:  Exits the program
+  Each must be followed by a newline to have any effect.
+
   This program will not behave "perfectly". If you type fast enough, you might
   see the characters typed in a row below the first row.If you enter a long
   sequence of characters before a newline, such as 'dddddd\n', you may see
@@ -129,7 +136,7 @@ int main( int argc, char * argv[])
         fatal_error(errno, "sigaction");
 
     sigact.sa_handler = on_timer; /* SIGALRM handler function */
-    if ( sigaction(SIGUSR1, &sigact, NULL) == -1 )  /* try to install */
+    if ( sigaction(SIGUSR1, &sigact, NULL) == -1 )  /* Try to install */
         fatal_error(errno, "sigaction");
 
     /* Initialize a sigevent structure to send a SIGUSR1 signal on timer

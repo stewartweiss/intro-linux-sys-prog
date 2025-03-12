@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
         fatal_error(errno, "calloc");
 
     memset(&aio_block, 0, sizeof(aio_block));
-    aio_block.aio_buf     = buf[i];
+    aio_block.aio_buf     = buf[0];
     aio_block.aio_fildes  = source_fd;
     aio_block.aio_nbytes  = BUFFER_SIZE;
     aio_block.aio_reqprio = 0;
