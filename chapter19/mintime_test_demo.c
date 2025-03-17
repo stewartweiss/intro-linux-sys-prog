@@ -32,15 +32,15 @@
 #include <termios.h>
 
 
-/** set_non_canonical(tts, vmin,vtie) sets the VMIN value to vmin, VTIME to
+/** set_non_canonical(tts, vmin,vtime) sets the VMIN value to vmin, VTIME to
  *  vtime, turns off icanon in the termios* tts
  */
-void set_non_canonical(struct termios *ttystate, int vmin, int vtime)
+void set_non_canonical(struct termios *ttystate, int minval, int timeval)
 {
     tcgetattr( 0, ttystate);              /*  Read current setting.   */
     ttystate->c_lflag       &= ~ICANON;   /*  No buffering            */
-    ttystate->c_cc[VMIN]     =  vmin;     /*  Set MIN to Vmin .       */
-    ttystate->c_cc[VTIME]    =  vtime;    /*  Set TIME to vtime.      */
+    ttystate->c_cc[VMIN]     =  minval;   /*  Set MIN to minval .     */
+    ttystate->c_cc[VTIME]    =  timeval;  /*  Set TIME to timeval.    */
     if ( -1 == tcsetattr( 0 , TCSANOW, ttystate)  )
         fatal_error(errno, "tcsetattr");
 }

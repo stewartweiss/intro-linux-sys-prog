@@ -105,8 +105,8 @@ void* process_client( void *data )
 {
     int  nbytes;
     int  tries;
-    int  clientwritefd;
-    int  clientreadfd;
+    int  clientwritefd; /* This was global in the process-based server. */
+    int  clientreadfd;  /* This was global in the process-based server. */
 
     char *buffer = (char*) malloc(PIPE_BUF);
     if ( NULL == buffer )
