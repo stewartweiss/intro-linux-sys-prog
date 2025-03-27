@@ -148,7 +148,7 @@ int  main(int argc, char *argv[])
             strcpy(d_arg, optarg);
             break;
         case 'h':   /* Help message */
-            sprintf(usage_msg, "%s [-d <time adjustment>]"
+            sprintf(usage_msg, "%s [-d \"<time adjustment>\"]"
                    " [+\"format specification\"]", basename(argv[0]));
             usage_error(usage_msg);
         case '?' :

@@ -152,7 +152,7 @@ int  main(int argc, char *argv[])
             usage_error(usage_msg);
         case '?' :
             fprintf(stderr,"Found invalid option %c\n", optopt);
-            sprintf(usage_msg, "%s [-d <time adjustment>]"
+            sprintf(usage_msg, "%s [-d \"<time adjustment>\"]"
                    " [+\"format specification\"]", basename(argv[0]));
             usage_error(usage_msg);
             break;
