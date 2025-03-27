@@ -81,7 +81,7 @@ FILE*     logfp;     // Not currently used, but can enable logging.
   cmd            COMMAND         "%s"           " %s"
 */
 
-/* The fieldtab table has anentry for each field. Each entry is a structure
+/* The fieldtab table has an entry for each field. Each entry is a structure
    that stores the field format string, heading and heading format string,
    a mask to control whether the field is displayed, and if it's a field for
    which sorting is supported, its comparison function pointer. */
@@ -691,7 +691,7 @@ int iowait (struct timespec *ts) {
     sigset_t empty_mask;         /* Signal mask to pass to pselect() */
     char  mssge[32];             /* A message to be output on exit   */
 
-    FD_ZERO(&fds);                /* fs contains standard input only. */
+    FD_ZERO(&fds);               /* fs contains standard input only. */
     FD_SET(STDIN_FILENO, &fds);
     sigemptyset(&empty_mask);    /* Make empty mask.                 */
 
@@ -735,7 +735,8 @@ int pick_user( WINDOW* win, char* user )
                 wclrtoeol(win);
                 mvwaddstr(win, 5,0, "Invalid user");
                 //wmove(win, 5, 0);
-                mvwchgat(win, 5, 0, strlen("Invalid user"), A_STANDOUT, 0, NULL);
+                mvwchgat(win, 5, 0, strlen("Invalid user"), A_STANDOUT, 
+                         0, NULL);
                 show_err = TRUE;
                 uid = -1;
                 break;
@@ -814,10 +815,10 @@ void create_windows(WINDOW **sum_win, WINDOW **head_win, WINDOW **cnt_win )
 
 void configure_windows(WINDOW *sum_win, WINDOW *head_win, WINDOW *cnt_win )
 {
-    scrollok(sum_win, FALSE);  /* Disable curses scrolling option.      */
-    wstandout(head_win);       /* Put heading window into standout mode.*/
-    scrollok(cnt_win, FALSE);  /* Disable curses scrolling option.      */
-    keypad(cnt_win, TRUE);     /* Enable arrow and function keys.       */
+    scrollok(sum_win, FALSE);    /* Disable curses scrolling option.      */
+    wstandout(head_win);         /* Put heading window into standout mode.*/
+    scrollok(cnt_win, FALSE);    /* Disable curses scrolling option.      */
+    keypad(cnt_win, TRUE);       /* Enable arrow and function keys.       */
 }
 
 int main(int argc, char *argv[])
@@ -866,20 +867,45 @@ int main(int argc, char *argv[])
         show_summary(summary_win, procarray, numprocs);
         wclear(content_win);
         loadprocs(&procarray, &numprocs);
-        sortprocs(procarray, numprocs, fieldtab[sortfield].sortfunc , sortdir);
+        sortprocs(procarray, numprocs, fieldtab[sortfield].sortfunc, sortdir);
         contentlines = getmaxy(content_win);
         print_procs(content_win, procarray, numprocs, contentlines, startline,
                     filter_uid, printfields);
         wrefresh(content_win);
         if ( iowait(&delay) > 0 )
             switch ( wgetch(content_win) ) {
-                case 'q':  done = TRUE; break;
-                case 'm':  sortfield = MEM; sortdir = FALSE; startline = 0; break;
-                case 'c':  sortfield = CPU; sortdir = FALSE; startline = 0; break;
-                case 't':  sortfield = TIME; sortdir = FALSE; startline = 0;break;
-                case 'p':  sortfield = PID; sortdir = FALSE; startline = 0; break;
-                case 'u':  sortfield = USER; sortdir = FALSE; startline = 0; break;
-                case 'r':  sortdir   = ~sortdir; startline = 0;  break;
+                case 'q':  
+                    done = TRUE; 
+                    break;
+                case 'm':  
+                    sortfield = MEM; 
+                    sortdir = FALSE; 
+                    startline = 0; 
+                    break;
+                case 'c':  
+                    sortfield = CPU; 
+                    sortdir = FALSE; 
+                    startline = 0; 
+                    break;
+                case 't':  
+                    sortfield = TIME; 
+                    sortdir = FALSE; 
+                    startline = 0;
+                    break;
+                case 'p':  
+                    sortfield = PID; 
+                    sortdir = FALSE; 
+                    startline = 0; 
+                    break;
+                case 'u':  
+                    sortfield = USER; 
+                    sortdir = FALSE; 
+                    startline = 0; 
+                    break;
+                case 'r':  
+                    sortdir   = ~sortdir; 
+                    startline = 0;  
+                    break;
                 case 'U':
                     filter_uid = pick_user(summary_win, username);
                     startline = 0;
