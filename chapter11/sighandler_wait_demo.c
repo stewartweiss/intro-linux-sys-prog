@@ -70,7 +70,7 @@ void handle_sigchld(int signum, siginfo_t *siginfo, void *unused)
         if ( -1 == sigprocmask(SIG_BLOCK, &blocked_set, NULL) )
             error_mssge(errno, "sigprocmask()");
         sigchld_count++;
-        printf("Handler reaping:");
+        printf("Handler reaping: ");
         print_status(siginfo->si_pid, status);
         /* Unblock SIGCHLD now. */
         if ( -1 == sigprocmask(SIG_UNBLOCK, &blocked_set, NULL) )
