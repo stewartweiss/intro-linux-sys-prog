@@ -26,7 +26,7 @@
 void* hello_world( void * world)
 {
     long  exit_value = 0; /* Exit value must be the same size as a pointer. */
-    printf("Hello world from  %s!\n", (char*) world);
+    printf("Hello world from %s!\n", (char*) world);
     pthread_exit((void*) exit_value);
 }
 
