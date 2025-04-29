@@ -1,8 +1,8 @@
 # Introduction to System Programming in Linux "Demo" Programs
 
-This repository contains source code for the programs in the book
-"Introduction to System Programming in Linux"  written by me,
-Stewart Weiss.  The book is expected to be published by No Starch Press
+This repository contains source code for the programs in my book
+"Introduction to System Programming in Linux".
+The book will be published by No Starch Press and available on Amazon
 on October 15, 2025.
 You can read more about it on the webpage
 https://nostarch.com/introduction-system-programming-linux.
@@ -12,7 +12,7 @@ For instructions on building the programs, see the section
 `How To Use This Repository'.
 
 For notes on changes that have been made to the code since it was
-published in the book, see the file CHANGES.
+published in the book, see the CHANGES file.
 
 ## Licensing
 
@@ -25,16 +25,16 @@ covered by the GNU Lesser General Public License (Version 3), a copy of
 which is in the file COPYING.lgplv3 in this directory.
 
 ## Organization of Subdirectories
-The subdirectories are either named by chapter, in the form ChapterNN,
+The subdirectories are either named by chapter, in the form Chapter*NN*,
 or have names such as "include", "lib", "makefiles", and so forth.
-The ChapterNN directories contain code introduced in the corresponding
+The Chapter*NN* directories contain code introduced in the corresponding
 chapter of the book.
 The other chapters are self-explanatory.
 
 
 
 I welcome suggestions, corrections, discovery of bugs, and other improvements.
-At present there is no CONTRIBUTING file.
+At present there is no CONTRIBUTING file because the instructions are fairly simple ---
 If you see something that needs improvement,
 create an issue with as much detail as possible.
 Please ensure your description is clear and has sufficient instructions to be able to reproduce the issue.
