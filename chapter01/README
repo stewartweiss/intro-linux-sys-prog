@@ -6,3 +6,10 @@ the -k option tells make to continue making the other target executables.
 bad_getenv_demo.c is included in this directory because negative examples
 are just as useful as positive ones. It illustrates a common mistake that
 beginning C programmers make.
+
+The programs in this directory are introduced in Chapter 01 in the following order:
+hello.c
+getenv_demo.c
+hello_world.c
+getpid_demo.c
+gettid_demo.c

@@ -1,0 +1,19 @@
+The programs in this directory are those developed in Chapter 3 of the book.
+The spl_date* programs are successively more enhanced implementations of the
+date command. The remaining programs are demonstrations of how to use 
+variouse locale-bed functions.
+
+Their order in the book is as follows.
+
+spl_date1.c
+spl_date2.c
+spl_date3.c
+spl_date4.c
+strcoll_demo.c
+strfmon_demo.c
+nl_langinfo_demo1.c
+nl_langinfo_demo2.c
+newlocale_demo.c
+
+The shell script named testspl_date3.sh is teh script used to test the
+spl_date3.c program.

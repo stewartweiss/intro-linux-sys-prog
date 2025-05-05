@@ -1,0 +1,11 @@
+The programs in this directory are those developed in Chapter 4 of the book.
+The spl_cp* programs are very simple implementations of the cp command,
+whose main purpose is to introduce the kernel interface for file I/O.
+The last two are programs designed to test the overhead of library function
+calls and system calls respectively.
+
+Their order in the book is as follows.
+spl_cp1.c
+spl_cp2.c
+spl_libcalloverhead.c
+spl_syscalloverhead.c

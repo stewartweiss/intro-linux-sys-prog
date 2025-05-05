@@ -1,0 +1,24 @@
+The programs in this directory are introduced in Chapter 2 in the 
+order given below.  
+get_libc_version_demo.c
+gettid_demo.c
+perror_demo.c
+printargs1.c
+printargs2.c
+printargs3.c
+environ_demo.c
+getenv_demo.c
+risky_getenv.c
+usagecheck_demo.c
+progname_demo.c
+basename_demo.c
+gethostname_demo.c
+getopt_demo.c
+strtol_demo.c
+str2int.c
+strerror_demo.c
+
+You can use the following two programs for testing the get_int() and
+get_long() functions in the libspl.a library.
+test_get_int.c
+test_get_long.c

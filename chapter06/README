@@ -1,0 +1,10 @@
+The programs in this directory are those developed in Chapter 6 of the book.
+This chapter explores the properties of files and filesystems and develops
+just two programs to demonstrate how to worj with the file and filesystem
+interfaces of the kernel.
+Their order in the book is as follows.
+
+lstat_manpage_example.c
+fsidtest.c
+spl_stat.c
+spl_statfs.c

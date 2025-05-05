@@ -1,7 +1,7 @@
 # Introduction to System Programming in Linux "Demo" Programs
 
 This repository contains source code for the programs in my book
-"Introduction to System Programming in Linux".
+*System Programming in Linux: An Introduction*.
 The book will be published by No Starch Press and available on Amazon
 on October 15, 2025.
 You can read more about it on the webpage

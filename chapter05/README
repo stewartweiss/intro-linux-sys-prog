@@ -1,0 +1,17 @@
+The programs in this directory are those developed in Chapter 5 of the book.
+This chapter introduces a few more advanced concepts of I/O and shows how
+to use them by developing implementations of the last lastlog cnd
+utmpdump commands. The remaining programs are demonstrations of related parts
+of the kernel API.
+
+Their order in the book is as follows.
+
+makefilehole.c
+getpwuid_demo.c
+showallusers.c
+spl_lastlog.c
+spl_utmpdump.c
+spl_lastlog.c
+spl_utmpdump.c
+spl_last.c
+spl_lastlog.c
