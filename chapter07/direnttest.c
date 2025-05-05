@@ -1,14 +1,14 @@
 
 
 /****************************************************************************
-  Title          :
+  Title          : direnttest.c
   Author         : Stewart Weiss
-  Created on     :
-  Description    :
-  Purpose        :
-  Usage          :
-  Build with     :
-  Modifications  :
+  Created on     : December 10, 2023
+  Description    : Tests whether the _DIRENT_HAVE_D_TYPE macro is enabled
+  Purpose        : To show how to use the _DIRENT_HAVE_D_TYPE macro.
+  Usage          :  <dir>
+  Build with     : gcc -Wall -g -I ../include direnttest.c -o direnttest \
+                   -L../lib -lspl
 
 *****************************************************************************
 

@@ -1,7 +1,7 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = dircalls.c direnttest.c fts_demo.c functionptr_demo.c nftw_demo.c\
+SRCS    = direnttest.c fts_demo.c functionptr_demo.c nftw_demo.c\
           nftw_manpage_example.c scandir_demo.c scandir_manpage_example.c \
           spl_du1.c spl_du2.c spl_ls1.c spl_ls2.c spl_ls3.c spl_ls_rec1.c \
           spl_ls_rec2.c  spl_lsbad.c spl_pwd.c testdircalls.c
@@ -24,7 +24,6 @@ cleanall: clean
 	-rm -f  $(EXECS)
 
 
-dircalls.o: dircalls.c $(SPL_LIB) $(SPL_HDRS)
 direnttest.o: direnttest.c $(SPL_LIB) $(SPL_HDRS)
 fts_demo.o: fts_demo.c $(SPL_LIB) $(SPL_HDRS)
 functionptr_demo.o: functionptr_demo.c $(SPL_LIB) $(SPL_HDRS)

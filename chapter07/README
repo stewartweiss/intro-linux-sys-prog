@@ -1,0 +1,20 @@
+The programs in this directory are those developed in Chapter 7 of the book,
+which examines the directory hierarchy. It looks at the parts of the 
+kernel API as well as selected library functions related to directories and
+the directory hierarchy.
+
+The order in which they should be examined is as follows.
+testdircalls.c
+spl_ls1.c
+spl_ls2.c
+scandir_manpage_example.c
+scandir_demo.c
+spl_ls3.c
+spl_ls_rec1.c
+spl_ls_rec2.c
+nftw_manpage_example.c
+nftw_demo.c
+spl_du1.c
+spl_du2.c
+fts_demo.c
+spl_pwd.c
