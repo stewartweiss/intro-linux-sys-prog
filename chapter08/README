@@ -1,0 +1,29 @@
+This directory contains demo programs for Chapter 8, which covers
+signal handling.  Several of the programs in this directory are
+not included in the book; those that aren't in the book are marked 
+with *.
+
+The order in which they should be studied is as follows.
+
+signal_demo1.c
+signal_demo1b.c
+sysv_signal_demo.c
+signal_demo2.c
+* send_sigint.c
+kill_demo.c
+signal_demo3.c
+* signal_demo4.c
+* signal_demo5.c
+raise_demo.c
+sigprocmask_demo1.c
+sigprocmask_demo2.c
+sigprocmask_demo3.c
+* signal_counter1.c
+* signal_counter2.c
+* sigsuspend_demo.c
+* sigwait_demo1.c
+* sigwait_demo2.c
+sigact_demo1.c
+sigact_demo2.c
+* restart_demo.c
+sigact_demo3.c
