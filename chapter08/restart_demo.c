@@ -1,28 +1,40 @@
 /*****************************************************************************
   Title       : restart_demo.c
   Author      : Stewart Weiss
-  Created on  : Spring 2011
+  Created on  : 2011, revised 2023
   Description : Waits for user input and a keyboard interrupt
   Purpose     : To demonstrate what happens when system calls are or are not
                 restarted when they get interrupted.
   Usage       : restart_demo
-  Build with  : gcc -o restart_demo restart_demo.c
+  Build with  : gcc -o restart_demo -I../include -L../lib restart_demo.c -lspl
+
 
   Notes          :
   To use this program:
-    First run it and type no keyboard interrupts. It expects you to enter 4
-    characters followed by Enter.  It will produce no output.
+    First run it and type no keyboard interrupts, but enter at least 4
+    characters followed by Enter.  It will output
+    "You entered"
+    followed by the first 4 characters that you entered.
 
-    Second, type less than 4 characters then Ctrl-C. It will output the
-    message
-    "Read call was interrupted." followed by the unaltered value XXXX.
+    Next, enter fewer than 4 characters followed by ENTER without any 
+    keyboard interrupt.  It will output 
+    "You entered"
+    followed by the characters you entered.
 
-    Third, type less than 4 characters then Ctrl-\. It will wait for you to
-    type 4 more characters, followed by Enter. It will output the message
-    "Read call was interrupted and restarted." followed by the last 4
-    characters that you typed.
+    Now, enter any number of characters (other than ENTER) then Ctrl-C. 
+    It will output the message
+    "Read call was interrupted." followed by the string XXXX.
+
+    Last, enter any number of characters (not including ENTER) then 
+    Ctrl-\. It will first output
+    "Signal caught; re-enter input."
+    display the prompt ">" and wait for you to aany number of characters 
+    followed by Enter. It will output the message
+    "Read call was interrupted and restarted." followed by the first 4
+    of the new characters that you typed.
+
 ******************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                         *
+* Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *
@@ -81,11 +93,13 @@ int main(int argc, char *argv[])
         write(1, c, 4);
         printf("\n");
     }
-    else
+    else {
+        if ( n < 4 )
+            c[n] = '\0';
         printf("You entered %s\n", c);
+    }
 
     /* Drain the terminal queues in case there are characters still there. */
     tcflush(0,TCIFLUSH);
     return 0;
 }
-

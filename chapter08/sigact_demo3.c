@@ -3,12 +3,21 @@
   Author         : Stewart Weiss
   Created on     : December 13, 2023
   Description/   : Allows various flags to be passed
-  Purpose        :
-  Usage          :
-  Build with     :
+  Purpose        : To let user explore signal handling behavior
+  Usage          : sigact_demo3 [reset] [nodefer [restart ]
+  Build with     : gcc -o sigact_demo3 -I../include -L../lib sigact_demo3.c \
+                       -lspl
+
+  Notes
+  This program uses the command line arguments to change the behavior of the
+  signal handler. The user can enter any subset of the strings "restart",
+  "nodefer", and "reset" after the program name. That subset is then used
+  to set the sa_flags member of the sigaction structure. By trying different
+  combinations  of the flags, you can get a better understanding of how they
+  alter the signal handling.
 
 ******************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                         *
+* Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *

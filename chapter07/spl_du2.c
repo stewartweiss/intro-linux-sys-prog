@@ -12,7 +12,7 @@
   and type and accumulating total bytes in the tree.
 
 ******************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                         *
+* Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
 * under the terms of the GNU General Public License as published by the      *

@@ -9,7 +9,7 @@
   Build with     : gcc -Wall -g -o signal_demo1 signal_demo1.c
 
 *****************************************************************************
-* Copyright (C) 2023 - Stewart Weiss                                        *
+* Copyright (C) 2025 - Stewart Weiss                                        *
 *                                                                           *
 * This code is free software; you can use, modify, and redistribute it      *
 * under the terms of the GNU General Public License as published by the     *
@@ -41,7 +41,7 @@ int main()
         fatal_error(errno, "signal()");
     if ( SIG_ERR == signal( SIGQUIT, catch_sigquit) )
         fatal_error(errno, "signal()");
-    for(int i = 20; i > 0; i-- ) {
+    for (int i = 20; i > 0; i-- ) {
         printf("Try to terminate me with ^C or ^\\.\n");
         sleep(1);
     }

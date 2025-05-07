@@ -11,7 +11,7 @@
                    . and ..; for files, just prints their names.
 
 ******************************************************************************
- * Copyright (C) 2023 - Stewart Weiss
+ * Copyright (C) 2025 - Stewart Weiss
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
