@@ -6,7 +6,6 @@
   Purpose        : To introduce simple I/O
   Usage          : hello
   Build with     : gcc -o hello hello.c
-  Modifications  :
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -29,6 +28,4 @@ int main()
     printf("Enter your name: ");
     scanf("%255s", name);
     printf("hello %s\n", name);
-    if ( strlen(name) < 60 )
-        exit(1);
 }
