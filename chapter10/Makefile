@@ -22,7 +22,7 @@ cleanall: clean
 clean:
 	\rm -f $(OBJS)
 	
-elf_utils.o      : elf_utils.c
+elf_utils.o      : elf_utils.c     $(SPL_LIB) $(SPL_HDRS)
 ancestors.o      : ancestors.c     $(SPL_LIB) $(SPL_HDRS)
 changecmdline.o  : changecmdline.c  $(SPL_LIB) $(SPL_HDRS)
 changegroup.o    : changegroup.c  $(SPL_LIB) $(SPL_HDRS)

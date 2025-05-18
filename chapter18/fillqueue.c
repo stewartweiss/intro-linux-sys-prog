@@ -11,7 +11,7 @@
 
   Notes:
   This is designed to be used in conjunction with watchtty.c, which reads the
-  number of characters in a terminal queue and write it to a file.
+  number of characters in a terminal queue and writes it to a file.
   It inserts characters into the input queue after an initial delay,
   which gives you time to start up the second program.  Then it reads the
   characters from the terminal with a small sleep in between so that the

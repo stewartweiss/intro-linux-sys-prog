@@ -13,6 +13,8 @@
                         -c required_arg
                         -1
                     and any number of arguments after them
+  Build with     : gcc -o getopt_demo getopt_demo.c -I../include -L../lib \
+                         -lspl
 
   Notes
       The getopt() function parses the command-line arguments.  Its arguments

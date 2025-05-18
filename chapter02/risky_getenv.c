@@ -4,17 +4,16 @@
   Created on     : October 18, 2023
   Description/   : A bad way to use the getenv() function
   Purpose        : To show how NOT to call getenv()
-  Usage          : risky_getenv 
-  Build with     : gcc -Wall -g -I../include -L../lib -o risky_getenv \
-                   risky_getenv.c -lspl
+  Usage          : risky_getenv
+  Build with     : gcc -Wall -g  -o risky_getenv  risky_getenv.c
 
   Notes:
   The getenv() function may be implemented in such a way that it
   allocates a static pointer to the environment string that it finds.
   The fact that it's static implies that there's just a single copy
   of it in the process's address space, and it is not in the process
-  stack. 
-  If it's implemented this way then each successive call to getenv() 
+  stack.
+  If it's implemented this way then each successive call to getenv()
   within a single process will overwrite this pointer. The program
   needs to copy the pointer before calling it again if it does not use
   its value right away.
@@ -29,10 +28,11 @@
 * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
+
 #include <stdlib.h>
 #include <stdio.h>
 
-int main()
+int main(int argc, char *argv[])
 {
     char *home, *user;
     home  = getenv("HOME"); /* home points to pathname to home directory. */

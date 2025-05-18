@@ -197,7 +197,7 @@ void print_statx(struct statx *stx, int what2print[])
 }
 
 /*--------------------------------------------------------------------------*/
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     struct statx statx_buffer;    /* statx structure filled by statx()      */
     char         usage_mssge[128];/* string to store usage message          */

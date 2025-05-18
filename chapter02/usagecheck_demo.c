@@ -20,7 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main ( int argc,  char * argv[]  )
+int main ( int argc,  char *argv[]  )
 {
     if ( argc < 3 ) { /* too few arguments */
         /* handle the incorrect usage here */

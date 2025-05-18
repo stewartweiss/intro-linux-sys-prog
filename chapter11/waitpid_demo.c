@@ -24,8 +24,8 @@
 
 #define  PRODUCER_EXIT_VAL  63
 #define  CONSUMER_EXIT_VAL  127
-#define  CONSUME_TIME       30
-#define  PRODUCE_TIME       20
+#define  CONSUME_TIME       40
+#define  PRODUCE_TIME       40
 
 void print_status( pid_t pid, int status )
 {

@@ -27,7 +27,7 @@
 */
 extern char **environ;
 
-int main()
+int main(int argc, char *argv[])
 {
     char **envp = environ; /* set point to start of list */
     while ( NULL != *envp ) {

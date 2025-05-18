@@ -3,7 +3,7 @@
   Author         : Stewart Weiss
   Created on     : October 28, 2023
   Description    : Implements pwd across mount points
-  Purpose        :
+  Purpose        : To show how to ascend the directory hierarchy
   Usage          : spl_pwd [-v]
                    -v turns on verbose output
   Build with     : gcc -g -Wall -o spl_pwd spl_pwd.c -L../lib  -lutils  \
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
     while ( !are_samefile(current, root)) {
         /* go up to parent directory */
         chdir( ".." );
-        /* Search in the parent directory for the fileame of this_inode. */
+        /* Search in the parent directory for the filename of this_inode. */
         if ( NULL == (dirname = get_filename(current)) )
             fatal_error(-1,
                    "Could not find entry in .. for current directory.");

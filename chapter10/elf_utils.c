@@ -15,6 +15,7 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 #include <elf.h>
+#include "common_hdrs.h"
 
 char* em_label[EM_NUM];
 

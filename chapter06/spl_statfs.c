@@ -214,7 +214,7 @@ void print_stat(struct statvfs statvfs_buf, char* fstype)
     printf("Free: %lu\n", statvfs_buf.f_ffree);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
     struct statvfs statvfs_buffer; /* statvfs structure filled by statvfs()*/
     struct statfs  statfs_buffer;  /* statfs structure filled by statfs()  */

@@ -1,4 +1,4 @@
-/******************************************************************************
+/*****************************************************************************
   Title          : ttywatch.c
   Author         : Stewart Weiss
   Created on     : March 19, 2013
@@ -6,14 +6,24 @@
   Purpose        : Demonstrates use of ioctl TIOCINQ for getting size of
                    terminal input queue.
   Usage          : ioctl3 terminal-device
-  Build with     : gcc -Wall -g -o ioctl3 ioctl3.c
-  Modifications  :
+  Build with     : gcc -Wall -L../lib -I../include -o ttywatch ttywatch.c \
+                      -lspl
   Notes          :
-  This is designed to be used in conjunction with ioctl2.c, which removes
-  characters from a terminal queue sufficiently sjowly so that this can
+  This is designed to be used in conjunction with fillqueue.c, which adds
+  characters from a terminal queue sufficiently slowly so that this can
   report the distinct sizes.
 
-******************************************************************************/
+
+******************************************************************************
+* Copyright (C) 2024 - Stewart Weiss                                         *
+*                                                                            *
+* This code is free software; you can use, modify, and redistribute it       *
+* under the terms of the GNU General Public License as published by the      *
+* Free Software Foundation; either version 3 of the License, or (at your     *
+* option) any later version. This code is distributed WITHOUT ANY WARRANTY;  *
+* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A      *
+* PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
+*****************************************************************************/
 #include "common_hdrs.h"
 #include   <sys/ioctl.h>
 

@@ -22,7 +22,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-int main()
+int main(int argc, char *argv[])
 {
     char  name[4];   /* declare string to hold returned value */
     size_t len = 3;  /* purposely too small so error is revealed */

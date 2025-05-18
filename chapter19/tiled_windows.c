@@ -5,7 +5,9 @@
   Description    : Creates two horizontally-tiled windows
   Purpose        : To show how to tile a terminal screen in curses.
   Usage          : tiled_windows.c
-  Build with     :
+  Build with     : gcc -Wall -I../include -L../lib -o tiled_windows \
+                      tiled_windows.c  -lspl -lncurses -lm
+
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -40,7 +42,7 @@ int main(int argc, char *argv[])
     noecho();    /* Turn off echo.        */
 
     /* Create a content window in the lower LINES-3 rows of the screen.     */
-    if ( NULL == (content_win = newwin(LINES-4, COLS, 4, 0)) ) {
+    if ( NULL == (content_win = newwin(LINES-3, COLS, 3, 0)) ) {
         endwin();
         fatal_error(-1, "Could not create first window.");
     }

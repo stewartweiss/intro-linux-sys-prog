@@ -30,7 +30,7 @@
 #include  "common_hdrs.h"
 #include  <signal.h>
 #include  <termios.h>    /* Needed for tcflush(). */
-#define INPUTLEN  12
+#define INPUTLEN  14
 
 void sig_handler (int signo, siginfo_t *info, void *context)
 {
@@ -53,10 +53,10 @@ void sig_handler (int signo, siginfo_t *info, void *context)
 
 int main(int argc, char *argv[])
 {
-    const  int  maxsize = INPUTLEN; /* Maximum input size */
+    const  int  maxsize = INPUTLEN-2; /* Maximum input size */
     const char  intr_message[] = "    read() was interrupted.\n";
     const char  out_label[]    = "Entered text:";
-    char        buffer[maxsize+2]; /* INPUTLEN plus newline and null byte */
+    char        buffer[maxsize+2];   /* Allows for newline and null byte */
     struct sigaction action;
     sigset_t    blocked;             /* Set of blocked sigs */
     int         flags = 0;
@@ -91,20 +91,20 @@ int main(int argc, char *argv[])
         fatal_error(errno, "sigaction");
 
     while( TRUE ) {
-        memset((void*)buffer, 0, maxsize+2);     /* Zero inout buffer.     */
+        memset((void*)buffer, 0, maxsize+2);     /* Zero inout buffer.      */
         tcflush(STDIN_FILENO,TCIFLUSH);          /* Remove bytes never sent.*/
         write(STDOUT_FILENO, prompt, prompt_len); /* Write prompt string.   */
-        n = read(STDIN_FILENO, &buffer, maxsize); /* Read user input.       */
+        n = read(STDIN_FILENO, &buffer, maxsize+1); /* Read user input.     */
         if (-1 == n  &&  EINTR == errno )       /* If interrupted by signal */
             write(STDOUT_FILENO, intr_message, intr_message_len);
         else {
-            if ( strncmp("quit", buffer, 4) == 0 ) /* User wants to quit. */
+            if ( strncmp("quit", buffer, 4) == 0 ) /* User wants to quit.   */
                 break;
             else { /* Write the entered characters to the terminal. */
                 write(STDOUT_FILENO, &out_label, reply_len);
-                if ( n >= maxsize ) /* In this case, need to add a newline. */
-                    buffer[n] = '\n';
-                write(STDOUT_FILENO,&buffer,n+1);
+                if ( buffer[n-1] != '\n' ) /* If so, terminate with newline */
+                    buffer[n-1] = '\n';
+                write(STDOUT_FILENO,&buffer,n);
             }
         }
     }

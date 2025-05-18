@@ -22,7 +22,7 @@
 #include <string.h>
 #include <stdio.h>
 
-int main()
+int main(int argc, char *argv[])
 {
     char *path_to_home;
     path_to_home  = getenv("HOME");
