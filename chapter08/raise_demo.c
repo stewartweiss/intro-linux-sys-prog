@@ -6,7 +6,8 @@
   Purpose     : To show one use of raise() in signal handlers
   Usage       : raise_demo
                    While it's running send CTRL-\ and CTRL-C to quit.
-  Build with  : gcc -I../include -o raise_demo raise_demo.c -L../lib -lspl
+  Build with  : gcc -Wall -I../include -o raise_demo raise_demo.c -L../lib \
+                   -lspl
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *

@@ -6,8 +6,8 @@
   Purpose     : To demonstrate what happens when system calls are or are not
                 restarted when they get interrupted.
   Usage       : restart_demo
-  Build with  : gcc -o restart_demo -I../include -L../lib restart_demo.c -lspl
-
+  Build with  : gcc -Wall -I../include -o restart_demo restart_demo.c \
+                 -L../lib -lspl
 
   Notes          :
   To use this program:

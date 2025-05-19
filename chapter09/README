@@ -1,0 +1,26 @@
+This directory contains demo programs for Chapter 9, which covers
+timers and sleep functions.  Several of the programs in this directory are
+not included in the book; those that aren't in the book are marked 
+with *.
+
+The order in which they should be studied is as follows.
+
+nanosleep_demo1.c
+nanosleep_demo2.c
+* nanosleep_demo3.c
+clock_nanosleep_demo.c
+alarm_demo1.c
+alarm_demo2.c
+progress_bar1.c
+* timer_overrun_demo.c
+progress_bar2.c
+* progress_bar_blocked_signal.c
+escapeseq_demo1.c
+escapeseq_demo2.c
+watchfiles.c
+* alarm_demo3.c
+* clearscreen.c
+* posix_timer_manpage_example.c
+posix_timer_demo1.c
+posix_timer_demo2.c
+* posix_timer_demo3.c

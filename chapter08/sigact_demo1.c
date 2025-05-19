@@ -7,7 +7,8 @@
   Usage       : sigact_demo1
                    In a second terminal window, send a SIGINT, following
                    instructions printed on terminal by this program.
-  Build with  : gcc -o sigact_demo1 -I../include -L../lib sigact_demo1.c -lspl
+  Build with  : gcc -Wall -I../include -o sigact_demo1  sigact_demo1.c \
+                  -L../lib -lspl
 
 
 ******************************************************************************

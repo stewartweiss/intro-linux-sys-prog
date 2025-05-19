@@ -6,7 +6,8 @@
   Purpose     : A tool to help show how signal handlers work
   Usage       : Start up signal_demo3, capture its PID, and run
                         kill_demo <pid>
-  Build with  : gcc -I../include -o kill_demo kill_demo.c -L../lib -lspl
+  Build with  : gcc -Wall -I../include -o kill_demo kill_demo.c -L../lib \
+                  -lspl
 
  *****************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
