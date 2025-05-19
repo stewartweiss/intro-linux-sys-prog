@@ -1,0 +1,19 @@
+This directory contains demo programs for Chapter 10, which introduces
+processes and their representataions. A few of the programs in this 
+directory are not included in the book; those that aren't in the book 
+are marked with *.
+
+The order in which they should be studied is as follows.
+
+hello_world.c
+print_elfphdr.c
+* printelf.c
+elf_utils.c
+displayvm.c
+showbreak.c
+* showbreakdiff.c
+* memlayout.c
+ancestors.c
+* changecmdline.c
+* changegroup.c
+spl_ps.c

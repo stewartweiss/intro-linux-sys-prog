@@ -1,0 +1,30 @@
+This directory contains demo programs for Chapter 11, which explores
+the part of the kernel API related to the creation and management of
+directory. Some aren't included in the book; those that aren't in the
+book are marked with *.
+
+The order in which they should be studied is as follows.
+
+fork_demo1.c
+fork_demo2.c
+fork_demo3.c
+fork_demo4.c
+fork_demo5.c
+sync_io_demo.c
+atexit_demo.c
+execve_demo1.c
+execve_demo2.c
+print_args_env.c
+execl_demo.c
+execlp_demo.c
+execle_demo.c
+execvp_demo.c
+wait_demo1.c
+wait_demo2.c
+* wait_demo3.c
+waitpid_demo.c
+waitid_demo.c
+sighandler_wait_demo.c
+* sighandler_wait_demo2.c
+spl_sh.c
+system_demo.c
