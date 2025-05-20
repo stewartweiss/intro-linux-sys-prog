@@ -1,0 +1,14 @@
+This directory contains demo programs for Chapter 13, which covers
+named and unnamed pipes.  Some aren't included in the book; those 
+that aren't in the book are marked with *.
+
+The order in which they should be studied is as follows.
+
+pipe_capacity.c
+pipe_demo1.c
+pipe_demo2.c
+pipe_demo3.c
+fifomonitor.c
+fifosender.c
+shellpipe_demo.c
+popen_demo.c

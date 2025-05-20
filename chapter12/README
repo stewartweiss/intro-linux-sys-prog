@@ -1,0 +1,22 @@
+This directory contains demo programs for Chapter 12, which explores
+a selected set of interprocess communication topics, including the 
+POSIX shared memory, message queue, and semaphore APIs.
+Some aren't included in the book; those that aren't in the
+book are marked with *.
+
+The order in which they should be studied is as follows.
+
+shm_user_demo1.c
+shm_creator_demo1.c
+shm_user_demo2.c
+shm_creator_demo2.c
+unnamedsem_demo.c
+namedsem_demo.c
+shm_consumer.c
+shm_consumer_nosem.c
+shm_producer.c
+mqrcv_demo.c
+mqsend_demo.c
+* winsize.c
+ulogger.c
+ulogger_client.c
