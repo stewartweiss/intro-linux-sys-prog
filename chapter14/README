@@ -1,0 +1,13 @@
+This directory contains demo programs for Chapter 14, which is
+an introduction to client-server applications. 
+Some aren't included in the book; those 
+that aren't in the book are marked with *.
+
+The order in which they should be studied is as follows.
+
+syslog_demo.c
+* risky_syslog.c
+calc_client.c
+calc_server.c
+upcase.c
+upcased.c
