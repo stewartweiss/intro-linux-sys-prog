@@ -29,7 +29,7 @@ int main( int argc, char *argv[])
     openlog(argv[0], LOG_PID | LOG_CONS, LOG_LOCAL0); /* Start syslog logging. */
     strcpy(msg, "Starting logging demonstration.");
     while ( strcmp(msg, "quit")  != 0) {
-        syslog(LOG_INFO, "%s", msg);
+        syslog(LOG_INFO, msg);
         printf("Message to log: ");
         fflush(stdout);
         scanf("%s", msg);
