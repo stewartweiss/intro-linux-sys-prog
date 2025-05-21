@@ -5,6 +5,8 @@
   Description    : Prints the sum of virtual memory usage of all processes
   Purpose        : To show how to use barrier synchronization in a
                     multithreaded program.
+  Build with     : gcc -Wall -g -I../include -L../lib -o vmem_usage \
+                   vmem_usage.c -lspl -pthread -lrt
   Usage          : vmem_usage
 
 ******************************************************************************

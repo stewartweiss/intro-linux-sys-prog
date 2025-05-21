@@ -1,30 +1,17 @@
 /*****************************************************************************
   Title          : upcase.c
   Author         : Stewart Weiss
-  Created on     : May  2, 2008
+  Created on     : May  2, 2008, revised Oct. 2024
   Description    : Client for upcase server daemon
   Purpose        : To demonstrate a multiple-client/server IPC using FIFOs
                    and to show how to use private and public FIFOs.
-  Build with     : gcc -o upcase upcase.c
-                   (depends on upcase2.h header file)
-
   Usage          : This client will send its standard input to the server
                    for translation to uppercase, one line at a time, whether
                    it comes from the console or is redirected. It also
                    accepts a command line argument
                        upcase   [input-file]
-
-  Modifications  : May 19, 2008
-                   Delayed opening the raw_data fifo for writing until after
-                   sending the initial message struct to the server, so that
-                   it can open it for reading first. This way client can open
-                   it write-only and it will get the SIGPIPE signal if the
-                   server unexpectedly exits.
-                   Changed the error messages and detected when the public
-                   FIFO was missing.
-                   Added a cleanup() function to remove private fifos and
-                   added calls to it whenever client exits prematurely.
-
+  Build with     : gcc -Wall -g -I../include -o upcase upcase.c -L../lib \
+                       -lspl
 
 *****************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -37,12 +24,12 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-#include "upcase.h"     /* All required header files are included in this */
-                         /* header file shared by sender and receiver,  */
+#include "upcase.h"     /* All required header files are included in this   */
+                        /* header file shared by sender and receiver,       */
 
-/*****************************************************************************/
-/*                           Defined Constants                               */
-/*****************************************************************************/
+/****************************************************************************/
+/*                           Defined Constants                              */
+/****************************************************************************/
 
 
 #define  MAXTRIES 5
@@ -61,9 +48,9 @@ int      publicfd;        /* File descriptor to write-end of PUBLIC  */
 FILE*    inputfp;         /* File pointer to input stream            */
 message  msg;             /* Connection message                      */
 
-/*****************************************************************************/
-/*                          Utility Functions                                */
-/*****************************************************************************/
+/****************************************************************************/
+/*                          Utility Functions                               */
+/****************************************************************************/
 
 void clean_up()
 {
@@ -74,9 +61,9 @@ void clean_up()
 }
 
 
-/*****************************************************************************/
-/*                            Signal Handlers                                */
-/*****************************************************************************/
+/****************************************************************************/
+/*                            Signal Handlers                               */
+/****************************************************************************/
 
 void on_sigpipe( int signo )
 {
@@ -95,9 +82,9 @@ void on_signal( int sig )
     unlink(msg.raw_text_fifo);
     exit(EXIT_SUCCESS);
 }
-/*****************************************************************************/
-/*                              Main Program                                 */
-/*****************************************************************************/
+/****************************************************************************/
+/*                              Main Program                                */
+/****************************************************************************/
 
 int main( int argc, char *argv[])
 {

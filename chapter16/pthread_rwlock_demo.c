@@ -8,7 +8,9 @@
                    starvation.
   Usage          : rwlock_demo [-r <nreaders> -w<nwriters> -s<sleeptime> \
                          -R ] <logile>
-  Build with     :
+  Build with     : gcc -Wall -g -I../include -L../lib -o rwlock_demo \
+                   rwlock_demo.c -lspl -pthread -lrt
+
 
   Notes:
   This program would be very simple if we didn't care about trying to prevent

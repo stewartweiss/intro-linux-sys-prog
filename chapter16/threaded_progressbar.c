@@ -6,9 +6,9 @@
   Purpose        : To introduce mutexes in a multi-threaded program
   Usage          : threaded_progbar
   Build with     : gcc -Wall -g -I../include -L../lib -DNUMTHREADS=<n>\
-                   -o threaded_progbar \
-                   threaded_progbar.c -lspl -pthread -lrt
-                   where <n> is the number of threads to use.
+                   -o threaded_progbar  threaded_progbar.c -lspl \
+                   -pthread -lrt -lm
+                   where <n> is the number of threads to create
   Note:
   This simulates a computation by updating a fraction_completed variable.
   The progress bar will not display properly if the number of columns in the

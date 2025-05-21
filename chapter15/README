@@ -1,0 +1,14 @@
+This directory contains demo programs for Chapter 15, which is
+an introduction to client-server applications. 
+Some aren't included in the book; those that aren't in the book 
+are marked with *.
+
+The order in which they should be studied is as follows.
+
+pthread_create_demo.c
+* pthread_create_demo2.c
+pthread_detach_demo.c
+* pthread_getstacksize.c
+* pthread_setstacksize.c
+pthread_signal_demo.c
+threaded_upcased.c

@@ -4,8 +4,15 @@
   Created on     : July 1, 2024
   Description    : A multithreaded multiple producer/consumer program
   Purpose        : To demonstrate condition variables and mutexes
-  Usage          :
-  Build with     :
+  Usage          : pthread_prodcons [-c <num>] [-p <num>] [-m <num>]
+                   where -c sets the number of consumers, -p, the number of
+                   producers, and -m, the number of data items that producers
+                   will produce
+  Build with     : gcc -Wall -g -I../include -o pthread_prodcons \
+                      L../lib  pthread_prodcons.c -pthread -lspl -lm
+
+  Notes: This is a multi-threaded producer/comsumer program that outputs
+        informatyive messages
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -18,10 +25,8 @@
 * PARTICULAR PURPOSE. See the file COPYING.gplv3 for details.                *
 *****************************************************************************/
 
-
 #include "common_hdrs.h"
 #include <pthread.h>
-
 
 /*----------------------------------------------------------------------------
                                 Global, Shared Data

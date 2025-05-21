@@ -1,9 +1,8 @@
 /*****************************************************************************
   Title          : upcase.h
   Author         : Stewart Weiss
-  Created on     : May  2, 2008
+  Created on     : Oct. 18, 2024
   Description    : Common header file for upcased.c/ upcase.c
-
   Notes          : The message struct contains the names of two private FIFOs -
                    one that the client reads and one that it writes. The one
                    named converted_text_fifo is the one it reads.
