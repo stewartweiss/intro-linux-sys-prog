@@ -1,0 +1,15 @@
+This directory contains demo programs for Chapter 17, which explores methods 
+of I/O other than blocking reads and writes.  It covers non-blocking terminal 
+I/O, signal-driven I/O, POSIX asynchronous I/O, and multiplexed I/O.  Some of 
+the programs aren't included in the book; those that aren't in the book are 
+marked with *.
+
+The order in which they should be studied is as follows.
+
+nonblock_demo1.c
+nonblock_demo2.c
+sigio_counter.c
+sigio_demo.c
+* aio_write_demo.c
+cp_aio.c
+select_demo.c
