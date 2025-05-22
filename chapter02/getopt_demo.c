@@ -9,7 +9,7 @@
   Usage          : getopt_demo
                    with any options following it, but the ones recognized are:
                         -h
-                        -b [optional_arg]
+                        -b[optional_arg]
                         -c required_arg
                         -1
                     and any number of arguments after them
