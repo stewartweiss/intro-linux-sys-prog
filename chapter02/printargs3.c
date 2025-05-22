@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : printargs2.c
+  Title          : printargs3.c
   Author         : Stewart Weiss
   Created on     : January  9, 2023
-  Description    : Shows a second way to access command-line arguments
+  Description    : Shows a third way to access command-line arguments
   Purpose        :
-  Usage          : printargs2 <list of words>
-  Build with     : gcc -o printargs2 printargs2.c
+  Usage          : printargs3 <list of words>
+  Build with     : gcc -o printargs3 printargs3.c
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *

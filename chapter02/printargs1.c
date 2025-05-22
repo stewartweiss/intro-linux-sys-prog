@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : printargs.c
+  Title          : printargs1.c
   Author         : Stewart Weiss
   Created on     : January  9, 2023
   Description    : Shows how to access command-line arguments
   Purpose        :
-  Usage          : printargs <list of words>
-  Build with     : gcc -o printargs printargs.c
+  Usage          : printargs1 <list of words>
+  Build with     : gcc -o printargs1 printargs1.c
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -26,7 +26,5 @@ int main(int argc, char *argv[])
     for ( int i = 1; i < argc ; i++ ){
          printf("%d: %s\n", i, argv[i]);
     }
-
-    printf("\n");
     return 0;
 }
