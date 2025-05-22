@@ -33,10 +33,10 @@
 
 int main()
 {
-    char num_columns[200];
-    num_columns = getenv("SHELL");  /* This cannot compile because num_columns
-                                         is a const char* but getenv() allocates
-                                         its own memory for the returned string
-                                         and returns its address. */
-    printf("This window has %s columns.\n", num_columns);
+    char shell[200];
+    shell = getenv("SHELL");  /* This cannot compile because shell
+                                 is a const char* but getenv() allocates
+                                 its own memory for the returned string
+                                 and returns its address. */
+    printf("The current shell is %s.\n", shell);
 };
