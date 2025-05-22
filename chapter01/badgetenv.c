@@ -6,7 +6,7 @@
   Purpose        : To show an incorrect way to call getenv()
   Usage          : Cannot use this
   Build with     : gcc -o bad_getenv_demo bad_getenv_demo.c
-  Modifications  :
+  Modifications  : Replaced COLUMNS by SHELL
 
 
 ******************************************************************************
@@ -34,7 +34,7 @@
 int main()
 {
     char num_columns[200];
-    num_columns = getenv("COLUMNS");  /* This cannot compile because num_columns
+    num_columns = getenv("SHELL");  /* This cannot compile because num_columns
                                          is a const char* but getenv() allocates
                                          its own memory for the returned string
                                          and returns its address. */
