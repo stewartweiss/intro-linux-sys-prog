@@ -1,12 +1,12 @@
 /****************************************************************************
-  Title          : spl_ls_rec.c
+  Title          : spl_ls_rec1.c
   Author         : Stewart Weiss
   Created on     : September 29, 2023
   Description    : Lists directory contents, recursively
   Purpose        : To do a tree walk by recursion on opendir()
-  Usage          : spl_ls_rec [file file ...]
+  Usage          : spl_ls_rec1 [file file ...]
                    where files may be any file type including directories
-  Build with     : gcc -Wall -g -I ../include spl_ls_rec.c -o spl_ls_rec \
+  Build with     : gcc -Wall -g -I ../include spl_ls_rec1.c -o spl_ls_rec1 \
                    -L../lib -lspl
 
 ******************************************************************************

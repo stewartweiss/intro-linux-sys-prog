@@ -2,9 +2,9 @@ include ../Makefile.inc
 
 CC      = /usr/bin/gcc
 SRCS    = kill_demo.c raise_demo.c  restart_demo.c send_sigint.c \
-          sigact_demo1.c sigact_demo2.c sigact_demo3.c sigact_demo4.c \
+          sigact_demo1.c sigact_demo2.c sigact_demo3.c  \
           signal_counter1.c signal_counter2.c signal_demo1.c signal_demo1b.c \
-          signal_demo2.c signal_demo3.c signal_demo4.c signal_demo5.c \
+          signal_demo2.c signal_demo3.c signal_demo4.c \
           sigprocmask_demo1.c sigprocmask_demo2.c sigprocmask_demo3.c \
           sigsuspend_demo.c sigwait_demo1.c sigwait_demo2.c sysv_signal_demo.c
                                                                 

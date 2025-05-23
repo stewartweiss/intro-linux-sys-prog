@@ -1,11 +1,12 @@
 /*****************************************************************************
-  Title          : sigact_demo3.c
+  Title          : sigact_demo4.c
   Author         : Stewart Weiss
   Created on     : December 13, 2023
   Description/   : Allows various flags to be passed
-  Purpose        :
-  Usage          :
-  Build with     :
+  Purpose        : A slight variation of sigact_demo3.c
+  Usage          : sigact_demo4 [reset] [nodefer [restart ]
+  Build with     : gcc -o sigact_demo4 -I../include -L../lib sigact_demo4.c \
+                       -lspl
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *

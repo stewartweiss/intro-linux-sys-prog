@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : lsdir.c
+  Title          : spl_lsbad.c
   Author         : Stewart Weiss
   Created on     : September 25, 2023
   Description    : Simple ls command.
   Purpose        : To show how to read the contents of a directory
-  Usage          : lsdir [file ...]
-  Build with     : gcc -Wall -g -L"../lib" -o  lsdir lsdir.c -lspl
+  Usage          : spl_lsbad [file ...]
+  Build with     : gcc -Wall -g -L"../lib" -o  spl_lsbad spl_lsbad.c -lspl
   Modifications  :
   Notes          : For directories, displays their contents, including
                    . and ..; for files, just prints their names.

@@ -13,7 +13,6 @@ signal_demo2.c
 kill_demo.c
 signal_demo3.c
 * signal_demo4.c
-* signal_demo5.c
 raise_demo.c
 sigprocmask_demo1.c
 sigprocmask_demo2.c
