@@ -4,9 +4,9 @@
   Created on     : August 2, 2024
   Description    : Like nonblock_demo1, but overwrites lines to compact output
   Purpose        : Demonstrates use of  O_NONBLOCK flag for nonblocking input
-  Usage          : nonblock_demo1 [delay-usecs]
-  Build with     : gcc -Wall -g -I../include -L../lib -o nonblock_demo1 \
-                   nonblock_demo1.c -lspl
+  Usage          : nonblock_demo2 [delay-usecs]
+  Build with     : gcc -Wall -g -I../include -L../lib -o nonblock_demo2 \
+                   nonblock_demo2.c -lspl
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *

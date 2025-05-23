@@ -2,11 +2,11 @@
   Title          : cp_aio.c
   Author         : Stewart Weiss
   Created on     : August 1, 2023
-  Description    : Copies a file with asynchronous reads and synchronous writes
+  Description    : Copies a file with asynchronous reads & synchronous writes
   Purpose        : To show an example of the POSIX AIO API
   Usage          : cp_aio sourcefile targetfile
   Build with     : gcc -Wall -g -I../include -L ../lib -lspl \
-                   -o spl_copy  spl_copy.c
+                   -o cp_aio  cp_aio.c
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *

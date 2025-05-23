@@ -46,7 +46,7 @@
 int main()
 {
     int c;
-    while ( (c = getc(stdin) ) != EOF )
+    while ( (c = getc(stdin) ) != EOF ) /* getc(stdin) is  getchar() */
         putc(c, stdout);
     return 0;
 }
