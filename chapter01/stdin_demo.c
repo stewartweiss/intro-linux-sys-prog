@@ -1,15 +1,16 @@
 /*****************************************************************************
-  Title          : simple_C_io.c
+  Title          : stdin_demo.c
   Author         : Stewart Weiss
   Created on     : January 26, 2006
   Description    : Copies standard input to output a char at a time
   Purpose        : To demonstrate typical text I/O in C
-  Usage          : simple_C_io
-  Build with     : gcc -o simple_C_io simple_C_io.c
+  Usage          : stdin_demo
+  Build with     : gcc -o stdin_demo stdin_demo.c
   Modifications  : Added this file to the repository (5/2025)
   Notes          :
          In this program, the return value of getchar() is stored
-         into an int variable. This needs explanation.
+         into an int variable. This needs explanation. (getchar() is the
+         same as getc(stdin).)
 
          getchar() returns an int, not a char. On success, the return
          value is the code for the character it found in the standard
