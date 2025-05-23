@@ -4,6 +4,7 @@ SRCS    = bad_getenv_demo.c getenv_demo.c getpid_demo.c gettid_demo.c hello.c \
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS  = -Wall -g 
+MAKEFLAGS += -k
 
 .PHONY: all clean cleanall
 
