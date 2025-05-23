@@ -8,18 +8,17 @@
   Build with     : gcc -o stdin_demo stdin_demo.c
   Modifications  : Added this file to the repository (5/2025)
   Notes          :
-         In this program, the return value of getchar() is stored
-         into an int variable. This needs explanation. (getchar() is the
-         same as getc(stdin).)
+         In this program, the return value of getc(stdin) is stored
+         into an int variable. This needs explanation.
 
-         getchar() returns an int, not a char. On success, the return
+         getc(stdin) returns an int, not a char. On success, the return
          value is the code for the character it found in the standard
          input stream. That code can be treated like a char in the
          subsequent putchar(), which will write the actual character,
          not its numeric code.
 
-         When the end of input stream is detected by getchar(), which
-         can be caused by the user's typing Ctrl-D, getchar() returns
+         When the end of input stream is detected by getc(stdin), which
+         can be caused by the user's typing Ctrl-D, getc(stdin) returns
          EOF, which is a macro defined in the stdio.h header file to
          be -1.
 
@@ -47,7 +46,7 @@
 int main()
 {
     int c;
-    while ( (c = getc(stdin) ) != EOF ) /* getc(stdin) is  getchar() */
+    while ( (c = getc(stdin) ) != EOF )
         putc(c, stdout);
     return 0;
 }

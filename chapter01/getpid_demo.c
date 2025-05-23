@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : show_pid.c
+  Title          : getpid_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
   Description    : Shows the process id of the calling process
   Purpose        : To demonstrate a first system call
-  Usage          : show_pid
-  Build with     : gcc -o show_pid show_pid.c
+  Usage          : getpid_demo
+  Build with     : gcc -o getpid_demo getpid_demo.c
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *

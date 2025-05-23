@@ -1,11 +1,11 @@
 /*****************************************************************************
-  Title          : show_tid.c
+  Title          : gettid_demo.c
   Author         : Stewart Weiss
   Created on     : December 11, 2022
   Description    : Shows the thread id of the calling process
   Purpose        : To demonstrate how a thread can get its thread id
-  Usage          : show_tid
-  Build with     : gcc -o show_tid show_tid.c
+  Usage          : gettid_demo
+  Build with     : gcc -o gettid_demo gettid_demo.c
   Modifications  :
 
 ******************************************************************************
