@@ -1,5 +1,5 @@
 CC      = /usr/bin/gcc
-SRCS    = badgetenv.c getenv_demo.c getpid_demo.c gettid_demo.c hello.c \
+SRCS    = bad_getenv_demo.c getenv_demo.c getpid_demo.c gettid_demo.c hello.c \
           hello_world.c stdin_demo.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
