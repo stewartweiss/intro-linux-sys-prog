@@ -8,8 +8,8 @@ all:
 	$(MAKE) -C common install
 	for dir in $(SUBDIRS); \
 	do \
-		$(MAKE) -C $$dir; \
-  done
+	   $(MAKE) -C $$dir; \
+  	done
 
 clean:
 	$(MAKE) -C common clean

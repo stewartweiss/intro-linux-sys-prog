@@ -15,5 +15,5 @@ nl_langinfo_demo1.c
 nl_langinfo_demo2.c
 newlocale_demo.c
 
-The shell script named testspl_date3.sh is teh script used to test the
+The shell script named testspl_date3.sh is the script used to test the
 spl_date3.c program.
