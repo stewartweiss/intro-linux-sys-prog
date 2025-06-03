@@ -1,0 +1,19 @@
+This directory contains demo programs for Chapter 19. This is the
+concluding chapter of the book. It introoduces the Curses library and
+methods of interactive programming. It shows how to manage the terminal
+while it's in noncanonical mode, and ties material from many chapters
+together.
+Programs that aren't in the book are marked with *.
+
+The order in which they should be studied is as follows.
+
+curses_demo1.c
+curses_version.c
+getstr_demo.c
+mintime_test_demo.c
+spl_top.c
+sprite.c
+sprite_curses.c
+tiled_windows.c
+top_utils.c
+wintest.c

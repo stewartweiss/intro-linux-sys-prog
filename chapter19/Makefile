@@ -1,8 +1,8 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = curses_version.c getstr_demo.c curses_demo1.c tiled_windows.c sprite_curses.c \
-          sprite.c  wintest.c  mintime_test_demo.c spl_top.c
+SRCS    = curses_version.c getstr_demo.c curses_demo1.c tiled_windows.c \
+          sprite_curses.c  sprite.c  wintest.c  mintime_test_demo.c spl_top.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
