@@ -1,12 +1,12 @@
 /*****************************************************************************
-  Title          : ttywatch.c
+  Title          : watchtty.c
   Author         : Stewart Weiss
   Created on     : March 19, 2013
   Description    : Keeps a small log of the size of specified terminal queue
   Purpose        : Demonstrates use of ioctl TIOCINQ for getting size of
                    terminal input queue.
   Usage          : ioctl3 terminal-device
-  Build with     : gcc -Wall -L../lib -I../include -o ttywatch ttywatch.c \
+  Build with     : gcc -Wall -L../lib -I../include -o watchtty watchtty.c \
                       -lspl
   Notes          :
   This is designed to be used in conjunction with fillqueue.c, which adds
@@ -34,7 +34,7 @@ int main(int argc, char *argv[] )
 
     /* Try to open given terminal device file */
     if ((fd = open(argv[1], O_RDONLY)) == -1)
-        usage_error("ttywatch  <device-file>");
+        usage_error("watchtty  <device-file>");
 
     while ( TRUE ) {
         if ( ioctl( fd, TIOCINQ, &count ) == -1 )
