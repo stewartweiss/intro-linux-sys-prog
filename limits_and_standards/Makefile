@@ -11,7 +11,7 @@ include ../Makefile.inc
 
 CC      = /usr/bin/gcc
 SRCS    = check_features.c checklibc_v2.c iso_limits.c iso_limits2.c \
-           pathmaxtest.c stdint_limits.c testlimit.c
+           pathmaxtest.c stdint_limits.c test_maxfds.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
 EXECS   = $(patsubst %.c,%,$(SRCS))
 CFLAGS   += -D_XOPEN_SOURCE=700  -D_DEFAULT_SOURCE  -Wall -g
@@ -36,4 +36,4 @@ iso_limits.o: common_hdrs.h
 iso_limits2.o: common_hdrs.h
 pathmaxtest.o: common_hdrs.h
 stdint_limits.o: common_hdrs.h
-testlimit.o: common_hdrs.h
+test_maxfds.o: common_hdrs.h
