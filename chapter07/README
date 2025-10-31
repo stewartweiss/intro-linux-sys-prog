@@ -1,14 +1,16 @@
 The programs in this directory are those developed in Chapter 7 of the book,
-which examines the directory hierarchy. It looks at the parts of the 
+which examines the directory hierarchy. It looks at the parts of the
 kernel API as well as selected library functions related to directories and
-the directory hierarchy.
+the directory hierarchy. Some of the programs in this directory are
+not included in the book; those that aren't in the book are marked
+with *.
 
 The order in which they should be examined is as follows.
 testdircalls.c
 spl_ls1.c
 spl_ls2.c
 scandir_manpage_example.c
-scandir_demo.c
+scandir_demo.c *
 spl_ls3.c
 spl_ls_rec1.c
 spl_ls_rec2.c
