@@ -2,12 +2,23 @@
   Title          : scandir_demo.c
   Author         : Stewart Weiss
   Created on     : September 29, 2023
-  Description    : Lists directory contents, sorting directories before files
+  Description    : Lists all directories in a given directory
   Purpose        : To work with various functions in directory API
-  Usage          : scandir_demo [file file ...]
-                   where files may be any file type including directories
+  Usage          : scandir_demo [dir dir ...]
   Build with     : gcc -Wall -g -I ../include scandir_demo.c -o scandir_demo \
                    -L../lib -lspl
+  Modifications  : 10/31/25 by SNW
+                   Removed the isdot() function, which was unused here.
+
+                   Replaced the while-loop in scan_one_dir(), which had an
+                   Off-by-one error in its entry condition, by a for-loop.
+
+                   Changed the description in this preamble to match what this
+                   program does, which is to display only those entries in a
+                   given directory that are directories.
+
+                   Rewrote the pickdir() function to make it a wrapper of
+                   isdir(), since before they were redundant.
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -43,25 +54,11 @@ BOOL isdir(  const struct dirent *direntp)
         return FALSE;
 }
 
-int skipdot(  const struct dirent *direntp)
-{
-    const char* name = direntp->d_name;
-    return (((name[0] == '.' && name[1] == '\0' )
-    || (name[0] == '.' && name[1] == '.' && name[2] == '\0'))?1:0);
-}
-
+/* A very thin wrapper for isdir() that can be passed as the third
+   argument to scandir() */
 int pickdir(  const struct dirent *direntp)
 {
-#ifdef _DIRENT_HAVE_D_TYPE
-    if( direntp->d_type  == DT_DIR)
-#else
-    struct stat    statbuf;
-    stat(direntp->d_name, &statbuf);
-    if ( statbuf.st_mode & S_IFDIR )
-#endif
-        return 1;
-    else
-        return 0;
+   return (int) (isdir(direntp));
 }
 
 /** dirsfirstsort(&d1, &d2) compares the direct structures pointed to by
@@ -108,8 +105,7 @@ int scan_one_dir(const char* dirname, void (*process )(const struct dirent* ))
         fatal_error(errno, "scandir");
     }
 
-    int i = 0;
-    while (i++ < n-1) {
+    for (int i = 0; i < n; i++) {
         process(namelist[i]);
         free(namelist[i]);
     }
