@@ -36,7 +36,6 @@
 #include <dirent.h>
 
 
-
 /* A function to determine if a directory entry is a directory */
 /* Check whether we have d_type in struct. If so use it.
    If not, call stat() and check st_mode for file type. */
