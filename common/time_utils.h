@@ -1,4 +1,10 @@
 /*****************************************************************************
+  Title          : time_utils.h
+  Author         : Stewart Weiss
+  Created on     : Oct. 2023
+  Description/   : An assortment of time utility functions
+
+******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
 * This code is free software; you can use, modify, and redistribute it       *
@@ -52,6 +58,7 @@ void timespec_to_dbl( struct timespec ts, double  *t);
 
 /** timespec_diff(ts1, ts2, &diff)
     Stores the difference  ts1 - ts2 into &diff.
+    @pre    Requires that the time ts1 is greater than ts2
  *  @param  struct timespec  ts1    [IN]
  *  @param  struct timespec  ts2    [IN]
  *  @param  struct timespec *diff   [OUT] ts1 - ts2
