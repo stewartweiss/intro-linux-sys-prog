@@ -87,7 +87,6 @@ void timespec_diff ( struct timespec ts1, struct timespec ts2,
    a timespec struct argument. This should be borne in mind when using this
    function.
 */
-
 void timespec_diff2 ( struct timespec ts1, struct timespec ts2,
                    struct timespec *diff )
 {
@@ -96,20 +95,20 @@ void timespec_diff2 ( struct timespec ts1, struct timespec ts2,
     temp  = ts1.tv_nsec - ts2.tv_nsec;
     if ( diff->tv_sec > 0 )
         if ( temp < 0 ) {
-            /* Borrow 1 second from tv_sec and add it to tv_nsec. */
-            diff->tv_sec--;                     /* Borrow second. */
-            diff->tv_nsec = 1000000000 + temp;  /* Add it here.   */
+            /* Borrow 1 second from tv_sec and add it to tv_nsec.   */
+            diff->tv_sec--;                     /* Borrow second.   */
+            diff->tv_nsec = temp + 1000000000;  /* Add it here.     */
         }
-        else    /* No adjustment needed, since both are positive. */
+        else    /* No adjustment needed, since both are positive.   */
             diff->tv_nsec = temp;
     else if ( diff->tv_sec < 0 )
-       if ( temp < 0 )
-           /* */
-           diff->tv_nsec =   temp;  /* Add it here.   */
-       else {
-           diff->tv_sec++;
-           diff->tv_nsec = temp - 1000000000  ;
-       }
+        if ( temp > 0 )  {
+            /* Borrow -1 seconds from tv_sec and add to tv_nsec.    */
+            diff->tv_sec++;                     /* Subtract -1 sec. */
+            diff->tv_nsec = temp - 1000000000;  /* Add it here.     */
+        }
+        else
+            diff->tv_nsec =   temp;  /* Add it here.   */
     else {  /* diff.tv_sec == 0 . */
         diff->tv_nsec = temp;
     }
