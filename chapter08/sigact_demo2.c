@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
     action.sa_sigaction = fpe_handler;
     action.sa_flags = SA_SIGINFO;
-    sigemptyset(&(action.sa_mask));
+    sigemptyset(&action.sa_mask);
     int excepts = FE_DIVBYZERO|FE_INEXACT|FE_INVALID|FE_OVERFLOW|FE_UNDERFLOW;
     feenableexcept(excepts);
     if ( sigaction(SIGFPE, &action, NULL) == -1 ) {
