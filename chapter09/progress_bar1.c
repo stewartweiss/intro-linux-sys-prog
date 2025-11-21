@@ -13,6 +13,10 @@
   The progress bar will not display properly if the number of columns in the
   terminal window is reduced and then increased.
 
+Modifications:  11/21/2025 by SNW
+                The call to draw_initial_bar() is moved to after the signal
+                handlers for SIGINT and SIGQUIT.
+
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
@@ -101,7 +105,6 @@ int main( int argc, char *argv[])
     struct timespec remaining_sleep;
 
 
-    draw_initial_bar(); /* Draw the progress bar. */
 
     act.sa_handler = sig_handler;
     sigemptyset(&(act.sa_mask));
@@ -111,6 +114,8 @@ int main( int argc, char *argv[])
 
     if ( sigaction(SIGQUIT, &act, NULL) == -1 )
         fatal_error(errno, "sigaction");
+
+    draw_initial_bar(); /* Draw the progress bar. */
 
     /* Install refresh_progressbar as the SIGALRM handler */
     act.sa_handler = refresh_progressbar;

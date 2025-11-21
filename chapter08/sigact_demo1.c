@@ -45,7 +45,7 @@ int main (int argc, char *argv[])
 
     the_action.sa_flags     = SA_SIGINFO;
     the_action.sa_sigaction = sig_handler;
-    sigemptyset(&(the_action.sa_mask));
+    sigemptyset(&the_action.sa_mask);
     if ( -1 == sigaction(SIGINT, &the_action, NULL))
         fatal_error(errno, "sigaction()");
     if ( -1 == sigaction(SIGQUIT, &the_action, NULL))
