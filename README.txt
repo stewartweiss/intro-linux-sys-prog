@@ -1,10 +1,12 @@
-This repository contains source code for the programs in the first printing 
-of my book, "System Programming in Linux: A Hands-On Introduction".  The 
+TThis repository contains source code for the programs in 
+my book, "System Programming in Linux: A Hands-On Introduction".  The
 book is published by No Starch Press and available on Amazon here:
 https://www.amazon.com/System-Programming-Linux-Stewart-Weiss/dp/1718503563.
 You can read more about them book on the webpage
 https://nostarch.com/introduction-system-programming-linux.
-
+The code in this repository might be different than what is currently in
+the book. To see the code from the original printing of the book, checkout
+the firstprinting branch.
 
 Building the Programs
 For instructions on building the programs, see the section
