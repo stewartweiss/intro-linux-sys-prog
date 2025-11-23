@@ -1,4 +1,4 @@
-TThis repository contains source code for the programs in 
+This repository contains source code for the programs in 
 my book, "System Programming in Linux: A Hands-On Introduction".  The
 book is published by No Starch Press and available on Amazon here:
 https://www.amazon.com/System-Programming-Linux-Stewart-Weiss/dp/1718503563.
