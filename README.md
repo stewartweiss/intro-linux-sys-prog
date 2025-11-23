@@ -1,18 +1,19 @@
 # System Programming in Linux: A Hands-On Introduction "Demo" Programs
 
-This repository contains source code for the programs in my book
-*System Programming in Linux: A Hands-On Introduction*.
-The book will be published by No Starch Press and available on Amazon
-on October 15, 2025.
+TThis repository contains source code for the programs in the first printing
+of my book, "System Programming in Linux: A Hands-On Introduction".  The
+book is published by No Starch Press and available on Amazon here:
+https://www.amazon.com/System-Programming-Linux-Stewart-Weiss/dp/1718503563.
 You can read more about it on the webpage
 https://nostarch.com/introduction-system-programming-linux.
+
 
 ## Building the Programs
 For instructions on building the programs, see the section
 `How To Use This Repository'.
 
-For notes on changes that have been made to the code since it was
-published in the book, see the CHANGES file.
+For notes on changes that have been made to the code since the book's 
+last printing, see the CHANGES file.
 
 ## Licensing
 
