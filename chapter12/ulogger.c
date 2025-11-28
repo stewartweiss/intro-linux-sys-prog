@@ -10,6 +10,8 @@
                          ulogger_client  username line
   Build with     : gcc -Wall -g -I../include -L../lib  -o ulogger \
                     ulogger.c -lrt
+  Modifications  :
+     11/28/2025 by SNW: Put parentheses around macro SIGRTMIN+1
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -35,7 +37,7 @@
 #define  MAX_TIMESTR   16
 #define  MAX_USERS     256
 #define  SIGMSGAVAIL   SIGRTMIN
-#define  SIGUPDATE     SIGRTMIN+1
+#define  SIGUPDATE     (SIGRTMIN+1)  /* Added parentheses 11/28/2025 */
 
 typedef struct _user {
     uid_t   uid;
@@ -94,7 +96,7 @@ void update( msgtype *msg, uid_t uid, char *start  )
      }
 }
 
-void mssge_handler( int signo, siginfo_t *info, void *context )
+void msg_handler( int signo, siginfo_t *info, void *context )
 {
     ssize_t  nbytes;
     time_t   arrival_time;
@@ -191,7 +193,7 @@ int  main(int argc, char *argv[])
     if (msg_buffer == NULL)
        fatal_error(errno, "malloc");
 
-    sigact.sa_sigaction = mssge_handler;
+    sigact.sa_sigaction = msg_handler;
     sigact.sa_flags = SA_SIGINFO;
     sigemptyset(&(sigact.sa_mask));
     if ( sigaction(SIGMSGAVAIL, &sigact, NULL) == -1 )
@@ -224,6 +226,5 @@ int  main(int argc, char *argv[])
             }
         }
     }
-    cleanup(1);
 }
 
