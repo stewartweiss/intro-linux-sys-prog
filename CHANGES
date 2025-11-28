@@ -1,0 +1,19 @@
+common/time_utils.h and timeutils.c :
+    A new function, timespec_diff2() that does not require that the first
+    time is greater than the second. 
+
+chapter07/scandir_demo.c :
+  Fixed a minor bug and updated the documentation.
+
+chapter09/progress_bar2.c :
+  Moved call to draw the initial progress bar to after the signal handlers 
+  are set up.
+
+chapter11/fork_demo4.c :
+  Changed the number of children to 3 since the book's
+  example was based on 3 children.
+
+chapter12/mqsend_demo.c : 
+  Inserted call to close message queue before the call to
+  fatal_error(), and removed code after while loop.
+
