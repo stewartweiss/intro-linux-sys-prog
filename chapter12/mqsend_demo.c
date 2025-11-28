@@ -5,7 +5,12 @@
   Description    : Sends messages to a specified queue
   Purpose        : To show how to use message queues
   Usage          : mqsend_demo1  /<mq-name>
-  Build with     :
+  Build with     : gcc -Wall -g -I../include -L../lib  -o mqsend_demo1 \
+                    mqsend_demo1.c -lrt
+  Modifications  :
+  11/28/2025 by SNW
+  Inserted call to close message queue before the call to
+  fatal_error(), and removed code after while loop.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -42,18 +47,18 @@ int  main(int argc, char *argv[])
 
     if ( NULL == (msg_buffer = malloc(attr.mq_msgsize)) )
         fatal_error(errno, "malloc");
-
+    // OMITTED: Set up signal handling.
     while ( TRUE ) {
         if ( scanf("%ms", &msg_buffer) > 0 ) {
             length = strlen(msg_buffer);
             if ( length <= attr.mq_msgsize )
                 mq_send(mqdes, msg_buffer, length, length);
-            else
+            else {
+                mq_close(mqdes);
                 fatal_error(-1, "String data too long");
+            }
         }
         free(msg_buffer);
     }
-    mq_close(mqdes);
-    exit(EXIT_SUCCESS);
 }
 
