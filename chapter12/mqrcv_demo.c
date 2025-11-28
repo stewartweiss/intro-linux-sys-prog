@@ -5,7 +5,8 @@
   Description    : Displays received messages and their priorities
   Purpose        : To show how to use message queues
   Usage          : mqrcv_demo  /<mq-name
-  Build with     :
+  Build with     : gcc -Wall -g -I../include -L../lib  -o mqrcv_demo \
+                    mqrcv_demo.c -lrt
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
