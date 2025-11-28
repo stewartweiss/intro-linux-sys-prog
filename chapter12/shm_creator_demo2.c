@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
     strcpy(shmp->ptr1, "Problem");
     strcpy(shmp->data, "Hello World");
     shmp->ptr2 = (char*) &(shmp->data);
+    /* Could also write shmp->ptr2 = shmp->data; instead.    */
     exit(EXIT_SUCCESS);
  }
 
