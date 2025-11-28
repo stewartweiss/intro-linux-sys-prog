@@ -4,9 +4,9 @@
   Created on     : June 12, 2024
   Description    : Sends messages to a specified queue
   Purpose        : To show how to use message queues
-  Usage          : mqsend_demo1  /<mq-name>
-  Build with     : gcc -Wall -g -I../include -L../lib  -o mqsend_demo1 \
-                    mqsend_demo1.c -lrt
+  Usage          : mqsend_demo  /<mq-name>
+  Build with     : gcc -Wall -g -I../include -L../lib  -o mqsend_demo \
+                    mqsend_demo.c -lrt
   Modifications  :
   11/28/2025 by SNW
   Inserted call to close message queue before the call to
