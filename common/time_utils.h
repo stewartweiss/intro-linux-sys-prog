@@ -66,6 +66,26 @@ void timespec_to_dbl( struct timespec ts, double  *t);
 void timespec_diff ( struct timespec ts1, struct timespec ts2,
                    struct timespec *diff );
 
+/* Added by SNW 11/2/2025.
+   This function computes the difference between two timespec values
+   regardless of whether the first is smaller than the second. However,
+   it stores the result in a timespec struct with possibly negative
+   values. The documentation states that the tv_sec and tv_nsec fields
+   are suppoesd to be non-negative  when the timespec struct is passed
+   as an argument to any library function or system call that expects
+   a timespec struct argument. This should be borne in mind when using this
+   function.
+*/
+/** timespec_diff2(ts1, ts2, &diff)
+    Stores the difference  ts1 - ts2 into &diff.
+    @pre    None
+ *  @param  struct timespec  ts1    [IN]
+ *  @param  struct timespec  ts2    [IN]
+ *  @param  struct timespec *diff   [OUT] ts1 - ts2
+ */
+void timespec_diff2 ( struct timespec ts1, struct timespec ts2,
+                   struct timespec *diff )
+
 /** timespec_add(ts1, ts2, &sum)
     Stores the sum of the times of timespecs ts1 and ts2 into &sum.
  *  @param  struct timespec  ts1    [IN]
