@@ -10,6 +10,10 @@
   First run this program without redirecting output. Run it again, this
   time piping the output to sort. What is the difference?
 
+  Modifications: 11/24/2025 by SNW
+                 Changed the number of children to 3 since the book's
+                 example was based on 3 children.
+
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
@@ -26,7 +30,7 @@
 int main( int argc, char *argv[] )
 {
     pid_t newpid;
-    int   num_children = 4;
+    int   num_children = 3;
 
     printf("About to create many processes...\n");
     while (  num_children-- > 0 ) {
