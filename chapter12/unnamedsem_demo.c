@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
         fatal_error(errno,"ftruncate");
 
      /* Map the object into the caller's address space */
-    shmp = mmap(NULL, sizeof(sharedmem),
+    shmp = (sharedmem*) mmap(NULL, sizeof(sharedmem),
                 PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
 
     if (shmp == MAP_FAILED)
