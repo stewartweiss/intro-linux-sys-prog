@@ -23,6 +23,12 @@
                    continuing to listen for new messages and giving up on the
                    write to that pipe.
 
+  Modifications:   11/30/2025 by SNW: I moved the call to unlink the public
+                   FIFO in the signal handler to precede the test of privatefd
+                   there. This guarantees that the FIFO is removed even if the
+                   signal hqndler runs after privatefd was closed bu before it
+                   was set to -1.
+
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
@@ -55,9 +61,9 @@ void on_signal( int signo )
 {
     close(publicfd);
     close(dummyfd);
+    unlink(PUBLIC);
     if ( privatefd != -1 )
         close(privatefd);
-    unlink(PUBLIC);
     exit(0);
 }
 
