@@ -84,7 +84,7 @@ void timespec_diff ( struct timespec ts1, struct timespec ts2,
  *  @param  struct timespec *diff   [OUT] ts1 - ts2
  */
 void timespec_diff2 ( struct timespec ts1, struct timespec ts2,
-                   struct timespec *diff )
+                   struct timespec *diff );
 
 /** timespec_add(ts1, ts2, &sum)
     Stores the sum of the times of timespecs ts1 and ts2 into &sum.
