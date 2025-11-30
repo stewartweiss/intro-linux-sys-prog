@@ -17,3 +17,10 @@ chapter12/mqsend_demo.c :
   Inserted call to close message queue before the call to
   fatal_error(), and removed code after while loop.
 
+chapter12/ulogger.c :
+  Put parentheses around the macro value SIGRTMIN+1.
+
+chapter14 :
+  Renamed the files calc_server.c and calc_client.c to spl_calc_server.c
+  and spl_calc_client.c to be consistent with the book.
+  Modified the makefile accordingly.
