@@ -42,7 +42,7 @@
 #include <pthread.h>
 
 #ifndef SLEEP
-    #define SLEEP 10
+    #define SLEEP 30
 #endif
 
 sigset_t  mask;     /* Signal mask */
