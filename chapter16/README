@@ -1,12 +1,13 @@
-This directory contains demo programs for Chapter 16, which 
+This directory contains demo programs for Chapter 16, which
 introduces the thread synchronization API in the Pthreads library.
-Some aren't included in the book; those that aren't in the book 
+Some aren't included in the book; those that aren't in the book
 are marked with *.
 
 The order in which they should be studied is as follows.
 
 threaded_progressbar.c
 recursive_mutex_demo.c
+* pthread_bcast_demo.c
 pthread_prodcons.c
 vmem_usage.c
 pthread_rwlock_demo.c
