@@ -8,6 +8,11 @@
   Build with     : gcc -Wall -g -I ../include watchfiles.c -o watchfiles \
                    -L../lib -lspl -lrt
 
+  Modifications  : 12/01/2025 by SNW
+                   I removed a redundant length modifier in the call to
+                   sprintf() that creates the displayname for files whose
+                   names are too long.
+
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
@@ -220,8 +225,10 @@ int main(int argc, char **argv)
         len = strlen(filelist[i]);
         displayname[i] = calloc(MAX_LENGTH+1, sizeof(char));
         if ( len > MAX_LENGTH ) {
-            sprintf(displayname[i], "...%*s",
-               MAX_LENGTH-3, filelist[i]+len-MAX_LENGTH+3);
+            // sprintf(displayname[i], "...%*s",
+            //    MAX_LENGTH-3, filelist[i]+len-MAX_LENGTH+3);
+            sprintf(displayname[i], "...%s",
+                filelist[i]+len-MAX_LENGTH+3);
         }
         else {
             memset(displayname[i], ' ', MAX_LENGTH);
