@@ -1,8 +1,13 @@
-This directory contains demo programs for Chapter 17, which explores methods 
-of I/O other than blocking reads and writes.  It covers non-blocking terminal 
-I/O, signal-driven I/O, POSIX asynchronous I/O, and multiplexed I/O.  Some of 
-the programs aren't included in the book; those that aren't in the book are 
+This directory contains demo programs for Chapter 17, which explores methods
+of I/O other than blocking reads and writes.  It covers non-blocking terminal
+I/O, signal-driven I/O, POSIX asynchronous I/O, and multiplexed I/O.  Some of
+the programs aren't included in the book; those that aren't in the book are
 marked with *.
+
+None of the programs in this directory are designed to handle job-control
+signals such as SIGINT, SIGQUIT, SIGSTOP, SGTSTP, or SIGTERM. If you send
+them these signals, their behavior will not be as I describe them to be.
+Create signal handlers for them if you want to do this.
 
 The order in which they should be studied is as follows.
 
