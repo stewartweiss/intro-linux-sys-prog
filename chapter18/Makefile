@@ -1,7 +1,7 @@
 include ../Makefile.inc
 
 CC      = /usr/bin/gcc
-SRCS    = fakeinput_demo.c fakelogin.c fakelogin_ioctl.c fillqueue.c \
+SRCS    = fakeinput_demo.c fakelogin.c  fillqueue.c \
           max_input.c  spl_stty.c toggle_echo.c upcopychars.c \
           watchtty.c winsizechange_demo.c
 OBJS    = $(patsubst %.c,%.o,$(SRCS))
