@@ -2,16 +2,12 @@
   Title       : posix_timer_demo1.c
   Author      : Stewart Weiss
   Created on  : December 19, 2023
-  Description : Sleep for real-valued number of seconds
-  Purpose     : Show how nanosleep() behaves
-  Usage       : nanosleep_demo [seconds]
-                   If seconds is not supplied, the default is 5 seconds
-                   Can be real-value, e.g. 12.345
-  Build with  : gcc -Wall -g -I../include -L../lib -o nanosleep_demo1  \
-                  nanosleep_demo1.c -lspl
-  Notes:
-  After starting the program, enter CTRL-C. The program will display
-  how much time was left in the call to nanosleep().
+  Description : Creates multiple POSIX timers and displays their expirations
+  Purpose     : Show how to create multiple timers
+  Usage       : posix_timer_demo1
+  Build with  : gcc -Wall -g -I../include -L../lib -o posix_timer_demo1  \
+                  posix_timer_demo1.c -lspl
+
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
 *                                                                            *
