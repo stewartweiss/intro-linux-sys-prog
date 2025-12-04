@@ -9,6 +9,13 @@ chapter09/progress_bar2.c :
   Moved call to draw the initial progress bar to after the signal handlers 
   are set up.
 
+chapter09/posix_timer_demo1.c :  
+  Fixed preamble
+
+chapter09/posix_timer_demo1b.c :  
+  Created this file to sho alternative to posix_timer_demo1.c that doesn't
+  depend on timer IDs starting at 0.
+
 chapter11/fork_demo4.c :
   Changed the number of children to 3 since the book's
   example was based on 3 children.
@@ -20,7 +27,30 @@ chapter12/mqsend_demo.c :
 chapter12/ulogger.c :
   Put parentheses around the macro value SIGRTMIN+1.
 
+chapter12:
+  Included winsize.c in the repository.
+
 chapter14 :
   Renamed the files calc_server.c and calc_client.c to spl_calc_server.c
   and spl_calc_client.c to be consistent with the book.
   Modified the makefile accordingly.
+
+chapter15/pthread_signal_demo.c
+  Increased sleep time.
+
+chapter16 :
+  Modified pthread_prodcons.c so that the numbers of consumers and
+  producers cannot be zero. (Replaced NON_NEG_ONLY flag by POS_ONLY flag
+  in calls to get_int().)
+ 
+  Added a new demo, pthread_bcast_demo.c, that shows how condition variables
+  can be used to simulate thread barriers.
+
+chapter17/README :
+  Added a note about the fact that the programs in this chapter have no
+  signal handling for job-control errors.
+
+chapter18/Makefile :
+  Removed a program from the Makefile that had been renamed.
+
+  
