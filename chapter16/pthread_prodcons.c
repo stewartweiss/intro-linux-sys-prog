@@ -7,12 +7,15 @@
   Usage          : pthread_prodcons [-c <num>] [-p <num>] [-m <num>]
                    where -c sets the number of consumers, -p, the number of
                    producers, and -m, the number of data items that producers
-                   will produce
+                   will produce. The arguments to -c and -p must be positive.
   Build with     : gcc -Wall -g -I../include -o pthread_prodcons \
                       L../lib  pthread_prodcons.c -pthread -lspl -lm
 
   Notes: This is a multi-threaded producer/comsumer program that outputs
-        informatyive messages
+        informative messages
+  Modifications   : 12/01/2025 by SNW
+                    Restricted the numbers of producers and consumers to
+                    be non-zero.
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -142,35 +145,35 @@ int main(int argc, char *argv[])
     pthread_t *producer_thread;
     pthread_t *consumer_thread;
 
-    opterr = 0;  /* turn off error messages by getopt() */
+    opterr = 0;  /* Turn off error messages by getopt(). */
     while  (TRUE) {
         ch = getopt(argc, argv, options);
         if ( -1 == ch )
             break;
         switch ( ch ) {
         case 'c':
-            if ( VALID_NUMBER != get_int(optarg, NON_NEG_ONLY, &numConsumers,
+            if ( VALID_NUMBER != get_int(optarg, POS_ONLY, &numConsumers,
                  NULL ) )
                 usage_error("Invalid argument to -c");
             break;
         case 'p':
-            if ( VALID_NUMBER != get_int(optarg, NON_NEG_ONLY, &numProducers,
+            if ( VALID_NUMBER != get_int(optarg, POS_ONLY, &numProducers,
                  NULL ))
                 usage_error("Invalid argument to -p");
             break;
         case 'm':
-            if ( VALID_NUMBER != get_int(optarg, NON_NEG_ONLY, &MaxItems,
+            if ( VALID_NUMBER != get_int(optarg, POS_ONLY, &MaxItems,
                 NULL ) )
                 usage_error("Invalid argument to -m");
             break;
         }
     }
-    buf_count = 0;
 
     producer_thread = (pthread_t*) calloc(numProducers, sizeof (pthread_t));
     consumer_thread = (pthread_t*) calloc(numConsumers, sizeof (pthread_t));
     producer_count = numProducers;
     consumer_count = numConsumers;
+    buf_count = 0;
 
     if ( producer_thread == NULL || consumer_thread == NULL )
         fatal_error(errno, "calloc");
