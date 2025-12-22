@@ -11,6 +11,9 @@
   Note:  This mimics the actual stat command, which ignores the LC_TIME
          locale category's value. To use the local, compile with
          -DUSE_LOCALE
+
+  Modifications:
+                   12/20/2025 by SNW Changed type of ch in main to int
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
@@ -208,7 +211,7 @@ int main(int argc, char *argv[])
     char         target[256];
     int          to_print[NUM_FIELDS];
     int          i;
-    char         ch;
+    int          ch;
 
     /* Set the mask to request the basic fields and the birth time.
        These are what the stat command displays by default. */

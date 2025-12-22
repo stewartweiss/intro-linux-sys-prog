@@ -7,7 +7,7 @@
   Usage          : spl_date4 [-d<time-adjustment>] +"<format-specification>"
   Build with     : gcc -Wall -g -I../include -L../lib -o spl_date4 \
                     spl_date4.c -lspl
-Modifications:
+  Modifications:
                    12/20/2025 by SNW Changed type of ch in main to int
 
 

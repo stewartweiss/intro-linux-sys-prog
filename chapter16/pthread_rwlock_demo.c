@@ -30,6 +30,9 @@
   readers and writers acquire the lock in terms of the numbers of readers
   and writers?
 
+  Modifications:
+                   12/20/2025 by SNW Changed type of ch in main to int
+
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
 *                                                                            *
@@ -256,7 +259,7 @@ int main(int argc, char *argv[])
     pthread_attr_t attr;            /* Attribute structure for threads      */
     reader_task_data     *thread_data;
     BOOL           reader_preference = FALSE;
-    char           ch;
+    int            ch;
     char           options[] = "r:w:s:R";
 
 

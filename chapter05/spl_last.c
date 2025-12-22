@@ -7,6 +7,8 @@
   Usage          : spl_last
   Build with     : gcc -I../include -L../lib -o spl_last   spl_last.c -lspl
 
+  Modifications:
+                   12/20/2025 by SNW Changed type of ch in main to int
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -258,7 +260,7 @@ int main( int argc, char *argv[] )
     char          usage_msg[MAXLEN];       /* For error messages              */
     BOOL          done = FALSE;            /* Flag to stop utmp loop          */
     BOOL          found = FALSE;           /* Flag to indicate match found    */
-    char          ch;
+    int           ch;
     utlist        *p, *next;
 
 

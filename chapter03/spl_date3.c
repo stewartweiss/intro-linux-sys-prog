@@ -6,8 +6,8 @@
                    current time
   Usage          : spl_date3 [-d<time-adjustment>] +"<format-specification>"
   Build with     : gcc -Wall -g -I../include -L../lib -o spl_date3 \
-                    spl_date3.c -lspl
-Modifications:
+                  spl_date3.c -lspl
+  Modifications:
                    12/20/2025 by SNW Changed type of ch in main to int
 
 ******************************************************************************

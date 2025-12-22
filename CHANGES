@@ -53,4 +53,8 @@ chapter17/README :
 chapter18/Makefile :
   Removed a program from the Makefile that had been renamed.
 
-  
+chapters 3,5,6,9,16 :
+  The main() functions in some programs declared the variable that stores
+  the return value of getopt() as a char. In some compilers, char is unsigned
+  causing an infinite loop in option-processing. The type was changed to int
+  to prevent this.

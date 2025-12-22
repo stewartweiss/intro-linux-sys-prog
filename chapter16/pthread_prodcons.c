@@ -13,9 +13,12 @@
 
   Notes: This is a multi-threaded producer/comsumer program that outputs
         informative messages
+
   Modifications   : 12/01/2025 by SNW
                     Restricted the numbers of producers and consumers to
                     be non-zero.
+
+                    12/20/2025 by SNW Changed type of ch in main to int
 
 ******************************************************************************
 * Copyright (C) 2024 - Stewart Weiss                                         *
@@ -136,7 +139,7 @@ void *consumer( void * data )
 
 int main(int argc, char *argv[])
 {
-    char      ch;
+    int  ch;
     long i;
 
     char   options[] = "c:p:m:";

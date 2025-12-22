@@ -13,6 +13,7 @@
                    sprintf() that creates the displayname for files whose
                    names are too long.
 
+                   12/20/2025 by SNW Changed type of ch in main to int
 ******************************************************************************
 * Copyright (C) 2023 - Stewart Weiss                                         *
 *                                                                            *
@@ -140,7 +141,7 @@ int main(int argc, char **argv)
     struct itimerspec refresh_interval;  /* Timer val, defaults to 1 second */
     int i,n, k = 0;
     struct stat statbuf;        /* Buffer for lstat()                       */
-    char   c;
+    int    c;
     double refresh_secs = 1.0;           /* Default refresh interval        */
     char  options[] = ":l:i:";
     char  stopstr[32];
