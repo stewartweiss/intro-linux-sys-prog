@@ -7,6 +7,8 @@
   Usage          : spl_date3 [-d<time-adjustment>] +"<format-specification>"
   Build with     : gcc -Wall -g -I../include -L../lib -o spl_date3 \
                     spl_date3.c -lspl
+Modifications:
+                   12/20/2025 by SNW Changed type of ch in main to int
 
 ******************************************************************************
 * Copyright (C) 2025 - Stewart Weiss                                         *
@@ -123,7 +125,7 @@ int  main(int argc, char *argv[])
     struct tm  time_adjustment= {0};  /* Broken-down time for adjustment    */
     char       format_string[MAXLEN]; /* String for optional format spec    */
     char       usage_msg[512];        /* Usage message                      */
-    char       ch;                    /* For option handling                */
+    int        ch;                    /* For option handling                */
     char       options[] = ":d:h";    /* getopt string                      */
     BOOL       d_option = FALSE;      /* Flag to indicate -d found          */
     char       *d_arg;                /* Dynamic string for -d argument     */
